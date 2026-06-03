@@ -11,6 +11,7 @@ Persist durable rules here when the user defines or changes:
 - architecture constraints
 - deployment or env boundaries
 - repository-specific coding conventions
+- repeated feedback that has crossed the configured promotion threshold
 
 When a rule changes:
 
@@ -18,3 +19,4 @@ When a rule changes:
 2. update `docs/ai/protected-files.md` if path protection changed
 3. update `docs/ai/architecture-notes.md` if architecture changed
 4. sync the generated CodexMinimal blocks in `AGENTS.md`
+5. if the same issue has been corrected repeatedly, update `docs/codexminimal/feedback-ledger.json` and promote it into `docs/ai/rule-registry.md` once it hits the configured strike threshold

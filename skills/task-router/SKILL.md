@@ -98,6 +98,15 @@ Treat internal execution-oriented skills as optional legacy profiles, not the de
 Treat `nestjs-*` skills as optional profile skills. Use them only when the active stack profile is `nestjs` or the user explicitly selects them.
 Prefer `implementation-spec-writer` as the generic default spec stage.
 
+## Repeat-Feedback Policy
+
+If `docs/codexminimal/feedback-ledger.json` exists:
+
+- read it before routing non-trivial work
+- treat `status: promoted` entries as durable non-regression rules
+- treat `status: watch` entries as repeat-risk warnings that deserve extra scrutiny
+- do not reintroduce promoted issues unless the user explicitly changes the rule
+
 ## Model Routing
 
 Use:
@@ -167,8 +176,9 @@ If available, read:
 2. `docs/ai/stack-profile.md`
 3. `docs/ai/rule-registry.md`
 4. `docs/ai/protected-files.md`
-5. `docs/ai/context-map.json`
-6. `docs/ai/project-index.md`
+5. `docs/codexminimal/feedback-ledger.json`
+6. `docs/ai/context-map.json`
+7. `docs/ai/project-index.md`
 
 Do not scan the whole repository.
 

@@ -67,6 +67,53 @@ def validate_telemetry(data: dict, errors: list[str]) -> None:
     require(isinstance(data.get("phaseEvents"), list), "telemetry.json phaseEvents must be an array", errors)
 
 
+def validate_feedback_ledger(data: dict, errors: list[str]) -> None:
+    require(isinstance(data, dict), "feedback-ledger.json must be an object", errors)
+    if errors:
+        return
+    require(data.get("version") == 1, "feedback-ledger.json version must be 1", errors)
+    require(isinstance(data.get("updatedAt"), str), "feedback-ledger.json updatedAt must be a string", errors)
+    require(
+        isinstance(data.get("promotionThreshold"), int) and data.get("promotionThreshold") >= 1,
+        "feedback-ledger.json promotionThreshold must be an integer >= 1",
+        errors,
+    )
+    require(isinstance(data.get("issues"), list), "feedback-ledger.json issues must be an array", errors)
+    allowed_statuses = {"observed", "watch", "promoted"}
+    threshold = data.get("promotionThreshold", 3) if isinstance(data, dict) else 3
+    for idx, issue in enumerate(data.get("issues", [])):
+        prefix = f"feedback-ledger.json issues[{idx}]"
+        require(isinstance(issue, dict), f"{prefix} must be an object", errors)
+        if not isinstance(issue, dict):
+            continue
+        string_keys = [
+            "issueKey",
+            "description",
+            "status",
+            "firstSeenAt",
+            "lastSeenAt",
+            "source",
+            "ruleTarget",
+            "promotedRuleText",
+            "notes",
+        ]
+        for key in string_keys:
+            require(isinstance(issue.get(key), str), f"{prefix}.{key} must be a string", errors)
+        require(
+            isinstance(issue.get("count"), int) and issue.get("count") >= 0,
+            f"{prefix}.count must be a non-negative integer",
+            errors,
+        )
+        require(issue.get("status") in allowed_statuses, f"{prefix}.status must be one of {sorted(allowed_statuses)}", errors)
+        require(isinstance(issue.get("affectedArtifacts"), list), f"{prefix}.affectedArtifacts must be an array", errors)
+        require(isinstance(issue.get("affectedPaths"), list), f"{prefix}.affectedPaths must be an array", errors)
+        if issue.get("status") == "promoted":
+            require(bool(issue.get("ruleTarget")), f"{prefix}.ruleTarget must be set when status is promoted", errors)
+            require(bool(issue.get("promotedRuleText")), f"{prefix}.promotedRuleText must be set when status is promoted", errors)
+        if isinstance(issue.get("count"), int) and issue.get("count", 0) >= threshold:
+            require(issue.get("status") == "promoted", f"{prefix}.status must be promoted when count reaches threshold", errors)
+
+
 def validate_cross_links(repo_root: Path, registry: dict, current_work: dict, errors: list[str]) -> None:
     artifacts = registry.get("artifacts", []) if isinstance(registry, dict) else []
     by_path = {}
@@ -113,8 +160,9 @@ def main() -> int:
     registry_path = runtime_dir / "artifact-registry.json"
     current_work_path = runtime_dir / "current-work.json"
     telemetry_path = runtime_dir / "telemetry.json"
+    feedback_ledger_path = runtime_dir / "feedback-ledger.json"
 
-    missing = [str(path) for path in [registry_path, current_work_path, telemetry_path] if not path.exists()]
+    missing = [str(path) for path in [registry_path, current_work_path, telemetry_path, feedback_ledger_path] if not path.exists()]
     if missing:
         for item in missing:
             print(f"MISSING {item}")
@@ -124,10 +172,12 @@ def main() -> int:
     registry = load_json(registry_path)
     current_work = load_json(current_work_path)
     telemetry = load_json(telemetry_path)
+    feedback_ledger = load_json(feedback_ledger_path)
 
     validate_registry(registry, errors)
     validate_current_work(current_work, errors)
     validate_telemetry(telemetry, errors)
+    validate_feedback_ledger(feedback_ledger, errors)
     validate_cross_links(repo_root, registry, current_work, errors)
 
     if errors:

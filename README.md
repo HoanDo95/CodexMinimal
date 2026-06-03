@@ -6,6 +6,7 @@ CodexMinimal không cố trở thành một super-agent. Nó đóng vai trò `ha
 
 - route task
 - giữ rule và project memory
+- giữ learning memory cho lỗi lặp lại và feedback lặp lại
 - ép feature đi qua `brainstorm -> spec -> phase plan`
 - quản phase plan, tracker, runtime state
 - refresh index sau khi work hoàn tất
@@ -155,6 +156,7 @@ flowchart TD
     E --> H[docs/codexminimal/current-work.json]
     E --> I[docs/codexminimal/artifact-registry.json]
     E --> J[docs/codexminimal/telemetry.json]
+    E --> K[docs/codexminimal/feedback-ledger.json]
 ```
 
 ## Helper Layer
@@ -164,6 +166,7 @@ Bundled helper path hiện tại:
 - `project-init/scripts/sync_agents_blocks.py`
 - `project-init/scripts/bootstrap_docs_ai.py`
 - `project-init/scripts/bootstrap_harness_runtime.py`
+- `project-init/scripts/promote_feedback_rules.py`
 - `project-indexer/scripts/validate_context_map.py`
 - `project-indexer/scripts/render_index_stubs.py`
 

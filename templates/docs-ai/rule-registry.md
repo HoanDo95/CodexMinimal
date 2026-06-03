@@ -13,6 +13,8 @@ This file is the durable rule source.
 - Route new features through intake before execution.
 - Read indexes before broad repository search.
 - Keep runtime state aligned with the active plan and tracker.
+- Read `docs/codexminimal/feedback-ledger.json` before routing non-trivial work.
+- Promote repeated feedback into durable rules after the configured strike threshold.
 
 ## Generic Testing Rules
 
@@ -30,6 +32,12 @@ This file is the durable rule source.
 ## Safety Rules
 
 - Do not commit `.env` or secrets.
+
+## Promoted Feedback Rules
+
+<!-- CODEXMINIMAL:PROMOTED_FEEDBACK_RULES START -->
+No promoted rules yet.
+<!-- CODEXMINIMAL:PROMOTED_FEEDBACK_RULES END -->
 
 ## User Overrides
 

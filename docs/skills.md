@@ -4,13 +4,13 @@ CodexMinimal keeps skills small and explicit.
 
 ## Routing
 
-- `task-router`: classify the request, select a primary skill, recommend model and effort, decide whether a follow-up skill chain is needed, trigger safety gates, and assign response mode plus context budget before broader exploration
+- `task-router`: classify the request, select a primary skill, recommend model and effort, decide whether a follow-up skill chain is needed, trigger safety gates, assign response mode plus context budget, and read repeat-feedback constraints before broader exploration
 
 ## Core Harness
 
 - `feature-intake-gate`: default orchestration for feature intake before implementation
 - `implementation-spec-writer`: default stack-agnostic spec writer before phase planning
-- `project-init`: create or sync `AGENTS.md`, `docs/ai`, `docs/codexminimal`, durable rules, and protected-file guidance
+- `project-init`: create or sync `AGENTS.md`, `docs/ai`, `docs/codexminimal`, durable rules, protected-file guidance, and repeat-feedback learning state
 - `project-indexer`: build or repair compact repository indexes and `context-map.json`
 - `repo-phase-orchestrator`: write phase plans, maintain trackers, refresh harness runtime state, and hand off execution
 
@@ -56,6 +56,7 @@ Add follow-up skills only when the workflow naturally chains into a later step, 
 - `scripts/sync_agents_blocks.py`: sync managed AGENTS blocks from the template
 - `scripts/bootstrap_docs_ai.py`: create missing `docs/ai` files from bundled templates or assets
 - `scripts/bootstrap_harness_runtime.py`: create missing `docs/codexminimal` runtime files from bundled templates or assets
+- `scripts/promote_feedback_rules.py`: promote repeated feedback into durable rules after the configured strike threshold
 - `scripts/validate_context_map.py`: validate `context-map.json` structure
-- `scripts/validate_harness_runtime.py`: validate `current-work.json`, `artifact-registry.json`, and `telemetry.json`
+- `scripts/validate_harness_runtime.py`: validate `current-work.json`, `artifact-registry.json`, `telemetry.json`, and `feedback-ledger.json`
 - `scripts/render_index_stubs.py`: render missing docs/ai index stubs from templates

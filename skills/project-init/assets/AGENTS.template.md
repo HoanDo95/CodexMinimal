@@ -58,9 +58,10 @@ Always go index-first:
 1. `docs/ai/context-map.json`
 2. `docs/ai/project-index.md`
 3. relevant `docs/ai/*-index.md`
-4. indexed files
-5. local folders
-6. repository-wide search only as last resort
+4. `docs/codexminimal/feedback-ledger.json`
+5. indexed files
+6. local folders
+7. repository-wide search only as last resort
 
 If indexes are missing or stale, use `project-indexer`.
 <!-- CODEXMINIMAL:SEARCH_POLICY END -->
@@ -119,5 +120,5 @@ Before editing, read `docs/ai/protected-files.md`. If a required change touches 
 <!-- CODEXMINIMAL:USER_RULE_MUTATION START -->
 ## User Rule Mutation Policy
 
-When the user changes a durable rule, persist it immediately in the relevant generated docs such as `docs/ai/rule-registry.md`, `docs/ai/protected-files.md`, `docs/ai/architecture-notes.md`, or the managed AGENTS blocks.
+When the user changes a durable rule, persist it immediately in the relevant generated docs such as `docs/ai/rule-registry.md`, `docs/ai/protected-files.md`, `docs/ai/architecture-notes.md`, or the managed AGENTS blocks. If repeat feedback reaches the promotion threshold in `docs/codexminimal/feedback-ledger.json`, treat the promoted rule as durable and sync it into `docs/ai/rule-registry.md`.
 <!-- CODEXMINIMAL:USER_RULE_MUTATION END -->

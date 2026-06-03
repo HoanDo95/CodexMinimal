@@ -7,6 +7,7 @@ RUNTIME_TEMPLATE_MAP = {
     "current-work.json": ["current-work.json", "current-work.template.json"],
     "artifact-registry.json": ["artifact-registry.json", "artifact-registry.template.json"],
     "telemetry.json": ["telemetry.json", "telemetry.template.json"],
+    "feedback-ledger.json": ["feedback-ledger.json", "feedback-ledger.template.json"],
 }
 
 

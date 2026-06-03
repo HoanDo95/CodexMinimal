@@ -260,6 +260,7 @@ PY_SCRIPTS=(
   scripts/validate_context_map.py
   scripts/bootstrap_harness_runtime.py
   scripts/validate_harness_runtime.py
+  scripts/promote_feedback_rules.py
   scripts/render_index_stubs.py
   evals/run-golden-evals.py
 )
@@ -312,9 +313,11 @@ if command -v python3 >/dev/null 2>&1; then
   check_json_file templates/docs-codexminimal/current-work.json
   check_json_file templates/docs-codexminimal/artifact-registry.json
   check_json_file templates/docs-codexminimal/telemetry.json
+  check_json_file templates/docs-codexminimal/feedback-ledger.json
   check_json_file skills/task-router/assets/router-output.schema.json
   check_json_file skills/feature-intake-gate/assets/intake-output.schema.json
   check_json_file skills/project-init/assets/init-output.schema.json
+  check_json_file skills/project-init/assets/feedback-ledger.template.json
   check_json_file skills/project-indexer/assets/indexer-output.schema.json
   check_json_file skills/implementation-spec-writer/assets/spec-output.schema.json
   check_json_file evals/task-router-golden-cases.json
@@ -355,6 +358,42 @@ if command -v python3 >/dev/null 2>&1; then
     pass "harness runtime helpers bootstrap and validate correctly"
   else
     fail "harness runtime helpers failed on a temp repo"
+  fi
+  mkdir -p "$TMP_REPO/docs/ai"
+  cp templates/docs-ai/rule-registry.md "$TMP_REPO/docs/ai/rule-registry.md"
+  python3 - "$TMP_REPO/docs/codexminimal/feedback-ledger.json" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+path = Path(sys.argv[1])
+data = json.loads(path.read_text(encoding="utf-8"))
+data["issues"] = [
+    {
+        "issueKey": "repeat-dto-boundary",
+        "description": "Do not return raw entities from controllers.",
+        "count": 3,
+        "status": "observed",
+        "firstSeenAt": "",
+        "lastSeenAt": "",
+        "source": "user-feedback",
+        "ruleTarget": "",
+        "promotedRuleText": "",
+        "affectedArtifacts": [],
+        "affectedPaths": [],
+        "notes": ""
+    }
+]
+path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+PY
+  if python3 scripts/promote_feedback_rules.py --repo-root "$TMP_REPO" >/dev/null; then
+    if grep -q "repeat-dto-boundary" "$TMP_REPO/docs/ai/rule-registry.md"; then
+      pass "feedback promotion helper syncs promoted rules"
+    else
+      fail "feedback promotion helper did not render promoted rules"
+    fi
+  else
+    fail "feedback promotion helper failed on a temp repo"
   fi
 else
   warn "python3 not found, skipped harness runtime helper validation"
@@ -398,6 +437,7 @@ SYNC_PAIRS=(
   "templates/docs-codexminimal/current-work.json|skills/project-init/assets/current-work.template.json"
   "templates/docs-codexminimal/artifact-registry.json|skills/project-init/assets/artifact-registry.template.json"
   "templates/docs-codexminimal/telemetry.json|skills/project-init/assets/telemetry.template.json"
+  "templates/docs-codexminimal/feedback-ledger.json|skills/project-init/assets/feedback-ledger.template.json"
   "templates/docs-ai/project-index.md|skills/project-indexer/assets/project-index.template.md"
   "templates/docs-ai/module-index.md|skills/project-indexer/assets/module-index.template.md"
   "templates/docs-ai/route-index.md|skills/project-indexer/assets/route-index.template.md"
@@ -406,6 +446,7 @@ SYNC_PAIRS=(
   "scripts/sync_agents_blocks.py|skills/project-init/scripts/sync_agents_blocks.py"
   "scripts/bootstrap_docs_ai.py|skills/project-init/scripts/bootstrap_docs_ai.py"
   "scripts/bootstrap_harness_runtime.py|skills/project-init/scripts/bootstrap_harness_runtime.py"
+  "scripts/promote_feedback_rules.py|skills/project-init/scripts/promote_feedback_rules.py"
   "scripts/render_index_stubs.py|skills/project-indexer/scripts/render_index_stubs.py"
   "scripts/validate_context_map.py|skills/project-indexer/scripts/validate_context_map.py"
 )
