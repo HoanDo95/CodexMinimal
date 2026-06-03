@@ -4,6 +4,11 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 MARKER_FILE=".codexminimal-owner"
 FORCE_INSTALL="${CODEXMINIMAL_FORCE:-0}"
+COMPANION_SKILLS=(
+  brainstorming
+  subagent-driven-development
+  executing-plans
+)
 
 if [[ -x "$ROOT_DIR/check-codexminimal.sh" ]]; then
   echo "Running readiness check..."
@@ -35,8 +40,30 @@ for skill_dir in "$ROOT_DIR"/skills/*; do
   printf 'CodexMinimal\n' > "$target_dir/$MARKER_FILE"
 done
 
+missing_companions=()
+for skill in "${COMPANION_SKILLS[@]}"; do
+  if [[ ! -d "$SKILLS_DIR/$skill" ]]; then
+    missing_companions+=("$skill")
+  fi
+done
+
 echo
 echo "CodexMinimal installed successfully."
 echo
 echo "Location:"
 echo "$SKILLS_DIR"
+echo
+echo "Mode:"
+echo "- Core mode is installed by default."
+echo "- This includes CodexMinimal core skills and bundled skill-local helpers."
+if [[ "${#missing_companions[@]}" -gt 0 ]]; then
+  echo
+  echo "Recommended companion skills not found:"
+  for skill in "${missing_companions[@]}"; do
+    echo "- $skill"
+  done
+  echo
+  echo "Full mode requires companion skills such as the ones above."
+  echo "Without them, Core mode still works, but external brainstorming/execution steps are not bundled by install.sh."
+  echo "Advanced users may also wire in custom stage or execution skills instead."
+fi

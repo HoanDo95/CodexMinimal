@@ -6,33 +6,21 @@ SKILLS_DIR="$CODEX_HOME/skills"
 MARKER_FILE=".codexminimal-owner"
 FORCE_UNINSTALL="${CODEXMINIMAL_FORCE:-0}"
 
-SKILLS=(
-  task-router
-  project-init
-  project-indexer
-  nestjs-sdd-planner
-  nestjs-tdd-builder
-  nestjs-bug-fixer
-  nestjs-code-reviewer
-  nestjs-refactor-guardian
-  repo-phase-orchestrator
-)
-
 echo "Removing CodexMinimal..."
 
-for skill in "${SKILLS[@]}"; do
-  target_dir="$SKILLS_DIR/$skill"
+if [[ -d "$SKILLS_DIR" ]]; then
+  for target_dir in "$SKILLS_DIR"/*; do
+    if [[ ! -e "$target_dir" ]]; then
+      continue
+    fi
 
-  if [[ ! -e "$target_dir" ]]; then
-    continue
-  fi
-
-  if [[ -f "$target_dir/$MARKER_FILE" || "$FORCE_UNINSTALL" == "1" ]]; then
-    rm -rf "$target_dir"
-  else
-    echo "Skipping unmanaged skill: $target_dir"
-  fi
-done
+    if [[ -f "$target_dir/$MARKER_FILE" || "$FORCE_UNINSTALL" == "1" ]]; then
+      rm -rf "$target_dir"
+    else
+      echo "Skipping unmanaged skill: $target_dir"
+    fi
+  done
+fi
 
 echo
 echo "CodexMinimal removed from:"

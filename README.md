@@ -38,11 +38,13 @@ CodexMinimal không phải một super-agent duy nhất. Nó là một bộ skil
 - `project-init`: tạo hoặc sync `AGENTS.md`, `docs/ai`, `docs/codexminimal`, rule registry, protected files
 - `project-indexer`: build hoặc repair bộ index cho repository
 
-### External Stage And Execution Skills
+### Recommended Companion Skills
 
 - `brainstorming`: khóa requirement, constraints, và hướng thiết kế trước khi viết spec
 - `subagent-driven-development`: execution mặc định sau khi current phase đã sẵn sàng
 - `executing-plans`: fallback execution path khi không muốn dùng subagent-driven execution
+
+Các skill này được khuyến nghị cho `Full mode`, nhưng **không** được cài bởi `install.sh`.
 
 ### Profile-Specific Skills
 
@@ -60,6 +62,11 @@ Ngoài prompt skills, repo còn có deterministic helpers để giảm phần mo
 - validate `context-map.json`
 - validate harness runtime state
 - render các index stub còn thiếu
+
+Các helper này được bundle theo 2 lớp:
+
+- skill-local helpers nằm trong skill tương ứng và đi theo `install.sh`
+- root-level `scripts/` trong repo này là source-checkout utilities cho maintainers và local verification
 
 ### Tóm Tắt Luồng Hiện Tại
 
@@ -128,7 +135,7 @@ Tức là:
 
 ### Skill Nào Sẽ Execute
 
-Sau khi phase plan đã có, execution mặc định nên được handoff cho skill ngoài của `Superpowers`, chủ yếu là:
+Sau khi phase plan đã có, execution mặc định nên được handoff cho companion skill ngoài, chủ yếu là:
 
 - `subagent-driven-development`
 - `executing-plans`
@@ -237,6 +244,12 @@ Nguyên tắc thực tế:
 
 ## 4. Hướng Dẫn Tải Và Cài Đặt
 
+### Các mode sử dụng
+
+- `Core mode`: chỉ cài `CodexMinimal`, đủ để dùng harness core, spec, phase plan, tracker, index, và runtime state
+- `Full mode`: `Core mode` cộng thêm companion skills như `brainstorming`, `subagent-driven-development`, `executing-plans`
+- `Custom mode`: `Core mode` cộng thêm skill stage/execution riêng của user, miễn là vẫn giữ contract brainstorm/spec/phase-plan/execution-feedback
+
 ### Bước 1: tải repo
 
 ```bash
@@ -266,6 +279,8 @@ Install hiện tại là conservative:
 
 - không overwrite skill cùng tên nếu skill đó không do CodexMinimal quản lý
 - uninstall chỉ xóa skill có marker của CodexMinimal
+- `install.sh` chỉ cài `Core mode`
+- nếu thiếu recommended companion skills, install sẽ chỉ warning chứ không fail
 
 Nếu thật sự muốn force overwrite:
 
@@ -297,6 +312,36 @@ Mục tiêu:
 - tạo `docs/ai`
 - tạo `docs/codexminimal`
 - build bộ index ban đầu
+
+### Core mode
+
+Nếu chỉ dùng `CodexMinimal`, flow chuẩn là:
+
+- bootstrap:
+  `task-router -> project-init -> project-indexer`
+- feature intake tới phase plan:
+  `task-router -> feature-intake-gate -> repo-phase-orchestrator`
+- phased work:
+  `task-router -> repo-phase-orchestrator`
+
+Core mode không bundle external brainstorming hay execution skills.
+
+### Full mode
+
+Nếu đã có companion skills ngoài, flow mặc định đầy đủ là:
+
+- `task-router -> feature-intake-gate -> repo-phase-orchestrator -> external execution -> project-indexer`
+- bên trong `feature-intake-gate`:
+  `brainstorming -> nestjs-sdd-planner -> repo-phase-orchestrator`
+
+### Custom mode
+
+User nâng cao có thể thay external stage/execution skills bằng skill riêng, miễn là vẫn giữ:
+
+- brainstorm hoặc direction-approval stage
+- spec stage
+- phase-plan and tracker stage
+- execution feedback quay lại tracker/runtime state
 
 ### Bước 3: dùng theo task type
 
@@ -355,11 +400,12 @@ Với feature hoặc behavior change mới:
 - còn bên trong gate là `brainstorm -> spec -> phase plan`
 - điều này giúp model khóa đúng intent sớm hơn và giảm trôi hướng khi session dài
 
-Về helper scripts trong `scripts/`:
+Về helper scripts:
 
 - mục tiêu chính là để agent tự ưu tiên dùng cho các bước lặp, không phải bắt user chạy tay
 - user vẫn có thể chạy trực tiếp để kiểm tra hoặc bootstrap thủ công khi cần
-- khi workflow đã ổn, `project-init` và `project-indexer` nên coi các helper này là đường mặc định cho phần việc deterministic
+- khi workflow đã ổn, `project-init` và `project-indexer` nên coi helper bundle trong skill là đường mặc định cho phần việc deterministic
+- root-level `scripts/` là tiện ích của source checkout này, hữu ích cho maintainer và local validation
 
 - `sync_agents_blocks.py`
 - `bootstrap_docs_ai.py`
@@ -385,6 +431,8 @@ Sau đó vào repo đích và dùng prompt:
 ```text
 Use project-init in bootstrap mode for this repository, then run project-indexer in full mode.
 ```
+
+Nếu muốn full flow mặc định, hãy đảm bảo companion skills như `brainstorming`, `subagent-driven-development`, và `executing-plans` cũng đã có trong môi trường Codex của bạn.
 
 ## Benchmark Hiện Tại
 
