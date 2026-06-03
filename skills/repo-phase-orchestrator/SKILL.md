@@ -49,19 +49,20 @@ Do not use for:
 2. Write or update the phase plan at:
    - `docs/codexminimal/plans/YYYY-MM-DD-<topic>-phase-plan.md`
 3. Ensure the plan is detailed enough to drive execution.
-4. For non-trivial work, target a detailed plan of at least 200 lines.
-5. Create or update the tracker at:
+4. Keep each individual plan file concise: maximum 200 lines.
+5. If a plan would exceed 200 lines, split it into phase files and keep the root plan as an index.
+6. Create or update the tracker at:
    - `docs/codexminimal/trackers/YYYY-MM-DD-<topic>-tracker.md`
-6. Update `docs/codexminimal/artifact-registry.json` so the approved spec, active phase plan, and tracker are linked.
-7. Update `docs/codexminimal/current-work.json` with the active topic, stage, phase, artifact paths, and execution workflow.
-8. Mark the current phase, scope, and verification expectations.
-9. Check protected files and risk boundaries.
-10. Handoff the current phase to an external execution workflow:
+7. Update `docs/codexminimal/artifact-registry.json` so the approved spec, active phase plan, and tracker are linked.
+8. Update `docs/codexminimal/current-work.json` with the active topic, stage, phase, artifact paths, and execution workflow.
+9. Mark the current phase, scope, and verification expectations.
+10. Check protected files and risk boundaries.
+11. Handoff the current phase to an external execution workflow:
    - `subagent-driven-development` recommended
    - `executing-plans` acceptable fallback
-11. After execution returns, update tracker status, failures, fixes, and next phase.
-12. Record phase outcome in `docs/codexminimal/telemetry.json`.
-13. Stop before advancing if the tracker, runtime state, or verification state is stale.
+12. After execution returns, update tracker status, failures, fixes, and next phase.
+13. Record phase outcome in `docs/codexminimal/telemetry.json`.
+14. Stop before advancing if the tracker, runtime state, or verification state is stale.
 
 ## Blocking Rules
 

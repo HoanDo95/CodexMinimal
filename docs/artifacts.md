@@ -20,7 +20,8 @@ Written by `repo-phase-orchestrator`:
 
 - `docs/codexminimal/plans/YYYY-MM-DD-<topic>-phase-plan.md`
 
-For non-trivial work, the phase plan should be detailed enough to guide execution and is expected to be at least 200 lines.
+Each individual plan file should stay concise: maximum 200 lines.
+If planning would exceed that limit, split it into phase files and keep the root plan as an index.
 
 ## Tracker
 
