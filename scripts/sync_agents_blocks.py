@@ -14,10 +14,14 @@ BLOCK_IDS = [
     "PROJECT_INDEX",
     "HELPER_POLICY",
     "SKILL_POLICY",
-    "NESTJS_SPEC",
+    "STACK_PROFILE",
     "TESTING_SPEC",
     "PROTECTED_FILES",
     "USER_RULE_MUTATION",
+]
+
+LEGACY_BLOCK_IDS = [
+    "NESTJS_SPEC",
 ]
 
 
@@ -46,6 +50,8 @@ def sync_blocks(template: str, existing: str) -> str:
             if not result.endswith("\n"):
                 result += "\n"
             result += "\n" + block + "\n"
+    for block_id in LEGACY_BLOCK_IDS:
+        result = block_pattern(block_id).sub("", result)
     return result
 
 

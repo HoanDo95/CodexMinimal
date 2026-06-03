@@ -4,6 +4,7 @@
     "name": null,
     "packageManager": null,
     "framework": null,
+    "stackProfile": "generic",
     "language": "typescript",
     "testCommand": null,
     "lintCommand": null,
@@ -16,6 +17,7 @@
   "entities": {},
   "dtos": {},
   "routes": {},
+  "surfaces": {},
   "tests": {},
   "scripts": {},
   "protectedPaths": {

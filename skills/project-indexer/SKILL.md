@@ -81,13 +81,14 @@ Use when:
 Read in this order:
 
 1. `AGENTS.md`
-2. `docs/ai/rule-registry.md` if present
-3. `docs/ai/protected-files.md` if present
-4. `docs/ai/context-map.json` if present
-5. `docs/ai/project-index.md` if present
-6. `package.json`
-7. framework/config files
-8. relevant source/test folders
+2. `docs/ai/stack-profile.md` if present
+3. `docs/ai/rule-registry.md` if present
+4. `docs/ai/protected-files.md` if present
+5. `docs/ai/context-map.json` if present
+6. `docs/ai/project-index.md` if present
+7. `package.json`
+8. framework/config files
+9. relevant source/test folders
 
 Do not start with whole-repository search unless indexes are missing or full mode is required.
 
@@ -98,15 +99,14 @@ Detect and map:
 - package manager
 - framework
 - scripts
-- NestJS modules
-- controllers
-- services
-- repositories
-- TypeORM entities
-- DTOs
-- routes
-- unit tests
-- e2e tests
+- source modules or packages
+- handlers, controllers, or route owners when present
+- services or use-case layers when present
+- repositories or data access layers when present
+- entities, schemas, or models when present
+- contracts, DTOs, or request/response shapes when present
+- routes, commands, or entry surfaces when present
+- unit, integration, and e2e tests when present
 - config/env/deploy touchpoints
 - protected paths/categories
 
@@ -121,6 +121,7 @@ Write `docs/ai/context-map.json` using schema version 2:
     "name": null,
     "packageManager": null,
     "framework": null,
+    "stackProfile": "generic",
     "language": "typescript",
     "testCommand": null,
     "lintCommand": null,
@@ -133,6 +134,7 @@ Write `docs/ai/context-map.json` using schema version 2:
   "entities": {},
   "dtos": {},
   "routes": {},
+  "surfaces": {},
   "tests": {},
   "scripts": {},
   "protectedPaths": {
@@ -156,7 +158,7 @@ Write `docs/ai/context-map.json` using schema version 2:
 ### full
 
 1. detect package manager, framework, and scripts
-2. map source, tests, routes, DTOs, entities, and repositories
+2. map the repository's active surfaces, contracts, data layers, and tests
 3. write or replace all owned index files
 4. rebuild `context-map.json` from current source
 5. verify JSON validity and basic consistency

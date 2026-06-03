@@ -9,3 +9,8 @@
 
 | Package | Purpose | Notes |
 |---|---|---|
+
+## Important Scripts
+
+| Script | Command | Purpose |
+|---|---|---|

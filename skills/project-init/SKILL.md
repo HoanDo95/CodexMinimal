@@ -13,6 +13,7 @@ This skill owns:
 
 - `AGENTS.md`
 - `docs/ai/rule-registry.md`
+- `docs/ai/stack-profile.md`
 - `docs/ai/protected-files.md`
 - `docs/ai/architecture-notes.md`
 - `docs/ai/refactor-log.md`
@@ -29,6 +30,7 @@ Use this skill when:
 - setting up CodexMinimal in a repo
 - `AGENTS.md` is missing
 - `docs/ai` is missing
+- stack profile is missing or stale
 - user changes durable rules
 - user defines protected files/folders
 - repo conventions need to be persisted
@@ -57,18 +59,24 @@ Do not use for:
 3. If present, preserve user custom content.
 4. Update only CodexMinimal managed blocks.
 5. Create `docs/ai/` if missing.
-6. Create missing docs/ai files from templates.
+6. Create missing docs/ai files from templates or bundled assets.
 7. Create `docs/codexminimal/` runtime state files if missing.
-7. Detect package manager, NestJS, TypeORM, test commands, lint/build commands, env/deployment files, and protected integration files.
-8. Update `docs/ai/rule-registry.md`.
-9. Update `docs/ai/protected-files.md`.
-10. Do not delete user custom rules.
+8. Detect package manager, framework cues, test commands, lint/build commands, env/deployment files, and protected integration files.
+9. Detect the active stack profile:
+   - default to `generic`
+   - promote to `nestjs` only when the repository structure or dependencies clearly support it
+10. Update `docs/ai/stack-profile.md` with the active profile, evidence, and allowed profile-specific skills.
+11. Update `docs/ai/rule-registry.md`.
+12. Update `docs/ai/protected-files.md`.
+13. Do not delete user custom rules.
 
 If helper scripts are available, prefer them for deterministic work:
 
 - `scripts/sync_agents_blocks.py`
 - `scripts/bootstrap_docs_ai.py`
 - `scripts/bootstrap_harness_runtime.py`
+
+The bootstrap helpers should resolve bundled templates or assets automatically when no explicit template path is provided.
 
 Do not push this work onto the user by default.
 If the environment allows local script execution, run these helpers before attempting prompt-only manual reconstruction.
@@ -85,7 +93,7 @@ Update only these blocks:
 - `CODEXMINIMAL:PROJECT_INDEX`
 - `CODEXMINIMAL:HELPER_POLICY`
 - `CODEXMINIMAL:SKILL_POLICY`
-- `CODEXMINIMAL:NESTJS_SPEC`
+- `CODEXMINIMAL:STACK_PROFILE`
 - `CODEXMINIMAL:TESTING_SPEC`
 - `CODEXMINIMAL:PROTECTED_FILES`
 - `CODEXMINIMAL:USER_RULE_MUTATION`
@@ -101,6 +109,7 @@ Persist these defaults unless the user overrides them:
 - use the smallest suitable skill
 - route new feature intake through `feature-intake-gate` by default
 - brainstorm before writing specs for new features or changed behavior
+- use `implementation-spec-writer` as the default generic spec stage
 - write a phase plan and tracker after spec approval and before coding
 - default to external execution after the phase plan exists
 - keep `current-work.json` and `artifact-registry.json` aligned with the active implementation path
@@ -108,15 +117,9 @@ Persist these defaults unless the user overrides them:
 - check `docs/ai/protected-files.md` before editing
 - ask before touching protected files
 - update rule-registry when user changes durable rules
-- keep NestJS controllers thin
-- place business logic in services
-- return DTOs instead of TypeORM entities
-- use DTO validation pipes
-- keep feature modules by domain
-- keep persistence inside feature directories
-- unit tests go under `test/unit`
-- e2e tests go under `test/e2e`
-- keep TypeORM `synchronize: false`
+- keep stack-specific rules outside the AGENTS entrypoint unless the active profile requires them
+- record the active stack profile and evidence in `docs/ai/stack-profile.md`
+- unit tests should live outside production source folders when the active stack supports that convention
 - do not commit secrets or `.env`
 - do not break env/deployment contract
 - run Task Router Protocol automatically before non-trivial requests
@@ -134,7 +137,7 @@ Persist these defaults unless the user overrides them:
 - `gpt-5.5`: default for planning, architecture, complex coding, refactor, orchestration
 - `gpt-5.5 high`: multi-module, high-risk, failing tests, database/env/deploy work
 - `gpt-5.4-mini`: bounded scan, quick summarization, low-risk analysis
-- `gpt-5.3-codex`: quick local coding iteration
+- `gpt-5.3-codex`: optional fast local coding fallback when latency matters more than breadth
 
 Ask before expensive model/effort escalation unless the task is trivial or already authorized.
 
@@ -145,6 +148,8 @@ Return:
 ### Initialized or updated files
 
 ### Detected project facts
+
+### Active stack profile
 
 ### Protected files/folders
 

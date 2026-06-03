@@ -17,6 +17,7 @@ Repository memory lives under `docs/ai/`:
 - `architecture-notes.md`
 - `refactor-log.md`
 - `context-map.json`
+- `stack-profile.md`
 
 ## Search Order
 
@@ -33,6 +34,6 @@ Under `low` context budget, stop before whole-repository search and reroute or a
 
 ## Context Map
 
-`context-map.json` uses schema version 2 and keeps a stable top-level structure for modules, controllers, services, repositories, entities, DTOs, routes, tests, scripts, and protected paths.
+`context-map.json` uses schema version 2 and keeps a stable top-level structure for modules, controllers, services, repositories, entities, DTOs, routes, surfaces, tests, scripts, and protected paths.
 
 Indexes should stay compact and navigational. They are not meant to duplicate source code.

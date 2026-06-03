@@ -4,11 +4,27 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 MARKER_FILE=".codexminimal-owner"
 FORCE_INSTALL="${CODEXMINIMAL_FORCE:-0}"
+INSTALL_PROFILES_RAW="${CODEXMINIMAL_INSTALL_PROFILES:-}"
 SUPERPOWERS_CACHE_ROOT="${HOME}/.codex/plugins/cache/openai-curated/superpowers"
 COMPANION_SKILLS=(
   brainstorming
   subagent-driven-development
   executing-plans
+)
+CORE_SKILLS=(
+  task-router
+  feature-intake-gate
+  implementation-spec-writer
+  project-init
+  project-indexer
+  repo-phase-orchestrator
+)
+NESTJS_PROFILE_SKILLS=(
+  nestjs-sdd-planner
+  nestjs-tdd-builder
+  nestjs-bug-fixer
+  nestjs-code-reviewer
+  nestjs-refactor-guardian
 )
 
 CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
@@ -20,6 +36,18 @@ cleanup() {
 }
 
 trap cleanup EXIT
+
+profile_requested() {
+  local profile="$1"
+  case ",$INSTALL_PROFILES_RAW," in
+    *,all,*|*,"$profile",*)
+      return 0
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
 
 companion_skill_present() {
   local skill="$1"
@@ -53,8 +81,14 @@ mkdir -p "$SKILLS_DIR"
 
 echo "Installing core skills into $SKILLS_DIR ..."
 
-for skill_dir in "$ROOT_DIR"/skills/*; do
-  skill="$(basename "$skill_dir")"
+INSTALL_SKILLS=("${CORE_SKILLS[@]}")
+ACTIVE_PROFILES=()
+if profile_requested "nestjs"; then
+  INSTALL_SKILLS+=("${NESTJS_PROFILE_SKILLS[@]}")
+  ACTIVE_PROFILES+=("nestjs")
+fi
+
+for skill in "${INSTALL_SKILLS[@]}"; do
   target_dir="$SKILLS_DIR/$skill"
 
   if [[ -e "$target_dir" && ! -f "$target_dir/$MARKER_FILE" && "$FORCE_INSTALL" != "1" ]]; then
@@ -64,8 +98,8 @@ for skill_dir in "$ROOT_DIR"/skills/*; do
   fi
 done
 
-for skill_dir in "$ROOT_DIR"/skills/*; do
-  skill="$(basename "$skill_dir")"
+for skill in "${INSTALL_SKILLS[@]}"; do
+  skill_dir="$ROOT_DIR/skills/$skill"
   target_dir="$SKILLS_DIR/$skill"
 
   rm -rf "$target_dir"
@@ -84,8 +118,17 @@ echo
 echo "CodexMinimal installed successfully."
 echo
 echo "Location: $SKILLS_DIR"
-echo "Mode: Core"
+if [[ "${#ACTIVE_PROFILES[@]}" -gt 0 ]]; then
+  echo "Mode: Core + profiles"
+else
+  echo "Mode: Core"
+fi
 echo "Includes: CodexMinimal core skills and bundled skill-local helpers"
+if [[ "${#ACTIVE_PROFILES[@]}" -gt 0 ]]; then
+  echo "Profiles: ${ACTIVE_PROFILES[*]}"
+else
+  echo "Profiles: none"
+fi
 if [[ "${#missing_companions[@]}" -gt 0 ]]; then
   echo
   echo "Full mode: unavailable"

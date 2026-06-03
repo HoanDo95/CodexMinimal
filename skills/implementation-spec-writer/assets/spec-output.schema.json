@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "required": [
+    "scope",
+    "nonGoals",
+    "affectedSurfaces",
+    "boundaryContracts",
+    "dataAndStateImpacts",
+    "validationAndFailureModes",
+    "acceptanceCriteria",
+    "verificationPlan",
+    "implementationHandoffNotes",
+    "openQuestionsOrAssumptions"
+  ],
+  "properties": {
+    "scope": { "type": "string" },
+    "nonGoals": { "type": "array", "items": { "type": "string" } },
+    "affectedSurfaces": { "type": "array", "items": { "type": "string" } },
+    "boundaryContracts": { "type": "array", "items": { "type": "string" } },
+    "dataAndStateImpacts": { "type": "array", "items": { "type": "string" } },
+    "validationAndFailureModes": { "type": "array", "items": { "type": "string" } },
+    "acceptanceCriteria": { "type": "array", "items": { "type": "string" } },
+    "verificationPlan": { "type": "array", "items": { "type": "string" } },
+    "implementationHandoffNotes": { "type": "array", "items": { "type": "string" } },
+    "openQuestionsOrAssumptions": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

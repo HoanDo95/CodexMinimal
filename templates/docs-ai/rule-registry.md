@@ -7,26 +7,29 @@ This file is the durable rule source.
 
 ## Protected Paths
 
-## Folder Structure Rules
+## Generic Workflow Rules
 
-## NestJS Rules
+- Use the smallest suitable skill.
+- Route new features through intake before execution.
+- Read indexes before broad repository search.
+- Keep runtime state aligned with the active plan and tracker.
 
-- Controllers stay thin.
-- Business logic belongs in services.
-- Controllers return DTOs, not TypeORM entities.
-- Use DTO validation pipes.
-- Feature modules are domain-based.
-- Persistence details stay under feature directories.
+## Generic Testing Rules
 
-## Testing Rules
+- Run targeted verification before broader checks.
+- Keep generated build artifacts out of commits unless explicitly required.
 
-- Unit tests under `test/unit/`.
-- E2E tests under `test/e2e/`.
+## Active Profile
+
+- See `docs/ai/stack-profile.md` for the current stack profile and allowed profile-specific skills.
+
+## Profile-Specific Rules
+
+- Persist stack-specific rules only when the active profile justifies them.
 
 ## Safety Rules
 
 - Do not commit `.env` or secrets.
-- Keep TypeORM `synchronize: false`.
 
 ## User Overrides
 

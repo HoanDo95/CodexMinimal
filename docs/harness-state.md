@@ -6,6 +6,7 @@ CodexMinimal is most useful as a harness when it has explicit runtime state, not
 
 Inside a target repository, `project-init` should create:
 
+- `docs/ai/stack-profile.md`
 - `docs/codexminimal/current-work.json`
 - `docs/codexminimal/artifact-registry.json`
 - `docs/codexminimal/telemetry.json`

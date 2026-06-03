@@ -107,22 +107,18 @@ check_file templates/AGENTS.md
 check_nonempty_file README.md
 
 echo
-echo "== Required skills =="
+echo "== Required core skills =="
 
-SKILLS=(
+CORE_SKILLS=(
   task-router
   feature-intake-gate
+  implementation-spec-writer
   project-init
   project-indexer
-  nestjs-sdd-planner
-  nestjs-tdd-builder
-  nestjs-bug-fixer
-  nestjs-code-reviewer
-  nestjs-refactor-guardian
   repo-phase-orchestrator
 )
 
-for skill in "${SKILLS[@]}"; do
+for skill in "${CORE_SKILLS[@]}"; do
   check_dir "skills/$skill"
   check_file "skills/$skill/SKILL.md"
   check_dir "skills/$skill/references"
@@ -131,6 +127,32 @@ for skill in "${SKILLS[@]}"; do
   check_contains "skills/$skill/SKILL.md" "## Goal"
   check_contains "skills/$skill/SKILL.md" "## Use When"
   check_contains "skills/$skill/SKILL.md" "## Output Format"
+done
+
+echo
+echo "== Optional profile skills =="
+
+OPTIONAL_SKILLS=(
+  nestjs-sdd-planner
+  nestjs-tdd-builder
+  nestjs-bug-fixer
+  nestjs-code-reviewer
+  nestjs-refactor-guardian
+)
+
+for skill in "${OPTIONAL_SKILLS[@]}"; do
+  if [[ -d "skills/$skill" ]]; then
+    check_dir "skills/$skill"
+    check_file "skills/$skill/SKILL.md"
+    check_dir "skills/$skill/references"
+    check_dir "skills/$skill/assets"
+    check_skill_frontmatter_yaml "skills/$skill/SKILL.md"
+    check_contains "skills/$skill/SKILL.md" "## Goal"
+    check_contains "skills/$skill/SKILL.md" "## Use When"
+    check_contains "skills/$skill/SKILL.md" "## Output Format"
+  else
+    warn "optional profile skill not present: skills/$skill"
+  fi
 done
 
 echo
@@ -145,6 +167,7 @@ DOCS_AI=(
   dependency-index.md
   protected-files.md
   rule-registry.md
+  stack-profile.md
   architecture-notes.md
   refactor-log.md
   context-map.json
@@ -163,10 +186,10 @@ DOCS=(
   docs/flows.md
   docs/model-routing.md
   docs/model-compatibility.md
+  docs/profiles.md
   docs/action-risk.md
   docs/compact-mode.md
   docs/context-budget.md
-  docs/nestjs-spec.md
   docs/indexing.md
   docs/rule-registry.md
   docs/evals.md
@@ -188,7 +211,7 @@ check_nonempty_file evals/task-router-golden-cases.json
 check_nonempty_file evals/feature-intake-gate-golden-cases.json
 check_nonempty_file evals/project-init-golden-cases.json
 check_nonempty_file evals/project-indexer-golden-cases.json
-check_nonempty_file evals/nestjs-sdd-planner-golden-cases.json
+check_nonempty_file evals/implementation-spec-writer-golden-cases.json
 check_nonempty_file evals/repo-phase-orchestrator-golden-cases.json
 check_nonempty_file evals/run-golden-evals.py
 check_nonempty_file evals/run-sample-evals.sh
@@ -196,8 +219,13 @@ check_nonempty_file evals/samples/task-router-results.sample.json
 check_nonempty_file evals/samples/feature-intake-gate-results.sample.json
 check_nonempty_file evals/samples/project-init-results.sample.json
 check_nonempty_file evals/samples/project-indexer-results.sample.json
-check_nonempty_file evals/samples/nestjs-sdd-planner-results.sample.json
+check_nonempty_file evals/samples/implementation-spec-writer-results.sample.json
 check_nonempty_file evals/samples/repo-phase-orchestrator-results.sample.json
+
+if [[ -d "skills/nestjs-sdd-planner" ]]; then
+  check_nonempty_file evals/nestjs-sdd-planner-golden-cases.json
+  check_nonempty_file evals/samples/nestjs-sdd-planner-results.sample.json
+fi
 
 echo
 echo "== Shell syntax =="
@@ -207,7 +235,6 @@ SCRIPTS=(
   uninstall.sh
   release.sh
   check-codexminimal.sh
-  patch-readme-and-fix-plan.sh
   evals/run-sample-evals.sh
 )
 
@@ -260,7 +287,7 @@ check_contains templates/AGENTS.md "CODEXMINIMAL:AUTO_COMPACT START"
 check_contains templates/AGENTS.md "CODEXMINIMAL:SEARCH_POLICY START"
 check_contains templates/AGENTS.md "CODEXMINIMAL:HELPER_POLICY START"
 check_contains templates/AGENTS.md "CODEXMINIMAL:SKILL_POLICY START"
-check_contains templates/AGENTS.md "CODEXMINIMAL:NESTJS_SPEC START"
+check_contains templates/AGENTS.md "CODEXMINIMAL:STACK_PROFILE START"
 check_contains templates/AGENTS.md "CODEXMINIMAL:TESTING_SPEC START"
 check_contains templates/AGENTS.md "CODEXMINIMAL:PROTECTED_FILES START"
 check_contains templates/AGENTS.md "CODEXMINIMAL:USER_RULE_MUTATION START"
@@ -269,6 +296,7 @@ echo
 echo "== context-map schema =="
 
 check_contains templates/docs-ai/context-map.json '"version": 2'
+check_contains templates/docs-ai/context-map.json '"stackProfile"'
 check_contains templates/docs-ai/context-map.json '"modules"'
 check_contains templates/docs-ai/context-map.json '"controllers"'
 check_contains templates/docs-ai/context-map.json '"services"'
@@ -276,6 +304,7 @@ check_contains templates/docs-ai/context-map.json '"repositories"'
 check_contains templates/docs-ai/context-map.json '"entities"'
 check_contains templates/docs-ai/context-map.json '"dtos"'
 check_contains templates/docs-ai/context-map.json '"routes"'
+check_contains templates/docs-ai/context-map.json '"surfaces"'
 check_contains templates/docs-ai/context-map.json '"protectedPaths"'
 
 if command -v python3 >/dev/null 2>&1; then
@@ -287,19 +316,24 @@ if command -v python3 >/dev/null 2>&1; then
   check_json_file skills/feature-intake-gate/assets/intake-output.schema.json
   check_json_file skills/project-init/assets/init-output.schema.json
   check_json_file skills/project-indexer/assets/indexer-output.schema.json
-  check_json_file skills/nestjs-sdd-planner/assets/spec-output.schema.json
+  check_json_file skills/implementation-spec-writer/assets/spec-output.schema.json
   check_json_file evals/task-router-golden-cases.json
   check_json_file evals/feature-intake-gate-golden-cases.json
   check_json_file evals/project-init-golden-cases.json
   check_json_file evals/project-indexer-golden-cases.json
-  check_json_file evals/nestjs-sdd-planner-golden-cases.json
+  check_json_file evals/implementation-spec-writer-golden-cases.json
   check_json_file evals/repo-phase-orchestrator-golden-cases.json
   check_json_file evals/samples/task-router-results.sample.json
   check_json_file evals/samples/feature-intake-gate-results.sample.json
   check_json_file evals/samples/project-init-results.sample.json
   check_json_file evals/samples/project-indexer-results.sample.json
-  check_json_file evals/samples/nestjs-sdd-planner-results.sample.json
+  check_json_file evals/samples/implementation-spec-writer-results.sample.json
   check_json_file evals/samples/repo-phase-orchestrator-results.sample.json
+  if [[ -d "skills/nestjs-sdd-planner" ]]; then
+    check_json_file skills/nestjs-sdd-planner/assets/spec-output.schema.json
+    check_json_file evals/nestjs-sdd-planner-golden-cases.json
+    check_json_file evals/samples/nestjs-sdd-planner-results.sample.json
+  fi
 else
   warn "python3 not found, skipped JSON validation"
 fi
@@ -343,6 +377,48 @@ if [[ -n "$EMPTY_SKILL_FILES" ]]; then
 else
   pass "no empty skill asset/reference files"
 fi
+
+echo
+echo "== Bundled Helper Sync =="
+
+SYNC_PAIRS=(
+  "templates/AGENTS.md|skills/project-init/assets/AGENTS.template.md"
+  "templates/docs-ai/project-index.md|skills/project-init/assets/project-index.template.md"
+  "templates/docs-ai/module-index.md|skills/project-init/assets/module-index.template.md"
+  "templates/docs-ai/route-index.md|skills/project-init/assets/route-index.template.md"
+  "templates/docs-ai/entity-index.md|skills/project-init/assets/entity-index.template.md"
+  "templates/docs-ai/test-index.md|skills/project-init/assets/test-index.template.md"
+  "templates/docs-ai/dependency-index.md|skills/project-init/assets/dependency-index.template.md"
+  "templates/docs-ai/protected-files.md|skills/project-init/assets/protected-files.template.md"
+  "templates/docs-ai/rule-registry.md|skills/project-init/assets/rule-registry.template.md"
+  "templates/docs-ai/architecture-notes.md|skills/project-init/assets/architecture-notes.template.md"
+  "templates/docs-ai/refactor-log.md|skills/project-init/assets/refactor-log.template.md"
+  "templates/docs-ai/stack-profile.md|skills/project-init/assets/stack-profile.template.md"
+  "templates/docs-ai/context-map.json|skills/project-init/assets/context-map.template.json"
+  "templates/docs-codexminimal/current-work.json|skills/project-init/assets/current-work.template.json"
+  "templates/docs-codexminimal/artifact-registry.json|skills/project-init/assets/artifact-registry.template.json"
+  "templates/docs-codexminimal/telemetry.json|skills/project-init/assets/telemetry.template.json"
+  "templates/docs-ai/project-index.md|skills/project-indexer/assets/project-index.template.md"
+  "templates/docs-ai/module-index.md|skills/project-indexer/assets/module-index.template.md"
+  "templates/docs-ai/route-index.md|skills/project-indexer/assets/route-index.template.md"
+  "templates/docs-ai/dependency-index.md|skills/project-indexer/assets/dependency-index.template.md"
+  "templates/docs-ai/context-map.json|skills/project-indexer/assets/context-map.template.json"
+  "scripts/sync_agents_blocks.py|skills/project-init/scripts/sync_agents_blocks.py"
+  "scripts/bootstrap_docs_ai.py|skills/project-init/scripts/bootstrap_docs_ai.py"
+  "scripts/bootstrap_harness_runtime.py|skills/project-init/scripts/bootstrap_harness_runtime.py"
+  "scripts/render_index_stubs.py|skills/project-indexer/scripts/render_index_stubs.py"
+  "scripts/validate_context_map.py|skills/project-indexer/scripts/validate_context_map.py"
+)
+
+for pair in "${SYNC_PAIRS[@]}"; do
+  left="${pair%%|*}"
+  right="${pair##*|}"
+  if diff -u "$left" "$right" >/dev/null 2>&1; then
+    pass "$left is in sync with $right"
+  else
+    fail "$left differs from $right"
+  fi
+done
 
 echo
 echo "== install target preview =="

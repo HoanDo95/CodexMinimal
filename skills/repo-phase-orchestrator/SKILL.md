@@ -32,16 +32,17 @@ Do not use for:
 ## Required Reads
 
 1. `AGENTS.md`
-2. `docs/ai/context-map.json`
-3. `docs/ai/project-index.md`
-4. relevant indexes
-5. approved spec file
-6. existing phase plan if any
-7. tracker file if any
-8. protected-files policy
-9. `docs/codexminimal/current-work.json`
-10. `docs/codexminimal/artifact-registry.json`
-11. `docs/codexminimal/telemetry.json`
+2. `docs/ai/stack-profile.md`
+3. `docs/ai/context-map.json`
+4. `docs/ai/project-index.md`
+5. relevant indexes
+6. approved spec file
+7. existing phase plan if any
+8. tracker file if any
+9. protected-files policy
+10. `docs/codexminimal/current-work.json`
+11. `docs/codexminimal/artifact-registry.json`
+12. `docs/codexminimal/telemetry.json`
 
 ## Workflow
 

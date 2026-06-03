@@ -6,9 +6,9 @@ It should contain:
 - pre-task routing
 - model routing
 - skill selection policy
+- stack profile policy
 - project index usage
 - protected files policy
-- NestJS specification
 - testing specification
 - user rule mutation policy
 

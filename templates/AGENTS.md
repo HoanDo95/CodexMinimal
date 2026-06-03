@@ -23,7 +23,7 @@ Do not jump from a rough feature prompt straight into coding. Ask first if the t
 - `gpt-5.5`: default for planning, architecture, non-trivial coding, refactor, and orchestration
 - `gpt-5.5 high`: high-risk multi-module, failing-test, env/deploy/database, or protected-boundary work
 - `gpt-5.4-mini`: bounded scan, quick repository search, and summarization
-- `gpt-5.3-codex`: quick local coding iteration
+- `gpt-5.3-codex`: optional fast local coding fallback when latency matters more than breadth
 
 Do not escalate model/effort without a concrete reason.
 <!-- CODEXMINIMAL:MODEL_ROUTING END -->
@@ -85,34 +85,28 @@ Use the smallest suitable skill:
 - `project-indexer`: build or repair repository indexes and `context-map.json`
 - `feature-intake-gate`: default gate for `brainstorm -> spec -> phase plan`
 - `repo-phase-orchestrator`: write the phase plan and tracker, then hand off execution
-- `nestjs-sdd-planner`: write specs only
-- `nestjs-bug-fixer`, `nestjs-code-reviewer`, `nestjs-refactor-guardian`, `nestjs-tdd-builder`: optional narrower profiles when they fit better than the generic harness flow
+- profile-specific skills only after the active stack profile is clear
+- `nestjs-sdd-planner`, `nestjs-bug-fixer`, `nestjs-code-reviewer`, `nestjs-refactor-guardian`, `nestjs-tdd-builder`: optional NestJS profile skills
 
 Do not use a broader skill when a narrower one is sufficient.
 <!-- CODEXMINIMAL:SKILL_POLICY END -->
 
-<!-- CODEXMINIMAL:NESTJS_SPEC START -->
-## NestJS Specification
+<!-- CODEXMINIMAL:STACK_PROFILE START -->
+## Stack Profile
 
-- Keep standard NestJS TypeScript structure under `src/`
-- Keep controllers thin and business logic in services
-- Return DTOs, not raw TypeORM entities
-- Use DTO validation pipes for request contracts
-- Keep feature modules by domain
-- Keep persistence details inside the feature directory
-- Keep scheduled jobs out of the web app runtime
-- Do not bootstrap helper-side schema from NestJS startup hooks
-- Prefer explicit repository update semantics over `find -> merge -> save`
-<!-- CODEXMINIMAL:NESTJS_SPEC END -->
+- Read `docs/ai/stack-profile.md` before applying stack-specific assumptions
+- Default to `generic` until the repository structure or explicit user instruction activates a profile
+- Use profile-specific skills only when the active profile supports them
+- Keep stack-specific rules in the profile manifest or rule registry, not in this entrypoint
+<!-- CODEXMINIMAL:STACK_PROFILE END -->
 
 <!-- CODEXMINIMAL:TESTING_SPEC START -->
 ## Testing Specification
 
-- Unit tests go under `test/unit/`
-- E2E tests go under `test/e2e/`
+- Keep tests outside production source folders when the repo convention supports it
 - Mirror source paths where practical
-- Import source code from tests via explicit relative paths to `src/`
-- Keep Jest unit config at repo root
+- Use the repository's native test entrypoints and config files
+- Keep test imports and structure consistent with the active stack profile
 - Run targeted tests first, then broader lint/build checks only as needed
 <!-- CODEXMINIMAL:TESTING_SPEC END -->
 

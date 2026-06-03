@@ -14,13 +14,17 @@ Use this when the requirement is new, underspecified, or changes behavior and sh
 
 Inside `feature-intake-gate`, the expected pre-implementation path is:
 
-`brainstorming -> nestjs-sdd-planner -> repo-phase-orchestrator`
+`brainstorming -> implementation-spec-writer -> repo-phase-orchestrator`
 
 ## Spec To Plan
 
-`task-router -> nestjs-sdd-planner -> repo-phase-orchestrator`
+`task-router -> implementation-spec-writer -> repo-phase-orchestrator`
 
 Use this when the design direction is already agreed but implementation should still go through a concrete spec, phase plan, and tracker before coding.
+
+For NestJS repositories with the `nestjs` profile active:
+
+`task-router -> nestjs-sdd-planner -> repo-phase-orchestrator`
 
 ## Bug Fix
 

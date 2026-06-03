@@ -14,6 +14,7 @@ REQUIRED_TOP_LEVEL_KEYS = {
     "entities",
     "dtos",
     "routes",
+    "surfaces",
     "tests",
     "scripts",
     "protectedPaths",
@@ -37,6 +38,15 @@ def main() -> int:
 
     if data.get("version") != 2:
         print(f"INVALID_VERSION {data.get('version')!r}")
+        return 1
+
+    project = data.get("project", {})
+    if not isinstance(project, dict):
+        print("INVALID_PROJECT project must be an object")
+        return 1
+    stack_profile = project.get("stackProfile")
+    if not isinstance(stack_profile, str):
+        print("INVALID_PROJECT stackProfile must be a string")
         return 1
 
     protected = data.get("protectedPaths", {})

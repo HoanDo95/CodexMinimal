@@ -16,7 +16,7 @@ What is covered:
 
 What is not covered:
 
-- multi-turn work on a real NestJS repository
+- multi-turn work on a real target repository
 - token usage over long feature delivery sessions
 - model latency under remote API load
 
@@ -61,3 +61,4 @@ The remaining unknown is real-repository behavior:
 - how many files get read during actual feature work
 - whether compact mode and context budgets reduce broad scans in practice
 - whether the router chooses the right flow under real ambiguity
+- whether optional profiles add enough value to justify their extra surface area

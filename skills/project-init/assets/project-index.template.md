@@ -18,12 +18,18 @@ High-level AI-readable map of this repository.
 | Area | Path | Responsibility |
 |---|---|---|
 
+## Main Workflows
+
+| Workflow | Entry Files | Notes |
+|---|---|---|
+
 ## Lookup Strategy
 
-1. Check this index.
-2. Check relevant docs/ai indexes.
-3. Search indexed files.
-4. Search same folder.
-5. Search feature folder.
-6. Search shared/common.
-7. Search whole repo last.
+1. Read `docs/ai/context-map.json`.
+2. Read this file.
+3. Read relevant `docs/ai/*-index.md`.
+4. Search exact indexed files.
+5. Search same folder.
+6. Search feature folder.
+7. Search shared/common folders.
+8. Search whole repository last.

@@ -24,8 +24,8 @@ Use `gpt-5.4-mini` for:
 - small risk analysis
 
 Use `gpt-5.3-codex` for:
-- quick local coding iteration
-- low/medium risk edits
-- fast feedback loops
+- optional fast local coding fallback
+- low/medium risk edits when latency matters more than breadth
+- fast feedback loops in a known local environment
 
 Do not escalate effort unless quality, risk, or test evidence justifies it.

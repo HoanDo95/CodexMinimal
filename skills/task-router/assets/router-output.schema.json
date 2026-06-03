@@ -39,6 +39,7 @@
         "none",
         "feature-intake-gate",
         "brainstorming",
+        "implementation-spec-writer",
         "project-init",
         "project-indexer",
         "nestjs-sdd-planner",
@@ -56,6 +57,7 @@
         "enum": [
           "feature-intake-gate",
           "brainstorming",
+          "implementation-spec-writer",
           "project-init",
           "project-indexer",
           "nestjs-sdd-planner",

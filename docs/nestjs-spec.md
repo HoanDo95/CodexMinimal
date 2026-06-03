@@ -1,6 +1,13 @@
 # NestJS Specification
 
-CodexMinimal assumes these default repository rules unless the user overrides them:
+This file describes the optional `nestjs` profile.
+
+Apply these rules only when:
+
+- the active stack profile is `nestjs`
+- or the user explicitly chooses the NestJS profile
+
+NestJS profile defaults:
 
 - keep controllers thin
 - keep business logic in services

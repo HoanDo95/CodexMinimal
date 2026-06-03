@@ -2,5 +2,5 @@
 
 ## Modules
 
-| Module | Path | Controllers | Services | Providers | Related Tests |
-|---|---|---|---|---|---|
+| Module | Path | Controllers | Services | Providers | Related Tests | Notes |
+|---|---|---|---|---|---|---|

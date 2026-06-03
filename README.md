@@ -18,21 +18,52 @@ flowchart LR
     R --> I[feature-intake-gate]
     R --> B[project-init]
     R --> X[project-indexer]
-    I --> S[nestjs-sdd-planner]
+    I --> S[implementation-spec-writer or profile spec]
     S --> P[repo-phase-orchestrator]
     P --> E[External Execution]
     E --> X
 ```
+
+## Harness Layer
+
+`CodexMinimal` không cố làm execution engine. Nó là lớp điều phối để ép LLM đi đúng flow, giữ state, và giảm scan thừa.
+
+```mermaid
+flowchart TB
+    U[User Request] --> H[Harness Layer]
+    H --> P[Profile Layer]
+    P --> E[Execution Layer]
+
+    H1[task-router] --> H
+    H2[project-init] --> H
+    H3[project-indexer] --> H
+    H4[feature-intake-gate] --> H
+    H5[implementation-spec-writer] --> H
+    H6[repo-phase-orchestrator] --> H
+
+    P1[generic profile] --> P
+    P2[nestjs profile] --> P
+
+    E1[brainstorming] --> E
+    E2[subagent-driven-development] --> E
+    E3[executing-plans] --> E
+```
+
+Vai trò của từng lớp:
+
+- `Harness Layer`: route task, giữ rules, tạo spec/plan/tracker, giữ runtime state, cập nhật index
+- `Profile Layer`: thêm rule và skill riêng cho từng stack như `nestjs`
+- `Execution Layer`: nhận phase hiện tại và thực thi code thật
 
 ## Modes
 
 | Mode | What you get | Best for |
 |---|---|---|
 | `Core` | CodexMinimal harness only | user muốn control layer chung, dễ custom |
-| `Full` | `Core` + companion skills như `brainstorming`, `subagent-driven-development`, `executing-plans` | user muốn flow đầy đủ ngay |
-| `Custom` | `Core` + stage/execution skills riêng | team chuyên sâu, multi-stack |
+| `Full` | `Core` + companion skills + active stack profile | user muốn flow đầy đủ ngay |
+| `Custom` | `Core` + stage/execution skills/profile riêng | team chuyên sâu, multi-stack |
 
-`install.sh` chỉ cài `Core`.
+`install.sh` mặc định chỉ cài `Core`.
 
 ## Core Skills
 
@@ -40,9 +71,19 @@ flowchart LR
 |---|---|
 | `task-router` | route request, mode, budget, safety gate |
 | `feature-intake-gate` | ép feature intake qua đúng stage |
+| `implementation-spec-writer` | viết spec generic trước khi phase planning |
 | `project-init` | sync `AGENTS.md`, `docs/ai`, `docs/codexminimal` |
 | `project-indexer` | build / repair `docs/ai` indexes |
 | `repo-phase-orchestrator` | viết phase plan, tracker, runtime state |
+
+## Profiles
+
+| Layer | Vai trò |
+|---|---|
+| `generic` | default profile, không áp framework assumption |
+| `nestjs` | bật các skill/spec rule dành riêng cho NestJS |
+
+Active profile nên được lưu ở `docs/ai/stack-profile.md`.
 
 ## Companion Skills
 
@@ -78,7 +119,7 @@ flowchart LR
 flowchart LR
     A[task-router] --> B[feature-intake-gate]
     B --> C[brainstorming]
-    C --> D[nestjs-sdd-planner]
+    C --> D[implementation-spec-writer or profile-specific spec writer]
     D --> E[repo-phase-orchestrator]
     E --> F[external execution]
     F --> G[project-indexer]
@@ -108,7 +149,7 @@ flowchart LR
 ```mermaid
 flowchart TD
     A[brainstorming] --> B[docs/superpowers/specs/...-design.md]
-    C[nestjs-sdd-planner] --> D[docs/codexminimal/specs/...-spec.md]
+    C[implementation-spec-writer or profile spec] --> D[docs/codexminimal/specs/...-spec.md]
     E[repo-phase-orchestrator] --> F[docs/codexminimal/plans/...-phase-plan.md]
     E --> G[docs/codexminimal/trackers/...-tracker.md]
     E --> H[docs/codexminimal/current-work.json]
@@ -138,10 +179,17 @@ bash evals/run-sample-evals.sh
 bash install.sh
 ```
 
+Install thêm NestJS profile:
+
+```bash
+CODEXMINIMAL_INSTALL_PROFILES=nestjs bash install.sh
+```
+
 `install.sh`:
 
 - chạy readiness check ở chế độ gọn; chỉ in full log nếu check fail
 - chỉ cài `Core mode`
+- cài profile chỉ khi được yêu cầu, ví dụ `CODEXMINIMAL_INSTALL_PROFILES=nestjs`
 - không overwrite unmanaged skills nếu không có `CODEXMINIMAL_FORCE=1`
 - sẽ báo `Full mode available/unavailable` dựa trên companion skills trong `~/.codex/skills` hoặc plugin cache
 
@@ -163,6 +211,7 @@ Sau bootstrap, bạn sẽ có:
 
 - `AGENTS.md`
 - `docs/ai/`
+- `docs/ai/stack-profile.md`
 - `docs/codexminimal/`
 
 Prompt mẫu hằng ngày:
@@ -198,6 +247,7 @@ Ba file này giúp harness:
 - [Cheat Sheet](docs/cheat-sheet.md)
 - [Architecture](docs/architecture.md)
 - [Skills](docs/skills.md)
+- [Profiles](docs/profiles.md)
 - [Flows](docs/flows.md)
 - [Artifacts](docs/artifacts.md)
 - [Harness State](docs/harness-state.md)

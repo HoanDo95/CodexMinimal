@@ -7,7 +7,7 @@ CodexMinimal is prompt-driven, so model quality and prompt compatibility matter.
 - `gpt-5.5`: default for planning, coding, review, and orchestration
 - `gpt-5.5 high`: high-risk or multi-module work
 - `gpt-5.4-mini`: bounded scan and summarization
-- `gpt-5.3-codex`: fast local coding iteration
+- `gpt-5.3-codex`: optional fast local coding fallback
 
 ## Notes
 

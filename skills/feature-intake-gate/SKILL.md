@@ -37,20 +37,22 @@ Do not use for:
 ## Required Reads
 
 1. `AGENTS.md`
-2. `docs/ai/rule-registry.md`
-3. `docs/ai/protected-files.md`
-4. `docs/ai/context-map.json`
-5. `docs/ai/project-index.md`
+2. `docs/ai/stack-profile.md`
+3. `docs/ai/rule-registry.md`
+4. `docs/ai/protected-files.md`
+5. `docs/ai/context-map.json`
+6. `docs/ai/project-index.md`
 
 ## Workflow
 
 1. Confirm that the task is feature intake rather than bug-fix or direct implementation.
 2. Decide whether `brainstorming` is still required.
 3. If yes, route to `brainstorming` and stop after design approval.
-4. Route approved design direction to `nestjs-sdd-planner`.
-5. After spec approval, route to `repo-phase-orchestrator`.
-6. Stop once a phase plan and tracker exist.
-7. Handoff execution to `subagent-driven-development` or `executing-plans` only after the current phase is ready.
+4. Route approved design direction to `implementation-spec-writer` by default.
+5. Use `nestjs-sdd-planner` only when the active stack profile is `nestjs` and the repository needs framework-specific spec detail.
+6. After spec approval, route to `repo-phase-orchestrator`.
+7. Stop once a phase plan and tracker exist.
+8. Handoff execution to `subagent-driven-development` or `executing-plans` only after the current phase is ready.
 
 ## Stage Model
 

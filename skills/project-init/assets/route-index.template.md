@@ -2,5 +2,5 @@
 
 ## Routes
 
-| Method | Path | Controller | Handler | Request DTO | Response DTO |
-|---|---|---|---|---|---|
+| Method | Path | Owner | Entry Point | Input Contract | Output Contract | Notes |
+|---|---|---|---|---|---|---|

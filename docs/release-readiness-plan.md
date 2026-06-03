@@ -13,7 +13,8 @@ CodexMinimal is usable locally, but release quality depends on guarding against 
 
 ## Remaining Validation Work
 
-- run CodexMinimal against at least one real NestJS repository from bootstrap through feature delivery
+- run CodexMinimal against at least one real target repository from bootstrap through feature delivery
+- if the NestJS profile is bundled, run it against at least one real NestJS repository
 - validate whether index quality is sufficient to reduce broad scans in practice
 - tune safety-gate defaults based on real protected-file conflicts
 - confirm the recommended model routing is cost-effective in long sessions

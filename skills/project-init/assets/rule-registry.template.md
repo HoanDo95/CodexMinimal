@@ -2,23 +2,35 @@
 
 Source of persisted durable rules for CodexMinimal.
 
+AGENTS.md is the operational rendered view.
+This file is the durable rule source.
+
 ## Protected Paths
 
-## NestJS Rules
+## Generic Workflow Rules
 
-- Controllers stay thin.
-- Business logic belongs in services.
-- Controllers return DTOs, not TypeORM entities.
-- Use DTO validation pipes.
+- Use the smallest suitable skill.
+- Route new features through intake before execution.
+- Read indexes before broad repository search.
+- Keep runtime state aligned with the active plan and tracker.
 
-## Testing Rules
+## Generic Testing Rules
 
-- Unit tests under `test/unit/`.
-- E2E tests under `test/e2e/`.
+- Run targeted verification before broader checks.
+- Keep generated build artifacts out of commits unless explicitly required.
+
+## Active Profile
+
+- See `docs/ai/stack-profile.md` for the current stack profile and allowed profile-specific skills.
+
+## Profile-Specific Rules
+
+- Persist stack-specific rules only when the active profile justifies them.
 
 ## Safety Rules
 
 - Do not commit `.env` or secrets.
-- Keep TypeORM `synchronize: false`.
 
 ## User Overrides
+
+Record user-specified durable rules here.

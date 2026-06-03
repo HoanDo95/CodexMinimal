@@ -57,19 +57,22 @@ Choose exactly one primary skill for the current step:
 - none
 - feature-intake-gate
 - brainstorming
+- implementation-spec-writer
 - project-init
 - project-indexer
+- repo-phase-orchestrator
 - nestjs-sdd-planner
 - nestjs-tdd-builder
 - nestjs-bug-fixer
 - nestjs-code-reviewer
 - nestjs-refactor-guardian
-- repo-phase-orchestrator
 
 Add follow-up skills only when the workflow naturally chains into a later step, for example:
 
 - `feature-intake-gate -> repo-phase-orchestrator -> project-indexer`
-- `brainstorming -> nestjs-sdd-planner -> repo-phase-orchestrator`
+- `brainstorming -> implementation-spec-writer -> repo-phase-orchestrator`
+- `implementation-spec-writer -> repo-phase-orchestrator`
+- `brainstorming -> profile-specific spec skill -> repo-phase-orchestrator`
 - `nestjs-sdd-planner -> repo-phase-orchestrator`
 - `nestjs-bug-fixer -> project-indexer`
 - `nestjs-refactor-guardian -> project-indexer`
@@ -85,13 +88,15 @@ For new features, changed behavior, or unclear requirements, prefer this sequenc
 Inside `feature-intake-gate`, the default internal sequence is:
 
 1. `brainstorming`
-2. `nestjs-sdd-planner`
+2. `implementation-spec-writer`
 3. `repo-phase-orchestrator`
 
 Use `feature-intake-gate` as the default for feature intake.
 Use the underlying stage skills directly only when the user explicitly wants a specific stage or a previous stage is already approved.
 Use external execution after the phase plan and tracker exist.
 Treat internal execution-oriented skills as optional legacy profiles, not the default cross-stack path.
+Treat `nestjs-*` skills as optional profile skills. Use them only when the active stack profile is `nestjs` or the user explicitly selects them.
+Prefer `implementation-spec-writer` as the generic default spec stage.
 
 ## Model Routing
 
@@ -100,7 +105,7 @@ Use:
 - `gpt-5.5 medium` for planning, architecture, normal coding, debugging, review, and orchestration.
 - `gpt-5.5 high` for multi-module changes, risky refactor, failing tests with unclear cause, database/env/deployment work, or protected boundaries.
 - `gpt-5.4-mini low` for bounded scan, quick summarization, or simple risk analysis.
-- `gpt-5.3-codex` for quick local coding iteration.
+- `gpt-5.3-codex` only as an optional fast local coding fallback.
 
 Do not recommend high effort unless risk justifies it.
 
@@ -159,10 +164,11 @@ Routing rule:
 If available, read:
 
 1. `AGENTS.md`
-2. `docs/ai/rule-registry.md`
-3. `docs/ai/protected-files.md`
-4. `docs/ai/context-map.json`
-5. `docs/ai/project-index.md`
+2. `docs/ai/stack-profile.md`
+3. `docs/ai/rule-registry.md`
+4. `docs/ai/protected-files.md`
+5. `docs/ai/context-map.json`
+6. `docs/ai/project-index.md`
 
 Do not scan the whole repository.
 

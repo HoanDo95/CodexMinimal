@@ -29,13 +29,13 @@
     },
     "nextSkill": {
       "type": "string",
-      "enum": ["brainstorming", "nestjs-sdd-planner", "repo-phase-orchestrator", "subagent-driven-development", "executing-plans"]
+      "enum": ["brainstorming", "implementation-spec-writer", "nestjs-sdd-planner", "repo-phase-orchestrator", "subagent-driven-development", "executing-plans"]
     },
     "followUpChain": {
       "type": "array",
       "items": {
         "type": "string",
-        "enum": ["brainstorming", "nestjs-sdd-planner", "repo-phase-orchestrator", "subagent-driven-development", "executing-plans", "project-indexer"]
+        "enum": ["brainstorming", "implementation-spec-writer", "nestjs-sdd-planner", "repo-phase-orchestrator", "subagent-driven-development", "executing-plans", "project-indexer"]
       }
     },
     "stopCondition": { "type": "string" },
