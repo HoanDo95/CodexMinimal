@@ -1,0 +1,19 @@
+[
+  {
+    "name": "new_create_endpoint_spec",
+    "input": "Plan a POST /users endpoint that validates email and creates a user record.",
+    "expected": {
+      "classification": "planner",
+      "affectedModules": ["users"],
+      "openQuestionsOrAssumptions": []
+    }
+  },
+  {
+    "name": "multi_phase_sensitive_change",
+    "input": "Plan a payments refactor that changes DTOs, service behavior, and persistence flow.",
+    "expected": {
+      "classification": "planner",
+      "protectedFileImpact": "review required if protected env, deploy, or integration paths are affected"
+    }
+  }
+]

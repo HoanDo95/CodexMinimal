@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "currentStage",
+    "whyThisStageApplies",
+    "approvedDirectionStatus",
+    "openQuestions",
+    "protectedFileOrRiskConcerns",
+    "nextSkill",
+    "followUpChain",
+    "stopCondition",
+    "suggestedPrompt"
+  ],
+  "properties": {
+    "currentStage": {
+      "type": "string",
+      "enum": ["brainstorm", "spec", "phase-plan", "ready-to-execute"]
+    },
+    "whyThisStageApplies": { "type": "string" },
+    "approvedDirectionStatus": { "type": "string" },
+    "openQuestions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "protectedFileOrRiskConcerns": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "nextSkill": {
+      "type": "string",
+      "enum": ["brainstorming", "nestjs-sdd-planner", "repo-phase-orchestrator", "subagent-driven-development", "executing-plans"]
+    },
+    "followUpChain": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["brainstorming", "nestjs-sdd-planner", "repo-phase-orchestrator", "subagent-driven-development", "executing-plans", "project-indexer"]
+      }
+    },
+    "stopCondition": { "type": "string" },
+    "suggestedPrompt": { "type": "string" }
+  }
+}

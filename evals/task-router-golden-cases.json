@@ -1,0 +1,59 @@
+[
+  {
+    "name": "simple_explanation",
+    "input": "Explain what this DTO does in one paragraph.",
+    "expected": {
+      "classification": "simple",
+      "primarySkill": "none",
+      "responseMode": "compact",
+      "contextBudget": "low",
+      "safetyGate": "proceed"
+    }
+  },
+  {
+    "name": "new_feature_needs_brainstorm_spec_plan",
+    "input": "Add a team invitations feature to this NestJS app. I only know the rough goal right now.",
+    "expected": {
+      "classification": "planner",
+      "primarySkill": "feature-intake-gate",
+      "followUpSkills": ["repo-phase-orchestrator", "project-indexer"],
+      "responseMode": "standard",
+      "contextBudget": "medium",
+      "safetyGate": "proceed"
+    }
+  },
+  {
+    "name": "repo_bootstrap",
+    "input": "Initialize AGENTS.md and docs/ai for this repository.",
+    "expected": {
+      "classification": "planner",
+      "primarySkill": "project-init",
+      "followUpSkills": ["project-indexer"],
+      "responseMode": "standard",
+      "contextBudget": "medium",
+      "safetyGate": "ask-user"
+    }
+  },
+  {
+    "name": "nestjs_bug_fix",
+    "input": "The POST /users endpoint returns 500 when email is missing. Fix it.",
+    "expected": {
+      "classification": "bug-fix",
+      "primarySkill": "nestjs-bug-fixer",
+      "followUpSkills": ["project-indexer"],
+      "responseMode": "standard",
+      "contextBudget": "medium",
+      "safetyGate": "proceed"
+    }
+  },
+  {
+    "name": "protected_deploy_change",
+    "input": "Update deploy configs and production env handling for the payments module.",
+    "expected": {
+      "classification": "refactor",
+      "responseMode": "standard",
+      "contextBudget": "high",
+      "safetyGate": "ask-user"
+    }
+  }
+]

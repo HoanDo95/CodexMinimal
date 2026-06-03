@@ -1,0 +1,29 @@
+[
+  {
+    "name": "full_index_bootstrap",
+    "setup": "docs/ai indexes are missing in a NestJS repository",
+    "expected": {
+      "mode": "full",
+      "filesUpdated": [
+        "docs/ai/project-index.md",
+        "docs/ai/module-index.md",
+        "docs/ai/route-index.md",
+        "docs/ai/entity-index.md",
+        "docs/ai/test-index.md",
+        "docs/ai/dependency-index.md",
+        "docs/ai/context-map.json"
+      ]
+    }
+  },
+  {
+    "name": "incremental_route_change",
+    "setup": "one controller route and one DTO changed",
+    "expected": {
+      "mode": "incremental",
+      "filesUpdated": [
+        "docs/ai/route-index.md",
+        "docs/ai/context-map.json"
+      ]
+    }
+  }
+]

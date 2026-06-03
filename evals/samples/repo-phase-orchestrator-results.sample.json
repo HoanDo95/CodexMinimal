@@ -1,0 +1,17 @@
+[
+  {
+    "name": "approved_spec_creates_plan_tracker_and_handoff",
+    "actual": {
+      "currentPhase": "Phase 1",
+      "executionHandoff": "subagent-driven-development",
+      "runtimeStateUpdate": "current-work.json and artifact-registry.json refreshed"
+    }
+  },
+  {
+    "name": "stale_runtime_state_blocks_advance",
+    "actual": {
+      "trackerStatus": "stale",
+      "blockers": "refresh runtime state before the next phase"
+    }
+  }
+]

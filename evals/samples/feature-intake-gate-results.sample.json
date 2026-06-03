@@ -1,0 +1,16 @@
+[
+  {
+    "name": "rough_feature_starts_at_brainstorm",
+    "actual": {
+      "currentStage": "brainstorm",
+      "nextSkill": "brainstorming"
+    }
+  },
+  {
+    "name": "approved_direction_moves_to_spec",
+    "actual": {
+      "currentStage": "spec",
+      "nextSkill": "nestjs-sdd-planner"
+    }
+  }
+]

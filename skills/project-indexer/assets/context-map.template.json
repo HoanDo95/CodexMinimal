@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "project": {
+    "name": null,
+    "packageManager": null,
+    "framework": null,
+    "language": "typescript",
+    "testCommand": null,
+    "lintCommand": null,
+    "buildCommand": null
+  },
+  "modules": {},
+  "controllers": {},
+  "services": {},
+  "repositories": {},
+  "entities": {},
+  "dtos": {},
+  "routes": {},
+  "tests": {},
+  "scripts": {},
+  "protectedPaths": {
+    "critical": [],
+    "sensitive": [],
+    "integration": []
+  }
+}

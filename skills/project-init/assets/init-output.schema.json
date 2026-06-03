@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "initializedOrUpdatedFiles",
+    "detectedProjectFacts",
+    "protectedFilesOrFolders",
+    "agentsChanges",
+    "ruleRegistryChanges",
+    "missingInformation",
+    "recommendedNextCommand"
+  ],
+  "properties": {
+    "initializedOrUpdatedFiles": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "detectedProjectFacts": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "protectedFilesOrFolders": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "agentsChanges": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "ruleRegistryChanges": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "missingInformation": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "recommendedNextCommand": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "name": "rough_feature_starts_at_brainstorm",
+    "input": "Add a team invitations feature, but the product rules are still unclear.",
+    "expected": {
+      "currentStage": "brainstorm",
+      "nextSkill": "brainstorming"
+    }
+  },
+  {
+    "name": "approved_direction_moves_to_spec",
+    "input": "The direction is approved. Write the NestJS spec before planning implementation.",
+    "expected": {
+      "currentStage": "spec",
+      "nextSkill": "nestjs-sdd-planner"
+    }
+  }
+]

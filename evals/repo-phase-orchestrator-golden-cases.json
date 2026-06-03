@@ -1,0 +1,19 @@
+[
+  {
+    "name": "approved_spec_creates_plan_tracker_and_handoff",
+    "input": "The user spec is approved. Write a multi-phase plan, create a tracker, and prepare external execution.",
+    "expected": {
+      "currentPhase": "Phase 1",
+      "executionHandoff": "subagent-driven-development",
+      "runtimeStateUpdate": "current-work.json and artifact-registry.json refreshed"
+    }
+  },
+  {
+    "name": "stale_runtime_state_blocks_advance",
+    "input": "The tracker exists, but current-work.json still points at an older plan. Do not continue blindly.",
+    "expected": {
+      "trackerStatus": "stale",
+      "blockers": "refresh runtime state before the next phase"
+    }
+  }
+]

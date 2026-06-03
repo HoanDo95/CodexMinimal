@@ -1,0 +1,124 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "classification",
+    "primarySkill",
+    "followUpSkills",
+    "recommendedModel",
+    "recommendedEffort",
+    "responseMode",
+    "contextBudget",
+    "safetyGate",
+    "actionRiskLevel",
+    "actionRiskReasons",
+    "reason",
+    "nextAction",
+    "suggestedPrompt"
+  ],
+  "properties": {
+    "classification": {
+      "type": "string",
+      "enum": [
+        "simple",
+        "scan",
+        "planner",
+        "sdd",
+        "tdd",
+        "coding",
+        "bug-fix",
+        "debug",
+        "review",
+        "refactor",
+        "orchestrator"
+      ]
+    },
+    "primarySkill": {
+      "type": "string",
+      "enum": [
+        "none",
+        "feature-intake-gate",
+        "brainstorming",
+        "project-init",
+        "project-indexer",
+        "nestjs-sdd-planner",
+        "nestjs-tdd-builder",
+        "nestjs-bug-fixer",
+        "nestjs-code-reviewer",
+        "nestjs-refactor-guardian",
+        "repo-phase-orchestrator"
+      ]
+    },
+    "followUpSkills": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "feature-intake-gate",
+          "brainstorming",
+          "project-init",
+          "project-indexer",
+          "nestjs-sdd-planner",
+          "nestjs-tdd-builder",
+          "nestjs-bug-fixer",
+          "nestjs-code-reviewer",
+          "nestjs-refactor-guardian",
+          "repo-phase-orchestrator"
+        ]
+      }
+    },
+    "recommendedModel": {
+      "type": "string"
+    },
+    "recommendedEffort": {
+      "type": "string"
+    },
+    "responseMode": {
+      "type": "string",
+      "enum": [
+        "compact",
+        "standard"
+      ]
+    },
+    "contextBudget": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "safetyGate": {
+      "type": "string",
+      "enum": [
+        "proceed",
+        "ask-user",
+        "blocked"
+      ]
+    },
+    "actionRiskLevel": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "actionRiskReasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reason": {
+      "type": "string"
+    },
+    "nextAction": {
+      "type": "string"
+    },
+    "suggestedPrompt": {
+      "type": "string"
+    }
+  }
+}

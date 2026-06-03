@@ -1,0 +1,20 @@
+[
+  {
+    "name": "missing_agents_and_docs_ai",
+    "setup": "AGENTS.md missing, docs/ai missing",
+    "expectedChanges": [
+      "create AGENTS.md from template",
+      "create docs/ai starter files",
+      "detect project facts",
+      "populate protected-files guidance"
+    ]
+  },
+  {
+    "name": "existing_agents_custom_rules",
+    "setup": "AGENTS.md exists with user custom block populated",
+    "expectedChanges": [
+      "preserve user custom rules",
+      "replace only managed CodexMinimal blocks"
+    ]
+  }
+]

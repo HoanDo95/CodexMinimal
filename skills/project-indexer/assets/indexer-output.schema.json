@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mode",
+    "filesUpdated",
+    "projectFactsDetected",
+    "indexCoverage",
+    "contextMapChanges",
+    "protectedPathObservations",
+    "verification",
+    "remainingGaps"
+  ],
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": ["full", "incremental", "repair"]
+    },
+    "filesUpdated": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "projectFactsDetected": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "indexCoverage": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "contextMapChanges": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "protectedPathObservations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "verification": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "remainingGaps": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

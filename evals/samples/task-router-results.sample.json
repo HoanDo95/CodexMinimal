@@ -1,0 +1,54 @@
+[
+  {
+    "name": "simple_explanation",
+    "actual": {
+      "classification": "simple",
+      "primarySkill": "none",
+      "responseMode": "compact",
+      "contextBudget": "low",
+      "safetyGate": "proceed"
+    }
+  },
+  {
+    "name": "new_feature_needs_brainstorm_spec_plan",
+    "actual": {
+      "classification": "planner",
+      "primarySkill": "feature-intake-gate",
+      "followUpSkills": ["repo-phase-orchestrator", "project-indexer"],
+      "responseMode": "standard",
+      "contextBudget": "medium",
+      "safetyGate": "proceed"
+    }
+  },
+  {
+    "name": "repo_bootstrap",
+    "actual": {
+      "classification": "planner",
+      "primarySkill": "project-init",
+      "followUpSkills": ["project-indexer"],
+      "responseMode": "standard",
+      "contextBudget": "medium",
+      "safetyGate": "ask-user"
+    }
+  },
+  {
+    "name": "nestjs_bug_fix",
+    "actual": {
+      "classification": "bug-fix",
+      "primarySkill": "nestjs-bug-fixer",
+      "followUpSkills": ["project-indexer"],
+      "responseMode": "standard",
+      "contextBudget": "medium",
+      "safetyGate": "proceed"
+    }
+  },
+  {
+    "name": "protected_deploy_change",
+    "actual": {
+      "classification": "refactor",
+      "responseMode": "standard",
+      "contextBudget": "high",
+      "safetyGate": "ask-user"
+    }
+  }
+]
