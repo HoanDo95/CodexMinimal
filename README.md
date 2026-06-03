@@ -165,6 +165,10 @@ Sau bootstrap, bạn sẽ có:
 - `docs/ai/`
 - `docs/codexminimal/`
 
+Prompt mẫu hằng ngày:
+
+- [Cheat Sheet](docs/cheat-sheet.md)
+
 ## Runtime State
 
 ```mermaid
@@ -191,6 +195,7 @@ Ba file này giúp harness:
 ## Docs
 
 - [Setup](docs/setup.md)
+- [Cheat Sheet](docs/cheat-sheet.md)
 - [Architecture](docs/architecture.md)
 - [Skills](docs/skills.md)
 - [Flows](docs/flows.md)
