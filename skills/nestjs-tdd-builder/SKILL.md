@@ -1,6 +1,6 @@
 ---
 name: nestjs-tdd-builder
-description: Implement clear NestJS behavior with TDD. Use when behavior is known and tests-first development is required: write failing unit test, implement minimal code, rerun tests, refactor, and update indexes.
+description: "Implement clear NestJS behavior with TDD. Use when behavior is known and tests-first development is required: write failing unit test, implement minimal code, rerun tests, refactor, and update indexes."
 ---
 
 # NestJS TDD Builder

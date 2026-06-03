@@ -56,6 +56,46 @@ check_json_file() {
   fi
 }
 
+check_skill_frontmatter_yaml() {
+  local file="$1"
+
+  if ! command -v python3 >/dev/null 2>&1; then
+    warn "python3 not found, skipped YAML validation for $file"
+    return
+  fi
+
+  if python3 - "$file" >/dev/null 2>&1 <<'PY'
+import sys
+from pathlib import Path
+
+try:
+    import yaml
+except Exception:
+    sys.exit(2)
+
+path = Path(sys.argv[1])
+text = path.read_text(encoding="utf-8")
+if not text.startswith("---\n"):
+    raise SystemExit(1)
+
+parts = text.split("---", 2)
+if len(parts) < 3:
+    raise SystemExit(1)
+
+yaml.safe_load(parts[1])
+PY
+  then
+    pass "$file has valid YAML front matter"
+  else
+    local py_yaml_status=$?
+    if [[ "$py_yaml_status" -eq 2 ]]; then
+      warn "PyYAML not available, skipped YAML validation for $file"
+    else
+      fail "$file has invalid YAML front matter"
+    fi
+  fi
+}
+
 echo "== CodexMinimal Local Readiness Check =="
 
 echo
@@ -87,6 +127,7 @@ for skill in "${SKILLS[@]}"; do
   check_file "skills/$skill/SKILL.md"
   check_dir "skills/$skill/references"
   check_dir "skills/$skill/assets"
+  check_skill_frontmatter_yaml "skills/$skill/SKILL.md"
   check_contains "skills/$skill/SKILL.md" "## Goal"
   check_contains "skills/$skill/SKILL.md" "## Use When"
   check_contains "skills/$skill/SKILL.md" "## Output Format"
