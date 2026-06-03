@@ -140,9 +140,10 @@ bash install.sh
 
 `install.sh`:
 
+- chạy readiness check ở chế độ gọn; chỉ in full log nếu check fail
 - chỉ cài `Core mode`
 - không overwrite unmanaged skills nếu không có `CODEXMINIMAL_FORCE=1`
-- sẽ warning nếu thiếu recommended companion skills
+- sẽ báo `Full mode available/unavailable` dựa trên companion skills trong `~/.codex/skills` hoặc plugin cache
 
 ## Quick Start
 
