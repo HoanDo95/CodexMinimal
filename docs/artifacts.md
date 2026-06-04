@@ -38,7 +38,7 @@ Maintained by `project-init` and `repo-phase-orchestrator`:
 - `docs/codexminimal/telemetry.json`
 - `docs/codexminimal/feedback-ledger.json`
 
-`feedback-ledger.json` is the repeat-feedback memory surface. It records issue keys, strike counts, and promoted rule text. Once an issue reaches the configured threshold, it should be treated as a durable rule and synchronized into `docs/ai/rule-registry.md`.
+`feedback-ledger.json` is the repeat-feedback memory surface. It records issue keys, strike counts, and promoted rule text. It should be updated only from explicit user-confirmed feedback or another explicitly approved review authority. Once an issue reaches the configured threshold, it should be treated as a durable rule and synchronized into `docs/ai/rule-registry.md`.
 
 ## Execution
 

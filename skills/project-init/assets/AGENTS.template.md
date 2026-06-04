@@ -120,5 +120,5 @@ Before editing, read `docs/ai/protected-files.md`. If a required change touches 
 <!-- CODEXMINIMAL:USER_RULE_MUTATION START -->
 ## User Rule Mutation Policy
 
-When the user changes a durable rule, persist it immediately in the relevant generated docs such as `docs/ai/rule-registry.md`, `docs/ai/protected-files.md`, `docs/ai/architecture-notes.md`, or the managed AGENTS blocks. If repeat feedback reaches the promotion threshold in `docs/codexminimal/feedback-ledger.json`, treat the promoted rule as durable and sync it into `docs/ai/rule-registry.md`.
+When the user changes a durable rule, persist it immediately in the relevant generated docs such as `docs/ai/rule-registry.md`, `docs/ai/protected-files.md`, `docs/ai/architecture-notes.md`, or the managed AGENTS blocks. If explicit user-confirmed repeat feedback reaches the promotion threshold in `docs/codexminimal/feedback-ledger.json`, treat the promoted rule as durable and sync it into `docs/ai/rule-registry.md`.
 <!-- CODEXMINIMAL:USER_RULE_MUTATION END -->

@@ -65,6 +65,11 @@ It should track:
 - the durable rule text that should be enforced after promotion
 - affected paths or artifacts when the pattern is specific
 
+This ledger should be user-mediated:
+
+- add or increment strikes only when explicit user feedback confirms the issue
+- do not auto-promote raw execution logs or noisy review chatter into durable memory
+
 Default lifecycle:
 
 - `observed`: below the warning threshold

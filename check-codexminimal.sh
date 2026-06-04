@@ -260,6 +260,7 @@ PY_SCRIPTS=(
   scripts/validate_context_map.py
   scripts/bootstrap_harness_runtime.py
   scripts/validate_harness_runtime.py
+  scripts/record_feedback_issue.py
   scripts/promote_feedback_rules.py
   scripts/render_index_stubs.py
   evals/run-golden-evals.py
@@ -361,39 +362,19 @@ if command -v python3 >/dev/null 2>&1; then
   fi
   mkdir -p "$TMP_REPO/docs/ai"
   cp templates/docs-ai/rule-registry.md "$TMP_REPO/docs/ai/rule-registry.md"
-  python3 - "$TMP_REPO/docs/codexminimal/feedback-ledger.json" <<'PY'
-import json
-import sys
-from pathlib import Path
-
-path = Path(sys.argv[1])
-data = json.loads(path.read_text(encoding="utf-8"))
-data["issues"] = [
-    {
-        "issueKey": "repeat-dto-boundary",
-        "description": "Do not return raw entities from controllers.",
-        "count": 3,
-        "status": "observed",
-        "firstSeenAt": "",
-        "lastSeenAt": "",
-        "source": "user-feedback",
-        "ruleTarget": "",
-        "promotedRuleText": "",
-        "affectedArtifacts": [],
-        "affectedPaths": [],
-        "notes": ""
-    }
-]
-path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
-PY
-  if python3 scripts/promote_feedback_rules.py --repo-root "$TMP_REPO" >/dev/null; then
+  if python3 scripts/record_feedback_issue.py \
+      --repo-root "$TMP_REPO" \
+      --issue-key repeat-dto-boundary \
+      --description "Do not return raw entities from controllers." \
+      --strikes 3 >/dev/null \
+    && python3 scripts/promote_feedback_rules.py --repo-root "$TMP_REPO" >/dev/null; then
     if grep -q "repeat-dto-boundary" "$TMP_REPO/docs/ai/rule-registry.md"; then
-      pass "feedback promotion helper syncs promoted rules"
+      pass "feedback record and promotion helpers sync promoted rules"
     else
       fail "feedback promotion helper did not render promoted rules"
     fi
   else
-    fail "feedback promotion helper failed on a temp repo"
+    fail "feedback record or promotion helper failed on a temp repo"
   fi
 else
   warn "python3 not found, skipped harness runtime helper validation"
@@ -446,6 +427,7 @@ SYNC_PAIRS=(
   "scripts/sync_agents_blocks.py|skills/project-init/scripts/sync_agents_blocks.py"
   "scripts/bootstrap_docs_ai.py|skills/project-init/scripts/bootstrap_docs_ai.py"
   "scripts/bootstrap_harness_runtime.py|skills/project-init/scripts/bootstrap_harness_runtime.py"
+  "scripts/record_feedback_issue.py|skills/project-init/scripts/record_feedback_issue.py"
   "scripts/promote_feedback_rules.py|skills/project-init/scripts/promote_feedback_rules.py"
   "scripts/render_index_stubs.py|skills/project-indexer/scripts/render_index_stubs.py"
   "scripts/validate_context_map.py|skills/project-indexer/scripts/validate_context_map.py"

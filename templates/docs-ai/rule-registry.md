@@ -14,7 +14,7 @@ This file is the durable rule source.
 - Read indexes before broad repository search.
 - Keep runtime state aligned with the active plan and tracker.
 - Read `docs/codexminimal/feedback-ledger.json` before routing non-trivial work.
-- Promote repeated feedback into durable rules after the configured strike threshold.
+- Promote explicit user-confirmed repeated feedback into durable rules after the configured strike threshold.
 
 ## Generic Testing Rules
 

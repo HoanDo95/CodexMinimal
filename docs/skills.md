@@ -10,7 +10,7 @@ CodexMinimal keeps skills small and explicit.
 
 - `feature-intake-gate`: default orchestration for feature intake before implementation
 - `implementation-spec-writer`: default stack-agnostic spec writer before phase planning
-- `project-init`: create or sync `AGENTS.md`, `docs/ai`, `docs/codexminimal`, durable rules, protected-file guidance, and repeat-feedback learning state
+- `project-init`: create or sync `AGENTS.md`, `docs/ai`, `docs/codexminimal`, durable rules, protected-file guidance, and user-mediated repeat-feedback learning state
 - `project-indexer`: build or repair compact repository indexes and `context-map.json`
 - `repo-phase-orchestrator`: write phase plans, maintain trackers, refresh harness runtime state, and hand off execution
 
@@ -56,6 +56,7 @@ Add follow-up skills only when the workflow naturally chains into a later step, 
 - `scripts/sync_agents_blocks.py`: sync managed AGENTS blocks from the template
 - `scripts/bootstrap_docs_ai.py`: create missing `docs/ai` files from bundled templates or assets
 - `scripts/bootstrap_harness_runtime.py`: create missing `docs/codexminimal` runtime files from bundled templates or assets
+- `scripts/record_feedback_issue.py`: record explicit user-confirmed feedback into the ledger before promotion
 - `scripts/promote_feedback_rules.py`: promote repeated feedback into durable rules after the configured strike threshold
 - `scripts/validate_context_map.py`: validate `context-map.json` structure
 - `scripts/validate_harness_runtime.py`: validate `current-work.json`, `artifact-registry.json`, `telemetry.json`, and `feedback-ledger.json`

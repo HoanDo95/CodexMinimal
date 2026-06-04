@@ -13,7 +13,7 @@ At minimum, execution feedback should include:
 - blockers
 - next phase recommendation
 - execution workflow used
-- repeated mistakes or repeated review feedback that should increment the feedback ledger
+- repeated mistakes or repeated review feedback that should be surfaced for explicit user confirmation before the feedback ledger is updated
 
 The harness should not advance phase state without this feedback.
 

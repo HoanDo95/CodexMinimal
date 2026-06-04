@@ -63,26 +63,30 @@ Do not use for:
 6. Create missing docs/ai files from templates or bundled assets.
 7. Create `docs/codexminimal/` runtime state files if missing.
 8. Read `docs/codexminimal/feedback-ledger.json` if it already exists.
-9. Normalize repeat-feedback status so the ledger uses:
+9. Treat the ledger as user-mediated memory:
+   - only explicit user feedback should add or increment strikes
+   - execution logs may suggest issues, but should not auto-write ledger strikes on their own
+10. Normalize repeat-feedback status so the ledger uses:
    - `observed` before the watch threshold
    - `watch` one strike before promotion
    - `promoted` at or above the promotion threshold
-10. Promote repeat feedback into durable rules once the configured strike threshold is reached.
-11. Keep promoted feedback rules synchronized into `docs/ai/rule-registry.md`.
-12. Detect package manager, framework cues, test commands, lint/build commands, env/deployment files, and protected integration files.
-13. Detect the active stack profile:
+11. Promote repeat feedback into durable rules once the configured strike threshold is reached.
+12. Keep promoted feedback rules synchronized into `docs/ai/rule-registry.md`.
+13. Detect package manager, framework cues, test commands, lint/build commands, env/deployment files, and protected integration files.
+14. Detect the active stack profile:
    - default to `generic`
    - promote to `nestjs` only when the repository structure or dependencies clearly support it
-14. Update `docs/ai/stack-profile.md` with the active profile, evidence, and allowed profile-specific skills.
-15. Update `docs/ai/rule-registry.md`.
-16. Update `docs/ai/protected-files.md`.
-17. Do not delete user custom rules.
+15. Update `docs/ai/stack-profile.md` with the active profile, evidence, and allowed profile-specific skills.
+16. Update `docs/ai/rule-registry.md`.
+17. Update `docs/ai/protected-files.md`.
+18. Do not delete user custom rules.
 
 If helper scripts are available, prefer them for deterministic work:
 
 - `scripts/sync_agents_blocks.py`
 - `scripts/bootstrap_docs_ai.py`
 - `scripts/bootstrap_harness_runtime.py`
+- `scripts/record_feedback_issue.py`
 - `scripts/promote_feedback_rules.py`
 
 The bootstrap helpers should resolve bundled templates or assets automatically when no explicit template path is provided.
@@ -123,6 +127,7 @@ Persist these defaults unless the user overrides them:
 - default to external execution after the phase plan exists
 - keep `current-work.json` and `artifact-registry.json` aligned with the active implementation path
 - read `docs/codexminimal/feedback-ledger.json` before planning or execution-oriented routing
+- record repeat-feedback strikes only from explicit user feedback or an explicitly approved review authority
 - promote repeated user feedback into durable rules at the configured strike threshold
 - treat promoted feedback rules as non-regression constraints, not advisory notes
 - read `docs/ai` indexes before broad repository search
