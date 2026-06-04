@@ -153,8 +153,9 @@ Persist these defaults unless the user overrides them:
 
 - `gpt-5.5`: default for planning, architecture, complex coding, refactor, orchestration
 - `gpt-5.5 high`: multi-module, high-risk, failing tests, database/env/deploy work
+- `gpt-5.4`: balanced fallback for clear everyday coding and focused implementation
 - `gpt-5.4-mini`: bounded scan, quick summarization, low-risk analysis
-- `gpt-5.3-codex`: optional fast local coding fallback when latency matters more than breadth
+- do not recommend `gpt-5.3-codex`; treat it as a migrated legacy alias if it appears in older configs
 
 Ask before expensive model/effort escalation unless the task is trivial or already authorized.
 

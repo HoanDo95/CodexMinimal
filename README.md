@@ -208,7 +208,7 @@ cd /path/to/your-target-repo
 Prompt đầu tiên:
 
 ```text
-Use project-init in bootstrap mode for this repository, then run project-indexer in full mode.
+Use task-router for this repository bootstrap request, then continue the standard bootstrap flow.
 ```
 
 Sau bootstrap, bạn sẽ có:
@@ -251,6 +251,8 @@ Ba file này giúp harness:
 - [Cheat Sheet](docs/cheat-sheet.md)
 - [Architecture](docs/architecture.md)
 - [Skills](docs/skills.md)
+- [Model Routing](docs/model-routing.md)
+- [Model Compatibility](docs/model-compatibility.md)
 - [Profiles](docs/profiles.md)
 - [Flows](docs/flows.md)
 - [Artifacts](docs/artifacts.md)

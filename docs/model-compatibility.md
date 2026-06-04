@@ -6,8 +6,19 @@ CodexMinimal is prompt-driven, so model quality and prompt compatibility matter.
 
 - `gpt-5.5`: default for planning, coding, review, and orchestration
 - `gpt-5.5 high`: high-risk or multi-module work
+- `gpt-5.4`: balanced fallback for everyday coding and focused fix-test loops
 - `gpt-5.4-mini`: bounded scan and summarization
-- `gpt-5.3-codex`: optional fast local coding fallback
+
+## Current Codex CLI support snapshot
+
+Observed locally on `2026-06-04` from Codex CLI model cache:
+
+- `gpt-5.5`
+- `gpt-5.4`
+- `gpt-5.4-mini`
+- `codex-auto-review` for internal approval review, not normal user routing
+
+Treat `gpt-5.3-codex` as a legacy alias only if it still appears in older configs or notes.
 
 ## Notes
 

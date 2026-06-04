@@ -17,15 +17,19 @@ Use `gpt-5.5 high` for:
 - database/migration/env/deploy work
 - protected boundary changes
 
+Use `gpt-5.4` for:
+- everyday coding
+- focused implementation in a known part of the repo
+- ordinary bug fixes with clear reproduction
+- short fix-test loops when frontier-level reasoning is not needed
+
 Use `gpt-5.4-mini` for:
 - bounded scan
 - summarization
 - quick code search
 - small risk analysis
 
-Use `gpt-5.3-codex` for:
-- optional fast local coding fallback
-- low/medium risk edits when latency matters more than breadth
-- fast feedback loops in a known local environment
+Do not route to `gpt-5.3-codex`.
+If it appears in older notes or configs, treat it as a stale migration alias and move to `gpt-5.5`, `gpt-5.4`, or `gpt-5.4-mini` instead.
 
 Do not escalate effort unless quality, risk, or test evidence justifies it.

@@ -22,8 +22,9 @@ Do not jump from a rough feature prompt straight into coding. Ask first if the t
 
 - `gpt-5.5`: default for planning, architecture, non-trivial coding, refactor, and orchestration
 - `gpt-5.5 high`: high-risk multi-module, failing-test, env/deploy/database, or protected-boundary work
+- `gpt-5.4`: balanced fallback for clear everyday coding and focused fix-test loops
 - `gpt-5.4-mini`: bounded scan, quick repository search, and summarization
-- `gpt-5.3-codex`: optional fast local coding fallback when latency matters more than breadth
+- Do not route to `gpt-5.3-codex`; treat it as an old alias, not a current default path
 
 Do not escalate model/effort without a concrete reason.
 <!-- CODEXMINIMAL:MODEL_ROUTING END -->
