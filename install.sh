@@ -100,6 +100,16 @@ if profile_requested "rust"; then
 fi
 
 for skill in "${INSTALL_SKILLS[@]}"; do
+  skill_dir="$ROOT_DIR/skills/$skill"
+
+  if [[ ! -d "$skill_dir" ]]; then
+    echo "Missing bundled skill for requested profile: $skill"
+    echo "Complete the profile implementation before installing it."
+    exit 1
+  fi
+done
+
+for skill in "${INSTALL_SKILLS[@]}"; do
   target_dir="$SKILLS_DIR/$skill"
 
   if [[ -e "$target_dir" && ! -f "$target_dir/$MARKER_FILE" && "$FORCE_INSTALL" != "1" ]]; then
