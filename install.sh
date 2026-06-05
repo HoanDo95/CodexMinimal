@@ -26,6 +26,13 @@ NESTJS_PROFILE_SKILLS=(
   nestjs-code-reviewer
   nestjs-refactor-guardian
 )
+RUST_PROFILE_SKILLS=(
+  rust-sdd-planner
+  rust-tdd-builder
+  rust-bug-fixer
+  rust-code-reviewer
+  rust-refactor-guardian
+)
 
 CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
 SKILLS_DIR="$CODEX_HOME/skills"
@@ -86,6 +93,10 @@ ACTIVE_PROFILES=()
 if profile_requested "nestjs"; then
   INSTALL_SKILLS+=("${NESTJS_PROFILE_SKILLS[@]}")
   ACTIVE_PROFILES+=("nestjs")
+fi
+if profile_requested "rust"; then
+  INSTALL_SKILLS+=("${RUST_PROFILE_SKILLS[@]}")
+  ACTIVE_PROFILES+=("rust")
 fi
 
 for skill in "${INSTALL_SKILLS[@]}"; do

@@ -138,6 +138,11 @@ OPTIONAL_SKILLS=(
   nestjs-bug-fixer
   nestjs-code-reviewer
   nestjs-refactor-guardian
+  rust-sdd-planner
+  rust-tdd-builder
+  rust-bug-fixer
+  rust-code-reviewer
+  rust-refactor-guardian
 )
 
 for skill in "${OPTIONAL_SKILLS[@]}"; do
@@ -225,6 +230,12 @@ check_nonempty_file evals/samples/repo-phase-orchestrator-results.sample.json
 if [[ -d "skills/nestjs-sdd-planner" ]]; then
   check_nonempty_file evals/nestjs-sdd-planner-golden-cases.json
   check_nonempty_file evals/samples/nestjs-sdd-planner-results.sample.json
+fi
+
+if [[ -d "skills/rust-sdd-planner" ]]; then
+  check_nonempty_file skills/rust-sdd-planner/assets/spec-output.schema.json
+  check_nonempty_file evals/rust-sdd-planner-golden-cases.json
+  check_nonempty_file evals/samples/rust-sdd-planner-results.sample.json
 fi
 
 echo
@@ -337,6 +348,11 @@ if command -v python3 >/dev/null 2>&1; then
     check_json_file skills/nestjs-sdd-planner/assets/spec-output.schema.json
     check_json_file evals/nestjs-sdd-planner-golden-cases.json
     check_json_file evals/samples/nestjs-sdd-planner-results.sample.json
+  fi
+  if [[ -d "skills/rust-sdd-planner" ]]; then
+    check_json_file skills/rust-sdd-planner/assets/spec-output.schema.json
+    check_json_file evals/rust-sdd-planner-golden-cases.json
+    check_json_file evals/samples/rust-sdd-planner-results.sample.json
   fi
 else
   warn "python3 not found, skipped JSON validation"
