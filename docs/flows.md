@@ -26,6 +26,10 @@ For NestJS repositories with the `nestjs` profile active:
 
 `task-router -> nestjs-sdd-planner -> repo-phase-orchestrator`
 
+For Rust repositories with the `rust` profile active:
+
+`task-router -> rust-sdd-planner -> repo-phase-orchestrator`
+
 ## Bug Fix
 
 Optional NestJS profile flow:
@@ -33,6 +37,12 @@ Optional NestJS profile flow:
 `task-router -> nestjs-bug-fixer -> project-indexer`
 
 Use this when a failing test, regression, runtime error, or incorrect API behavior is already known and the repo still wants the bundled NestJS execution profile.
+
+Optional Rust profile flow:
+
+`task-router -> rust-bug-fixer -> project-indexer`
+
+Use this when a failing test, compiler error, panic, runtime error, or incorrect behavior is already known and the repo wants the bundled Rust execution profile.
 
 ## Code Review
 
@@ -42,6 +52,12 @@ Optional NestJS profile flow:
 
 Use this when the user wants findings without code changes.
 
+Optional Rust profile flow:
+
+`task-router -> rust-code-reviewer`
+
+Use this when the user wants Rust-focused findings without code changes.
+
 ## Refactor
 
 Optional NestJS profile flow:
@@ -49,6 +65,12 @@ Optional NestJS profile flow:
 `task-router -> nestjs-refactor-guardian -> project-indexer`
 
 Use this when work involves moving, renaming, splitting, or restructuring code and the repo wants the bundled NestJS refactor profile.
+
+Optional Rust profile flow:
+
+`task-router -> rust-refactor-guardian -> project-indexer`
+
+Use this when work involves moving, renaming, splitting, or restructuring Rust modules or crates and the repo wants the bundled Rust refactor profile.
 
 ## Large Phased Work
 

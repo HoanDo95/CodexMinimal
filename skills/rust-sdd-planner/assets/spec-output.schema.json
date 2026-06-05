@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "classification",
+    "affectedModules",
+    "openQuestionsOrAssumptions"
+  ],
+  "properties": {
+    "classification": {
+      "type": "string"
+    },
+    "affectedModules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "openQuestionsOrAssumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

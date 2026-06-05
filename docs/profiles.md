@@ -41,6 +41,18 @@ When the active profile is `nestjs`, CodexMinimal may use:
 
 These are optional profile skills, not part of the generic harness contract.
 
+## Rust Profile
+
+When the active profile is `rust`, CodexMinimal may use:
+
+- `rust-sdd-planner`
+- `rust-tdd-builder`
+- `rust-bug-fixer`
+- `rust-code-reviewer`
+- `rust-refactor-guardian`
+
+These are optional profile skills, not part of the generic harness contract.
+
 ## Install Modes
 
 Default install:
@@ -53,6 +65,18 @@ Core plus NestJS profile:
 
 ```bash
 CODEXMINIMAL_INSTALL_PROFILES=nestjs bash install.sh
+```
+
+Core plus Rust profile:
+
+```bash
+CODEXMINIMAL_INSTALL_PROFILES=rust bash install.sh
+```
+
+Core plus NestJS and Rust profiles:
+
+```bash
+CODEXMINIMAL_INSTALL_PROFILES=nestjs,rust bash install.sh
 ```
 
 ## Design Rule

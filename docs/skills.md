@@ -29,6 +29,7 @@ CodexMinimal keeps skills small and explicit.
 ## Profile-Specific Skills
 
 - `nestjs-sdd-planner`: write a concise implementation-ready specification for NestJS repos
+- `rust-sdd-planner`: write a concise implementation-ready specification for Rust repos
 
 ## Optional Or Legacy Execution Profiles
 
@@ -36,6 +37,10 @@ CodexMinimal keeps skills small and explicit.
 - `nestjs-bug-fixer`: reproduce, isolate, fix, and regression-test a specific bug
 - `nestjs-code-reviewer`: inspect code or diffs without editing
 - `nestjs-refactor-guardian`: manage risky structural changes with impact and rollback boundaries
+- `rust-tdd-builder`: implement clear Rust behavior with tests first
+- `rust-bug-fixer`: reproduce, isolate, fix, and regression-test a specific Rust bug
+- `rust-code-reviewer`: inspect Rust code or diffs without editing
+- `rust-refactor-guardian`: manage risky Rust structural changes with impact and rollback boundaries
 
 ## Selection Rule
 
@@ -50,6 +55,9 @@ Add follow-up skills only when the workflow naturally chains into a later step, 
 - `nestjs-sdd-planner -> repo-phase-orchestrator`
 - `nestjs-bug-fixer -> project-indexer`
 - `nestjs-refactor-guardian -> project-indexer`
+- `rust-sdd-planner -> repo-phase-orchestrator`
+- `rust-bug-fixer -> project-indexer`
+- `rust-refactor-guardian -> project-indexer`
 
 ## Deterministic Helpers
 

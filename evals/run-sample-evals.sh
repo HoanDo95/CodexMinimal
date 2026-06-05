@@ -27,6 +27,12 @@ if [[ -f evals/nestjs-sdd-planner-golden-cases.json && -f evals/samples/nestjs-s
     --results evals/samples/nestjs-sdd-planner-results.sample.json
 fi
 
+if [[ -f evals/rust-sdd-planner-golden-cases.json && -f evals/samples/rust-sdd-planner-results.sample.json ]]; then
+  python3 evals/run-golden-evals.py \
+    --cases evals/rust-sdd-planner-golden-cases.json \
+    --results evals/samples/rust-sdd-planner-results.sample.json
+fi
+
 python3 evals/run-golden-evals.py \
   --cases evals/repo-phase-orchestrator-golden-cases.json \
   --results evals/samples/repo-phase-orchestrator-results.sample.json

@@ -12,5 +12,12 @@
       "currentStage": "spec",
       "nextSkill": "nestjs-sdd-planner"
     }
+  },
+  {
+    "name": "approved_rust_direction_moves_to_spec",
+    "actual": {
+      "currentStage": "spec",
+      "nextSkill": "rust-sdd-planner"
+    }
   }
 ]

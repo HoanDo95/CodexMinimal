@@ -47,6 +47,7 @@ bash evals/run-sample-evals.sh
 - run golden cases after changing prompts or templates
 - test against at least one real target repository
 - if you ship the NestJS profile, test against at least one real NestJS repository
+- if you ship the Rust profile, test against at least one real Rust repository or template
 - review failures by category: routing, safety, indexing, planning, or output format
 - keep starter cases small and deterministic so they stay useful as smoke tests
 

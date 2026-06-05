@@ -3,6 +3,7 @@
 Detect:
 - package manager: pnpm-lock.yaml, yarn.lock, package-lock.json
 - NestJS: @nestjs/core, @nestjs/common, nest-cli.json
+- Rust: Cargo.toml, Cargo.lock, src/lib.rs, src/main.rs, src/bin, crates/, rust-toolchain.toml, .cargo/config.toml
 - TypeORM: typeorm package, DataSource, entities, migrations
 - tests: jest config, test folder, npm scripts
 - build/lint: package.json scripts

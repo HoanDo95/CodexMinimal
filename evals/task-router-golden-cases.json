@@ -55,5 +55,17 @@
       "contextBudget": "high",
       "safetyGate": "ask-user"
     }
+  },
+  {
+    "name": "rust_bug_fix",
+    "input": "The Cargo workspace panics when parsing invalid config. Fix it.",
+    "expected": {
+      "classification": "bug-fix",
+      "primarySkill": "rust-bug-fixer",
+      "followUpSkills": ["project-indexer"],
+      "responseMode": "standard",
+      "contextBudget": "medium",
+      "safetyGate": "proceed"
+    }
   }
 ]

@@ -76,6 +76,7 @@ Do not use for:
 14. Detect the active stack profile:
    - default to `generic`
    - promote to `nestjs` only when the repository structure or dependencies clearly support it
+   - promote to `rust` when Cargo manifests, workspace structure, or Rust-specific conventions clearly support it
 15. Update `docs/ai/stack-profile.md` with the active profile, evidence, and allowed profile-specific skills.
 16. Update `docs/ai/rule-registry.md`.
 17. Update `docs/ai/protected-files.md`.

@@ -1,0 +1,20 @@
+[
+  {
+    "name": "workspace_feature_spec",
+    "input": "Plan a Rust workspace feature that adds a library crate API and updates one binary crate consumer.",
+    "expected": {
+      "classification": "planner",
+      "affectedModules": ["library-crate", "binary-crate"],
+      "openQuestionsOrAssumptions": []
+    }
+  },
+  {
+    "name": "panic_to_result_boundary",
+    "input": "Plan a Rust change that replaces panic-based invalid input handling with Result-based error returns across one crate.",
+    "expected": {
+      "classification": "planner",
+      "affectedModules": ["core-crate"],
+      "openQuestionsOrAssumptions": []
+    }
+  }
+]

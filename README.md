@@ -44,6 +44,7 @@ flowchart TB
 
     P1[generic profile] --> P
     P2[nestjs profile] --> P
+    P3[rust profile] --> P
 
     E1[brainstorming] --> E
     E2[subagent-driven-development] --> E
@@ -53,7 +54,7 @@ flowchart TB
 Vai trò của từng lớp:
 
 - `Harness Layer`: route task, giữ rules, tạo spec/plan/tracker, giữ runtime state, cập nhật index
-- `Profile Layer`: thêm rule và skill riêng cho từng stack như `nestjs`
+- `Profile Layer`: thêm rule và skill riêng cho từng stack như `nestjs` hoặc `rust`
 - `Execution Layer`: nhận phase hiện tại và thực thi code thật
 
 ## Modes
@@ -83,6 +84,7 @@ Vai trò của từng lớp:
 |---|---|
 | `generic` | default profile, không áp framework assumption |
 | `nestjs` | bật các skill/spec rule dành riêng cho NestJS |
+| `rust` | bật các skill/spec rule dành riêng cho Rust |
 
 Active profile nên được lưu ở `docs/ai/stack-profile.md`.
 
@@ -145,6 +147,25 @@ flowchart LR
     B --> C[project-indexer]
 ```
 
+### Optional Rust Profiles
+
+```mermaid
+flowchart LR
+    A[task-router] --> B[rust-bug-fixer]
+    B --> C[project-indexer]
+```
+
+```mermaid
+flowchart LR
+    A[task-router] --> B[rust-code-reviewer]
+```
+
+```mermaid
+flowchart LR
+    A[task-router] --> B[rust-refactor-guardian]
+    B --> C[project-indexer]
+```
+
 ## Artifacts
 
 ```mermaid
@@ -189,11 +210,23 @@ Install thêm NestJS profile:
 CODEXMINIMAL_INSTALL_PROFILES=nestjs bash install.sh
 ```
 
+Install thêm Rust profile:
+
+```bash
+CODEXMINIMAL_INSTALL_PROFILES=rust bash install.sh
+```
+
+Install cả NestJS và Rust profiles:
+
+```bash
+CODEXMINIMAL_INSTALL_PROFILES=nestjs,rust bash install.sh
+```
+
 `install.sh`:
 
 - chạy readiness check ở chế độ gọn; chỉ in full log nếu check fail
 - chỉ cài `Core mode`
-- cài profile chỉ khi được yêu cầu, ví dụ `CODEXMINIMAL_INSTALL_PROFILES=nestjs`
+- cài profile chỉ khi được yêu cầu, ví dụ `CODEXMINIMAL_INSTALL_PROFILES=nestjs`, `CODEXMINIMAL_INSTALL_PROFILES=rust`, hoặc `CODEXMINIMAL_INSTALL_PROFILES=nestjs,rust`
 - không overwrite unmanaged skills nếu không có `CODEXMINIMAL_FORCE=1`
 - sẽ báo `Full mode available/unavailable` dựa trên companion skills trong `~/.codex/skills` hoặc plugin cache
 

@@ -50,9 +50,10 @@ Do not use for:
 3. If yes, route to `brainstorming` and stop after design approval.
 4. Route approved design direction to `implementation-spec-writer` by default.
 5. Use `nestjs-sdd-planner` only when the active stack profile is `nestjs` and the repository needs framework-specific spec detail.
-6. After spec approval, route to `repo-phase-orchestrator`.
-7. Stop once a phase plan and tracker exist.
-8. Handoff execution to `subagent-driven-development` or `executing-plans` only after the current phase is ready.
+6. Use `rust-sdd-planner` only when the active stack profile is `rust` and the repository needs Rust-specific spec detail.
+7. After spec approval, route to `repo-phase-orchestrator`.
+8. Stop once a phase plan and tracker exist.
+9. Handoff execution to `subagent-driven-development` or `executing-plans` only after the current phase is ready.
 
 ## Stage Model
 

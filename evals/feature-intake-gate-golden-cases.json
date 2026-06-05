@@ -14,5 +14,13 @@
       "currentStage": "spec",
       "nextSkill": "nestjs-sdd-planner"
     }
+  },
+  {
+    "name": "approved_rust_direction_moves_to_spec",
+    "input": "The direction is approved. Write the Rust spec before planning implementation.",
+    "expected": {
+      "currentStage": "spec",
+      "nextSkill": "rust-sdd-planner"
+    }
   }
 ]

@@ -50,5 +50,16 @@
       "contextBudget": "high",
       "safetyGate": "ask-user"
     }
+  },
+  {
+    "name": "rust_bug_fix",
+    "actual": {
+      "classification": "bug-fix",
+      "primarySkill": "rust-bug-fixer",
+      "followUpSkills": ["project-indexer"],
+      "responseMode": "standard",
+      "contextBudget": "medium",
+      "safetyGate": "proceed"
+    }
   }
 ]

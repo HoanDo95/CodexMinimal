@@ -14,3 +14,4 @@ Recommend follow-up skills only when the workflow naturally chains into a later 
 For new feature work, prefer `feature-intake-gate` before code.
 Use `brainstorming -> implementation-spec-writer -> repo-phase-orchestrator` as the generic expanded internal sequence.
 Use `brainstorming -> nestjs-sdd-planner -> repo-phase-orchestrator` only when the active stack profile is `nestjs` or when the user explicitly wants the NestJS stage.
+Use `brainstorming -> rust-sdd-planner -> repo-phase-orchestrator` only when the active stack profile is `rust` or when the user explicitly wants the Rust stage.

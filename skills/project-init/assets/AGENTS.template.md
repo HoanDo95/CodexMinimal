@@ -89,6 +89,7 @@ Use the smallest suitable skill:
 - `repo-phase-orchestrator`: write the phase plan and tracker, then hand off execution
 - profile-specific skills only after the active stack profile is clear
 - `nestjs-sdd-planner`, `nestjs-bug-fixer`, `nestjs-code-reviewer`, `nestjs-refactor-guardian`, `nestjs-tdd-builder`: optional NestJS profile skills
+- `rust-sdd-planner`, `rust-bug-fixer`, `rust-code-reviewer`, `rust-refactor-guardian`, `rust-tdd-builder`: optional Rust profile skills
 
 Do not use a broader skill when a narrower one is sufficient.
 <!-- CODEXMINIMAL:SKILL_POLICY END -->

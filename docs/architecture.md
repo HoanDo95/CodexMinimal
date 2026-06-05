@@ -50,6 +50,7 @@ When the work naturally spans multiple steps, the router may recommend a follow-
 - `feature-intake-gate -> repo-phase-orchestrator -> external execution -> project-indexer`
 - `implementation-spec-writer -> repo-phase-orchestrator`
 - `nestjs-bug-fixer -> project-indexer`
+- `rust-bug-fixer -> project-indexer`
 
 This keeps individual skills narrow without losing end-to-end workflow support.
 

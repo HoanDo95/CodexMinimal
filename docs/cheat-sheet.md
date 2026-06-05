@@ -20,16 +20,28 @@ Use CodexMinimal flow for this feature request. Start with task-router, route th
 Use task-router for this bug and continue with the smallest suitable bug-fix flow. If the active profile is nestjs and the bug is already well-bounded, you may use nestjs-bug-fixer directly.
 ```
 
+```text
+Use task-router for this bug and continue with the smallest suitable bug-fix flow. If the active profile is rust and the bug is already well-bounded, you may use rust-bug-fixer directly.
+```
+
 ## 4. Review code hoặc diff
 
 ```text
 Use task-router for this review request and continue with the smallest suitable review flow. If the active profile is nestjs and the request is code-review only, you may use nestjs-code-reviewer.
 ```
 
+```text
+Use task-router for this review request and continue with the smallest suitable review flow. If the active profile is rust and the request is code-review only, you may use rust-code-reviewer.
+```
+
 ## 5. Refactor an toàn
 
 ```text
 Use task-router for this refactor request, check protected-file and risk boundaries first, then continue with the safest refactor flow. If the active profile is nestjs and the refactor is structure-heavy, you may use nestjs-refactor-guardian.
+```
+
+```text
+Use task-router for this refactor request, check protected-file and risk boundaries first, then continue with the safest refactor flow. If the active profile is rust and the refactor is structure-heavy, you may use rust-refactor-guardian.
 ```
 
 ## 6. Ghi nhận feedback từ user
@@ -68,5 +80,7 @@ Review this diff. Use CodexMinimal flow.
   `task-router -> feature-intake-gate -> implementation-spec-writer -> repo-phase-orchestrator -> external execution -> project-indexer`
 - NestJS feature:
   `task-router -> feature-intake-gate -> nestjs-sdd-planner -> repo-phase-orchestrator -> external execution -> project-indexer`
+- Rust feature:
+  `task-router -> feature-intake-gate -> rust-sdd-planner -> repo-phase-orchestrator -> external execution -> project-indexer`
 - User-mediated learning:
   `explicit user feedback -> record_feedback_issue.py -> feedback-ledger.json -> promote_feedback_rules.py -> rule-registry.md`

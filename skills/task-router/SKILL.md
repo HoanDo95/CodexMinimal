@@ -66,6 +66,11 @@ Choose exactly one primary skill for the current step:
 - nestjs-bug-fixer
 - nestjs-code-reviewer
 - nestjs-refactor-guardian
+- rust-sdd-planner
+- rust-tdd-builder
+- rust-bug-fixer
+- rust-code-reviewer
+- rust-refactor-guardian
 
 Add follow-up skills only when the workflow naturally chains into a later step, for example:
 
@@ -76,6 +81,9 @@ Add follow-up skills only when the workflow naturally chains into a later step, 
 - `nestjs-sdd-planner -> repo-phase-orchestrator`
 - `nestjs-bug-fixer -> project-indexer`
 - `nestjs-refactor-guardian -> project-indexer`
+- `rust-sdd-planner -> repo-phase-orchestrator`
+- `rust-bug-fixer -> project-indexer`
+- `rust-refactor-guardian -> project-indexer`
 
 ## Pre-Implementation Sequence
 
@@ -96,6 +104,7 @@ Use the underlying stage skills directly only when the user explicitly wants a s
 Use external execution after the phase plan and tracker exist.
 Treat internal execution-oriented skills as optional legacy profiles, not the default cross-stack path.
 Treat `nestjs-*` skills as optional profile skills. Use them only when the active stack profile is `nestjs` or the user explicitly selects them.
+Treat `rust-*` skills as optional profile skills. Use them only when the active stack profile is `rust` or the user explicitly selects them.
 Prefer `implementation-spec-writer` as the generic default spec stage.
 
 ## Repeat-Feedback Policy
