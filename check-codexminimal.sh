@@ -58,6 +58,58 @@ check_json_file() {
   fi
 }
 
+check_markdown_links() {
+  local files=("$@")
+
+  if ! command -v python3 >/dev/null 2>&1; then
+    warn "python3 not found, skipped Markdown link validation"
+    return
+  fi
+
+  if python3 - "${files[@]}" <<'PY'
+import re
+import sys
+from pathlib import Path
+from urllib.parse import unquote
+
+root = Path.cwd()
+missing = []
+pattern = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
+
+for raw_file in sys.argv[1:]:
+    source = Path(raw_file)
+    text = source.read_text(encoding="utf-8")
+    for match in pattern.finditer(text):
+        raw_target = match.group(1).strip()
+        if not raw_target or raw_target.startswith(("#", "http://", "https://", "mailto:")):
+            continue
+        target = raw_target.split("#", 1)[0].strip()
+        if not target:
+            continue
+        if target.startswith("<") and target.endswith(">"):
+            target = target[1:-1]
+        target = unquote(target)
+        path = Path(target)
+        resolved = path if path.is_absolute() else source.parent / path
+        try:
+            resolved.relative_to(root)
+        except ValueError:
+            continue
+        if not resolved.exists():
+            missing.append(f"{source}:{raw_target}")
+
+if missing:
+    for item in missing:
+        print(item)
+    raise SystemExit(1)
+PY
+  then
+    pass "Markdown local links resolve"
+  else
+    fail "Markdown local links contain missing targets"
+  fi
+}
+
 check_skill_line_budget() {
   local file="$1"
   local max_lines="$2"
@@ -300,6 +352,9 @@ DOCS=(
 for file in "${DOCS[@]}"; do
   check_nonempty_file "$file"
 done
+
+MARKDOWN_DOCS=(README.md docs/*.md)
+check_markdown_links "${MARKDOWN_DOCS[@]}"
 
 echo
 echo "== Eval Assets =="

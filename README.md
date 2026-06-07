@@ -2,107 +2,74 @@
 
 Minimal harness layer for Codex CLI.
 
-CodexMinimal không cố trở thành một super-agent. Nó đóng vai trò `harness / orchestrator layer` để:
+CodexMinimal không cố trở thành một super-agent. Nó là lớp điều phối để giúp LLM làm việc có kiểm soát hơn:
 
-- route task
-- giữ rule và project memory
-- giữ user-mediated learning memory cho lỗi lặp lại và feedback lặp lại
-- ép feature đi qua `brainstorm -> spec -> phase plan`
-- quản phase plan, tracker, runtime state
-- refresh index sau khi work hoàn tất
+- route request vào đúng workflow nhỏ nhất
+- giữ durable rules, project memory và runtime state
+- ép feature mới đi qua `brainstorm -> spec -> phase plan`
+- tách stack-specific workflow như `nestjs` và `rust` khỏi core
+- ưu tiên index-first lookup để giảm context scan thừa
+- chạy readiness, install smoke test và eval để tránh skill/profile hỏng âm thầm
 
-## Overview
-
-```mermaid
-flowchart LR
-    U[User Request] --> R[task-router]
-    R --> I[feature-intake-gate]
-    R --> B[project-init]
-    R --> X[project-indexer]
-    I --> S[implementation-spec-writer or profile spec]
-    S --> P[repo-phase-orchestrator]
-    P --> E[External Execution]
-    E --> X
-```
-
-## Harness Layer
-
-`CodexMinimal` không cố làm execution engine. Nó là lớp điều phối để ép LLM đi đúng flow, giữ state, và giảm scan thừa.
+## System Overview
 
 ```mermaid
 flowchart TB
-    U[User Request] --> H[Harness Layer]
-    H --> P[Profile Layer]
-    P --> E[Execution Layer]
+    U[User Query] --> R[task-router]
 
-    H1[task-router] --> H
-    H2[project-init] --> H
-    H3[project-indexer] --> H
-    H4[feature-intake-gate] --> H
-    H5[implementation-spec-writer] --> H
-    H6[repo-phase-orchestrator] --> H
+    R -->|repo setup| PI[project-init]
+    PI --> IDX[project-indexer]
 
-    P1[generic profile] --> P
-    P2[nestjs profile] --> P
-    P3[rust profile] --> P
+    R -->|new or unclear feature| FIG[feature-intake-gate]
+    FIG --> SPEC[implementation-spec-writer or profile spec]
+    SPEC --> PLAN[repo-phase-orchestrator]
+    PLAN --> EXEC[external execution]
+    EXEC --> IDX
 
-    E1[brainstorming] --> E
-    E2[subagent-driven-development] --> E
-    E3[executing-plans] --> E
+    R -->|bug / review / refactor| PROFILE[optional profile skill]
+    PROFILE --> IDX
+
+    IDX --> STATE[docs/ai + docs/codexminimal state]
 ```
 
-Vai trò của từng lớp:
+## Layer Model
 
-- `Harness Layer`: route task, giữ rules, tạo spec/plan/tracker, giữ runtime state, cập nhật index
-- `Profile Layer`: thêm rule và skill riêng cho từng stack như `nestjs` hoặc `rust`
-- `Execution Layer`: nhận phase hiện tại và thực thi code thật
+```mermaid
+flowchart LR
+    Core[Core Harness] --> Generic[generic profile]
+    Core --> Nest[NestJS profile optional]
+    Core --> Rust[Rust profile optional]
+    Core --> Checks[readiness + evals]
+    Core --> CLI[Codex CLI opt-in tooling]
 
-## Modes
-
-| Mode | What you get | Best for |
-|---|---|---|
-| `Core` | CodexMinimal harness only | user muốn control layer chung, dễ custom |
-| `Full` | `Core` + companion skills + active stack profile | user muốn flow đầy đủ ngay |
-| `Custom` | `Core` + stage/execution skills/profile riêng | team chuyên sâu, multi-stack |
-
-`install.sh` mặc định chỉ cài `Core`.
-
-## Core Skills
-
-| Skill | Vai trò |
-|---|---|
-| `task-router` | route request, mode, budget, safety gate |
-| `feature-intake-gate` | ép feature intake qua đúng stage |
-| `implementation-spec-writer` | viết spec generic trước khi phase planning |
-| `project-init` | sync `AGENTS.md`, `docs/ai`, `docs/codexminimal` |
-| `project-indexer` | build / repair `docs/ai` indexes |
-| `repo-phase-orchestrator` | viết phase plan, tracker, runtime state |
-
-`check-codexminimal.sh` enforces compact skill entrypoints: core skills must stay at or below 200 lines, and optional profile skills must stay at or below 120 lines.
-
-## Profiles
+    Nest --> NS[nestjs-sdd / tdd / bug / review / refactor]
+    Rust --> RS[rust-sdd / tdd / bug / review / refactor]
+```
 
 | Layer | Vai trò |
 |---|---|
-| `generic` | default profile, không áp framework assumption |
-| `nestjs` | bật các skill/spec rule dành riêng cho NestJS |
-| `rust` | bật các skill/spec rule dành riêng cho Rust |
+| `Core Harness` | route task, giữ rules, tạo spec/plan/tracker, cập nhật index |
+| `Profile Layer` | thêm rule và skill riêng cho stack như `nestjs` hoặc `rust` |
+| `Execution Layer` | thực thi code thật bằng Codex agent, Superpowers skill hoặc flow riêng của team |
 
-Active profile nên được lưu ở `docs/ai/stack-profile.md`.
+Core mặc định không assume repo là NestJS hay Rust. Active profile nên được ghi ở `docs/ai/stack-profile.md`.
 
-## Companion Skills
+## Core Skills
 
-| Skill | Vai trò |
+| Skill | Dùng để làm gì |
 |---|---|
-| `brainstorming` | clarify intent, constraints, direction |
-| `subagent-driven-development` | execution path mặc định sau phase plan |
-| `executing-plans` | fallback execution path |
+| `task-router` | phân loại request, chọn workflow, model/effort, context budget và safety gate |
+| `feature-intake-gate` | chặn feature mơ hồ đi thẳng vào code |
+| `implementation-spec-writer` | viết spec generic trước khi lập phase plan |
+| `project-init` | bootstrap hoặc sync `AGENTS.md`, `docs/ai`, `docs/codexminimal` |
+| `project-indexer` | tạo/cập nhật index để LLM không scan repo rộng |
+| `repo-phase-orchestrator` | tạo phase plan, tracker và runtime state |
 
-Các skill này là `recommended`, không được cài bởi `install.sh`.
+`check-codexminimal.sh` enforce skill entrypoint nhỏ: core skills tối đa 200 dòng, optional profile skills tối đa 120 dòng. Policy dài nên nằm trong `references/`.
 
-## Flow
+## Main Flows
 
-### Bootstrap
+### Bootstrap Repo
 
 ```mermaid
 flowchart LR
@@ -110,91 +77,75 @@ flowchart LR
     B --> C[project-indexer]
 ```
 
-### Feature: Core Mode
+Dùng khi repo chưa có `AGENTS.md`, `docs/ai`, `docs/codexminimal` hoặc các file này đã stale.
 
-```mermaid
-flowchart LR
-    A[task-router] --> B[feature-intake-gate]
-    B --> C[repo-phase-orchestrator]
-```
-
-### Feature: Full Mode
+### New Feature
 
 ```mermaid
 flowchart LR
     A[task-router] --> B[feature-intake-gate]
     B --> C[brainstorming]
-    C --> D[implementation-spec-writer or profile-specific spec writer]
+    C --> D[implementation-spec-writer or profile spec]
     D --> E[repo-phase-orchestrator]
     E --> F[external execution]
     F --> G[project-indexer]
 ```
 
-### Optional NestJS Profiles
+Dùng khi requirement mới, chưa rõ, hoặc thay đổi behavior. Mục tiêu là không để LLM code khi chưa có direction/spec/phase boundary.
+
+### Bug Fix
 
 ```mermaid
 flowchart LR
-    A[task-router] --> B[nestjs-bug-fixer]
-    B --> C[project-indexer]
+    A[task-router] --> B{active profile?}
+    B -->|nestjs| C[nestjs-bug-fixer]
+    B -->|rust| D[rust-bug-fixer]
+    B -->|generic| E[normal debug / execution path]
+    C --> F[project-indexer]
+    D --> F
+    E --> F
 ```
+
+Dùng khi đã có failing test, runtime error, compiler error, panic, regression hoặc behavior sai rõ ràng.
+
+### Code Review
 
 ```mermaid
 flowchart LR
-    A[task-router] --> B[nestjs-code-reviewer]
+    A[task-router] --> B{review surface}
+    B -->|profile-aware review| C[nestjs-code-reviewer or rust-code-reviewer]
+    B -->|independent CLI pass| D[safe_codex_review.sh]
+    D --> E[codex review]
 ```
+
+Dùng khi cần findings-only hoặc muốn thêm một lượt review độc lập trước khi merge/push.
+
+### Refactor
 
 ```mermaid
 flowchart LR
-    A[task-router] --> B[nestjs-refactor-guardian]
-    B --> C[project-indexer]
+    A[task-router] --> B{active profile?}
+    B -->|nestjs| C[nestjs-refactor-guardian]
+    B -->|rust| D[rust-refactor-guardian]
+    C --> E[project-indexer]
+    D --> E
 ```
 
-### Optional Rust Profiles
+Dùng khi move/rename/split module, đổi folder structure hoặc chạm vào boundary dễ gây regression.
 
-```mermaid
-flowchart LR
-    A[task-router] --> B[rust-bug-fixer]
-    B --> C[project-indexer]
-```
+## Profiles
 
-```mermaid
-flowchart LR
-    A[task-router] --> B[rust-code-reviewer]
-```
+| Profile | Khi nào dùng | Skills |
+|---|---|---|
+| `generic` | default, không áp framework assumption | core skills |
+| `nestjs` | repo NestJS hoặc user chọn NestJS | `nestjs-sdd-planner`, `nestjs-tdd-builder`, `nestjs-bug-fixer`, `nestjs-code-reviewer`, `nestjs-refactor-guardian` |
+| `rust` | repo Rust hoặc user chọn Rust | `rust-sdd-planner`, `rust-tdd-builder`, `rust-bug-fixer`, `rust-code-reviewer`, `rust-refactor-guardian` |
 
-```mermaid
-flowchart LR
-    A[task-router] --> B[rust-refactor-guardian]
-    B --> C[project-indexer]
-```
+Design rule:
 
-## Artifacts
-
-```mermaid
-flowchart TD
-    A[brainstorming] --> B[docs/codexminimal/designs/...-design.md]
-    C[implementation-spec-writer or profile spec] --> D[docs/codexminimal/specs/...-spec.md]
-    E[repo-phase-orchestrator] --> F[docs/codexminimal/plans/...-phase-plan.md]
-    E --> G[docs/codexminimal/trackers/...-tracker.md]
-    E --> H[docs/codexminimal/current-work.json]
-    E --> I[docs/codexminimal/artifact-registry.json]
-    E --> J[docs/codexminimal/telemetry.json]
-    E --> K[docs/codexminimal/feedback-ledger.json]
-```
-
-## Helper Layer
-
-Bundled helper path hiện tại:
-
-- `project-init/scripts/sync_agents_blocks.py`
-- `project-init/scripts/bootstrap_docs_ai.py`
-- `project-init/scripts/bootstrap_harness_runtime.py`
-- `project-init/scripts/record_feedback_issue.py`
-- `project-init/scripts/promote_feedback_rules.py`
-- `project-indexer/scripts/validate_context_map.py`
-- `project-indexer/scripts/render_index_stubs.py`
-
-Root-level `scripts/` vẫn có trong source repo để local verification và maintainer workflows.
+- profile chỉ bật từ repo evidence rõ hoặc user chỉ định
+- stack-specific rules không nhồi vào generic `AGENTS.md`
+- `nestjs` và `rust` có thể cài riêng hoặc cùng lúc
 
 ## Install
 
@@ -206,33 +157,22 @@ bash evals/run-sample-evals.sh
 bash install.sh
 ```
 
-Install thêm NestJS profile:
+Cài thêm profile:
 
 ```bash
 CODEXMINIMAL_INSTALL_PROFILES=nestjs bash install.sh
-```
-
-Install thêm Rust profile:
-
-```bash
 CODEXMINIMAL_INSTALL_PROFILES=rust bash install.sh
-```
-
-Install cả NestJS và Rust profiles:
-
-```bash
 CODEXMINIMAL_INSTALL_PROFILES=nestjs,rust bash install.sh
 ```
 
 `install.sh`:
 
-- chạy readiness check ở chế độ gọn; chỉ in full log nếu check fail
-- chỉ cài `Core mode`
-- cài profile chỉ khi được yêu cầu, ví dụ `CODEXMINIMAL_INSTALL_PROFILES=nestjs`, `CODEXMINIMAL_INSTALL_PROFILES=rust`, hoặc `CODEXMINIMAL_INSTALL_PROFILES=nestjs,rust`
+- mặc định chỉ cài core
+- cài profile chỉ khi có `CODEXMINIMAL_INSTALL_PROFILES`
 - không overwrite unmanaged skills nếu không có `CODEXMINIMAL_FORCE=1`
-- sẽ báo `Full mode available/unavailable` dựa trên companion skills trong `~/.codex/skills` hoặc plugin cache
+- chạy readiness check gọn trước khi install, trừ khi `CODEXMINIMAL_SKIP_READINESS=1`
 
-## Quick Start
+## Quick Start In Target Repo
 
 Trong repo đích:
 
@@ -240,22 +180,20 @@ Trong repo đích:
 cd /path/to/your-target-repo
 ```
 
-Prompt đầu tiên:
+Prompt bootstrap:
 
 ```text
 Use task-router for this repository bootstrap request, then continue the standard bootstrap flow.
 ```
 
-Sau bootstrap, bạn sẽ có:
+Sau bootstrap, repo đích sẽ có:
 
 - `AGENTS.md`
 - `docs/ai/`
 - `docs/ai/stack-profile.md`
 - `docs/codexminimal/`
 
-Prompt mẫu hằng ngày:
-
-- [Cheat Sheet](docs/cheat-sheet.md)
+Prompt mẫu hằng ngày nằm ở [docs/cheat-sheet.md](docs/cheat-sheet.md).
 
 ## Runtime State
 
@@ -266,32 +204,77 @@ flowchart LR
     C --- D[phase tracker]
 ```
 
-Ba file này giúp harness:
+Các file runtime giúp harness:
 
 - biết artifact nào đang active
-- chặn flow khi plan/tracker stale
-- ghi lại phase handoff và verification
+- phát hiện plan/tracker stale
+- ghi lại phase handoff và verification outcome
+- tạo nền để đo workflow có giảm exploration waste hay không
+
+## Verification
+
+```bash
+bash check-codexminimal.sh
+bash evals/run-sample-evals.sh
+```
+
+Readiness hiện kiểm tra:
+
+- root files, scripts, JSON/schema
+- skill frontmatter và required sections
+- line budget cho core/profile skills
+- helper scripts và template sync
+- install smoke test cho `core`, `nestjs`, `rust`, `nestjs,rust`
+
+## Codex CLI Usage
+
+Codex CLI được dùng như optional automation, không thay thế skill routing mặc định.
+
+| Surface | Dùng để làm gì | Policy |
+|---|---|---|
+| `codex exec --json` | LLM eval có schema, regression capture cho router/planner | opt-in bằng `CODEXMINIMAL_RUN_LLM_EVALS=1` |
+| `codex review` | independent code-review pass cho diff/commit/branch | dùng `scripts/safe_codex_review.sh`, yêu cầu explicit approval |
+| `codex doctor --json` | debug môi trường, auth, model, CLI behavior | không chạy trong default readiness |
+
+Opt-in LLM eval:
+
+```bash
+CODEXMINIMAL_RUN_LLM_EVALS=1 python3 scripts/run_codex_exec_evals.py \
+  --cases evals/task-router-golden-cases.json \
+  --schema skills/task-router/assets/router-output.schema.json \
+  --output evals/results/task-router-codex-exec-results.json
+```
+
+Guarded review:
+
+```bash
+CODEXMINIMAL_ALLOW_EXTERNAL_REVIEW=1 scripts/safe_codex_review.sh --commit <sha>
+```
 
 ## Status
 
 `Current state: local-ready beta`
 
-- local checks: pass
-- sample evals: pass
-- real-repo trials: chưa phải phần bundle mặc định
+- core harness: ready for local use
+- NestJS profile: bundled optional profile
+- Rust profile: bundled optional profile
+- readiness + sample evals: available
+- real-repo dogfood and deeper token/context metrics: intentionally pending
 
-## Docs
+## Documentation
 
 - [Setup](docs/setup.md)
 - [Cheat Sheet](docs/cheat-sheet.md)
 - [Architecture](docs/architecture.md)
 - [Skills](docs/skills.md)
-- [Model Routing](docs/model-routing.md)
-- [Model Compatibility](docs/model-compatibility.md)
 - [Profiles](docs/profiles.md)
 - [Flows](docs/flows.md)
 - [Artifacts](docs/artifacts.md)
 - [Harness State](docs/harness-state.md)
-- [Benchmark](docs/benchmark.md)
+- [Codex CLI Playbook](docs/codex-cli-playbook.md)
+- [Review Policy](docs/review-policy.md)
 - [Evals](docs/evals.md)
+- [Benchmark](docs/benchmark.md)
+- [Model Routing](docs/model-routing.md)
+- [Model Compatibility](docs/model-compatibility.md)
 - [Release Readiness](docs/release-readiness-plan.md)
