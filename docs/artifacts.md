@@ -6,7 +6,7 @@ CodexMinimal currently separates artifacts by stage.
 
 Written by external `brainstorming`:
 
-- `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`
+- `docs/codexminimal/designs/YYYY-MM-DD-<topic>-design.md`
 
 ## Implementation Spec
 

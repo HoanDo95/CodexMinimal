@@ -172,7 +172,7 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-    A[brainstorming] --> B[docs/superpowers/specs/...-design.md]
+    A[brainstorming] --> B[docs/codexminimal/designs/...-design.md]
     C[implementation-spec-writer or profile spec] --> D[docs/codexminimal/specs/...-spec.md]
     E[repo-phase-orchestrator] --> F[docs/codexminimal/plans/...-phase-plan.md]
     E --> G[docs/codexminimal/trackers/...-tracker.md]
