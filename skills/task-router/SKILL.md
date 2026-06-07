@@ -50,6 +50,8 @@ Classify as one of:
 - refactor
 - orchestrator
 
+See `references/classification-rules.md` for detailed classification and follow-up-chain rules.
+
 ## Skill Routing
 
 Choose exactly one primary skill for the current step:
@@ -107,77 +109,6 @@ Treat `nestjs-*` skills as optional profile skills. Use them only when the activ
 Treat `rust-*` skills as optional profile skills. Use them only when the active stack profile is `rust` or the user explicitly selects them.
 Prefer `implementation-spec-writer` as the generic default spec stage.
 
-## Repeat-Feedback Policy
-
-If `docs/codexminimal/feedback-ledger.json` exists:
-
-- read it before routing non-trivial work
-- treat `status: promoted` entries as user-confirmed durable non-regression rules
-- treat `status: watch` entries as user-confirmed repeat-risk warnings that deserve extra scrutiny
-- do not reintroduce promoted issues unless the user explicitly changes the rule
-
-## Model Routing
-
-Use:
-
-- `gpt-5.5 medium` for planning, architecture, normal coding, debugging, review, and orchestration.
-- `gpt-5.5 high` for multi-module changes, risky refactor, failing tests with unclear cause, database/env/deployment work, or protected boundaries.
-- `gpt-5.4 medium` for everyday coding, focused implementation, and normal fix-test loops when the task is clear and does not need frontier-level reasoning.
-- `gpt-5.4-mini low` for bounded scan, quick summarization, or simple risk analysis.
-- Do not recommend `gpt-5.3-codex`; treat it as a stale migration alias, not an active routing target.
-
-Do not recommend high effort unless risk justifies it.
-
-## Response Mode
-
-Recommend one response mode:
-
-- `compact`: shortest useful answer, minimal explanation, best when speed matters
-- `standard`: normal detail, default for most work
-
-Use `compact` when:
-
-- the user prioritizes speed
-- the task is repetitive or operational
-- the answer should minimize token usage
-
-Use `standard` when:
-
-- risk is higher
-- the task spans multiple modules
-- the user needs rationale or explicit tradeoffs
-
-## Safety Gates
-
-Require user confirmation before execution if the task:
-
-- touches protected files
-- changes folder structure
-- changes architecture boundaries
-- affects env/deployment/database
-- modifies CI/CD
-- changes public API contracts
-- may break runtime behavior
-- spans multiple modules
-- requires long fix-test-loop
-- requires expensive model/effort escalation
-
-## Action Risk Matrix
-
-Classify the highest-risk action implied by the task:
-
-- `low`: read-only analysis, summaries, local search, non-destructive inspection
-- `medium`: normal local code edits, focused tests, index or docs updates
-- `high`: protected-file edits, networked actions, database or migration work, commits, wide refactors, long-running fix loops
-- `critical`: destructive shell actions, irreversible data changes, force pushes, production-impacting runtime or deploy changes
-
-Routing rule:
-
-- `low` usually maps to `proceed`
-- `medium` usually maps to `proceed` unless another safety gate triggers
-- `high` usually maps to `ask-user`
-- `critical` maps to `blocked` until explicit approval and scope confirmation exist
-
 ## Required Reads
 
 If available, read:
@@ -192,37 +123,16 @@ If available, read:
 
 Do not scan the whole repository.
 
-## Context Budget
+## Reference Policies
 
-Set one context budget before broad exploration:
+Use these references when the corresponding output field is needed:
 
-- `low`: index-first plus up to 5 files
-- `medium`: index-first plus up to 12 files
-- `high`: use only when justified by risk, ambiguity, or multi-module scope
-
-Budget rules:
-
-- start with the lowest budget that can answer the task
-- if the budget is exhausted and confidence is still low, reroute or ask the user
-- do not continue scanning by inertia
-- do not broad-scan the repository under `low`
-
-## Auto-Compact
-
-For long sessions, compact by trigger and workflow state rather than by a fixed threshold alone.
-
-Compact when:
-
-- `low` or `medium` budget is close to exhaustion
-- exploration is done and only execution context needs to remain
-- repeated long turns do not open new technical surface
-
-Compact rules:
-
-- keep active task, constraints, touched files, unresolved risks, and next action
-- drop stale branches and repeated recaps
-- preserve unresolved user decisions and protected-file constraints
-- a heuristic such as `60%` context usage may help, but it should not be the sole trigger
+- `references/model-routing.md`
+- `references/response-mode.md`
+- `references/safety-gates.md`
+- `references/context-budget.md`
+- `references/auto-compact.md`
+- `references/repeat-feedback-policy.md`
 
 ## Output Format
 

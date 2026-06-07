@@ -50,31 +50,9 @@ Do not use for:
 
 ## Modes
 
-### full
-
-Use when:
-
-- indexes are missing
-- project was just initialized
-- context-map version is outdated
-- repository structure is unknown
-
-### incremental
-
-Use when:
-
-- changed files are known
-- git diff is available
-- only specific modules/routes/entities/tests changed
-
-### repair
-
-Use when:
-
-- index files exist but are malformed
-- context-map is invalid JSON
-- required sections are missing
-- index conflicts with source code
+- `full`: indexes are missing, project was just initialized, context-map version is outdated, or repository structure is unknown
+- `incremental`: changed files are known, git diff is available, or only specific modules/routes/entities/tests changed
+- `repair`: index files exist but are malformed, context-map is invalid JSON, required sections are missing, or index conflicts with source code
 
 ## Required Reads
 
@@ -94,64 +72,17 @@ Do not start with whole-repository search unless indexes are missing or full mod
 
 ## Discovery Targets
 
-Detect and map:
+See `references/discovery-targets.md`.
 
-- package manager
-- framework
-- scripts
-- source modules or packages
-- handlers, controllers, or route owners when present
-- services or use-case layers when present
-- repositories or data access layers when present
-- entities, schemas, or models when present
-- contracts, DTOs, or request/response shapes when present
-- routes, commands, or entry surfaces when present
-- unit, integration, and e2e tests when present
-- config/env/deploy touchpoints
-- protected paths/categories
+## Context Map And Output Rules
 
-## Context Map v2
+Write `docs/ai/context-map.json` using schema version 2.
 
-Write `docs/ai/context-map.json` using schema version 2:
+See:
 
-```json
-{
-  "version": 2,
-  "project": {
-    "name": null,
-    "packageManager": null,
-    "framework": null,
-    "stackProfile": "generic",
-    "language": "typescript",
-    "testCommand": null,
-    "lintCommand": null,
-    "buildCommand": null
-  },
-  "modules": {},
-  "controllers": {},
-  "services": {},
-  "repositories": {},
-  "entities": {},
-  "dtos": {},
-  "routes": {},
-  "surfaces": {},
-  "tests": {},
-  "scripts": {},
-  "protectedPaths": {
-    "critical": [],
-    "sensitive": [],
-    "integration": []
-  }
-}
-```
-
-## Index Output Rules
-
-- keep indexes concise and navigational
-- prefer file paths, module names, route summaries, and cross-links over pasted source
-- keep top-level `context-map.json` keys stable
-- preserve valid JSON at all times
-- if source contradicts an index, trust source and repair the index
+- `references/context-map-schema.md`
+- `references/index-format.md`
+- `references/search-strategy.md`
 
 ## Workflow
 

@@ -11,6 +11,7 @@ Schema:
     "name": null,
     "packageManager": null,
     "framework": null,
+    "stackProfile": "generic",
     "language": "typescript",
     "testCommand": null,
     "lintCommand": null,
@@ -23,6 +24,7 @@ Schema:
   "entities": {},
   "dtos": {},
   "routes": {},
+  "surfaces": {},
   "tests": {},
   "scripts": {},
   "protectedPaths": {

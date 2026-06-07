@@ -24,6 +24,16 @@ In practice, evals in this repository serve two roles:
 3. workflow traces from real repositories
 4. graders or dataset-based evals when behavior stabilizes
 
+## Codex Exec Automation
+
+For future automation, prefer `codex exec` with JSON output and a schema file over freeform text capture:
+
+```bash
+codex exec --json --output-schema skills/task-router/assets/router-output.schema.json <prompt>
+```
+
+Use this only after validating the exact output contract for the target workflow. The current bundled evals remain deterministic sample fixtures.
+
 ## Starter Assets
 
 See the `evals/` folder for golden cases that can be used as a starting point for manual or automated checks.

@@ -32,6 +32,20 @@ If you keep this repository in another local path, run the same command from tha
 bash check-codexminimal.sh
 ```
 
+Validate the local Codex CLI environment when setup or auth behavior is unclear:
+
+```bash
+codex doctor --json
+```
+
+Use Codex's non-interactive review before push or release when a local diff should get an independent pass:
+
+```bash
+codex review --uncommitted
+codex review --base main
+codex review --commit <sha>
+```
+
 When bootstrapping a target repository, `project-init` should create:
 
 - `AGENTS.md`

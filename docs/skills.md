@@ -2,6 +2,17 @@
 
 CodexMinimal keeps skills small and explicit.
 
+## Size Budget
+
+Keep `SKILL.md` files compact:
+
+- core skills should stay under 200 lines
+- profile skills should stay under 120 lines
+- long policy, matrices, checklists, and heuristics belong in `references/*.md`
+- schemas, templates, and sample artifacts belong in `assets/`
+
+This is a guideline, not a hard readiness gate. Use `references/` first before adding more policy text to a skill entrypoint.
+
 ## Routing
 
 - `task-router`: classify the request, select a primary skill, recommend model and effort, decide whether a follow-up skill chain is needed, trigger safety gates, assign response mode plus context budget, and read repeat-feedback constraints before broader exploration
@@ -69,3 +80,15 @@ Add follow-up skills only when the workflow naturally chains into a later step, 
 - `scripts/validate_context_map.py`: validate `context-map.json` structure
 - `scripts/validate_harness_runtime.py`: validate `current-work.json`, `artifact-registry.json`, `telemetry.json`, and `feedback-ledger.json`
 - `scripts/render_index_stubs.py`: render missing docs/ai index stubs from templates
+
+## Codex CLI Surfaces
+
+Use local Codex CLI surfaces when they provide stronger automation than prompt-only workflow:
+
+- `codex review --uncommitted`: review staged, unstaged, and untracked local changes
+- `codex review --base <branch>`: review the current branch against a base branch
+- `codex review --commit <sha>`: review a single committed change
+- `codex doctor --json`: capture redacted machine-readable environment diagnostics
+- `codex exec --json --output-schema <file>`: run schema-shaped non-interactive workflows for future eval or router automation
+
+These are documented as usage surfaces in this pilot. Do not make existing skills depend on them until a separate integration pass has verified the exact runtime contract.
