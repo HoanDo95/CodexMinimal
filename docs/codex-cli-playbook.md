@@ -31,6 +31,7 @@ Best fit:
 
 Do not use it as the only verification. Run deterministic checks first.
 For private or unpublished diffs, treat `codex review` as a possible external data export and require explicit approval or an approved local policy before running it.
+See `docs/review-policy.md` and prefer `scripts/safe_codex_review.sh` for guarded usage.
 
 ## Use `codex doctor --json`
 
@@ -57,3 +58,4 @@ Best fit:
 - machine-readable workflow experiments
 
 Do not wire skills to `codex exec` until the exact runtime contract has been verified in a separate integration pass.
+For opt-in LLM evals, use `scripts/run_codex_exec_evals.py` with `CODEXMINIMAL_RUN_LLM_EVALS=1`.

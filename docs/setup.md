@@ -47,6 +47,7 @@ codex review --commit <sha>
 ```
 
 See `docs/codex-cli-playbook.md` for when to use review, diagnostics, or non-interactive JSON execution.
+See `docs/review-policy.md` before running external review on private or unpublished diffs.
 
 When bootstrapping a target repository, `project-init` should create:
 

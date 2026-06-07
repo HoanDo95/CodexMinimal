@@ -290,6 +290,7 @@ DOCS=(
   docs/rule-registry.md
   docs/evals.md
   docs/codex-cli-playbook.md
+  docs/review-policy.md
   docs/benchmark.md
   docs/artifacts.md
   docs/harness-state.md
@@ -337,6 +338,7 @@ SCRIPTS=(
   install.sh
   uninstall.sh
   release.sh
+  scripts/safe_codex_review.sh
   check-codexminimal.sh
   evals/run-sample-evals.sh
 )
@@ -366,6 +368,7 @@ PY_SCRIPTS=(
   scripts/record_feedback_issue.py
   scripts/promote_feedback_rules.py
   scripts/render_index_stubs.py
+  scripts/run_codex_exec_evals.py
   evals/run-golden-evals.py
 )
 

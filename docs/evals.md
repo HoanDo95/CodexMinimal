@@ -34,6 +34,17 @@ codex exec --json --output-schema skills/task-router/assets/router-output.schema
 
 Use this only after validating the exact output contract for the target workflow. The current bundled evals remain deterministic sample fixtures.
 
+To run opt-in LLM evals through Codex CLI:
+
+```bash
+CODEXMINIMAL_RUN_LLM_EVALS=1 python3 scripts/run_codex_exec_evals.py \
+  --cases evals/task-router-golden-cases.json \
+  --schema skills/task-router/assets/router-output.schema.json \
+  --output evals/results/task-router-codex-exec-results.json
+```
+
+Without `CODEXMINIMAL_RUN_LLM_EVALS=1`, the script refuses to call Codex.
+
 ## Starter Assets
 
 See the `evals/` folder for golden cases that can be used as a starting point for manual or automated checks.
