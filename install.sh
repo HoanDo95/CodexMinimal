@@ -72,7 +72,7 @@ companion_skill_present() {
   return 1
 }
 
-if [[ -x "$ROOT_DIR/check-codexminimal.sh" ]]; then
+if [[ -x "$ROOT_DIR/check-codexminimal.sh" && "${CODEXMINIMAL_SKIP_READINESS:-0}" != "1" ]]; then
   echo "Checking local readiness..."
   if "$ROOT_DIR/check-codexminimal.sh" >"$READINESS_LOG" 2>&1; then
     echo "Readiness check: pass"

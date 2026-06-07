@@ -11,7 +11,7 @@ Keep `SKILL.md` files compact:
 - long policy, matrices, checklists, and heuristics belong in `references/*.md`
 - schemas, templates, and sample artifacts belong in `assets/`
 
-This is a guideline, not a hard readiness gate. Use `references/` first before adding more policy text to a skill entrypoint.
+This is a hard readiness gate enforced by `check-codexminimal.sh`. Use `references/` first before adding more policy text to a skill entrypoint.
 
 ## Routing
 
@@ -92,3 +92,5 @@ Use local Codex CLI surfaces when they provide stronger automation than prompt-o
 - `codex exec --json --output-schema <file>`: run schema-shaped non-interactive workflows for future eval or router automation
 
 These are documented as usage surfaces in this pilot. Do not make existing skills depend on them until a separate integration pass has verified the exact runtime contract.
+
+See `docs/codex-cli-playbook.md` for the operating playbook.

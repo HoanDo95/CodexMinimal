@@ -46,6 +46,8 @@ codex review --base main
 codex review --commit <sha>
 ```
 
+See `docs/codex-cli-playbook.md` for when to use review, diagnostics, or non-interactive JSON execution.
+
 When bootstrapping a target repository, `project-init` should create:
 
 - `AGENTS.md`

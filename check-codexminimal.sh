@@ -3,6 +3,8 @@ set -euo pipefail
 
 FAILED=0
 WARNED=0
+CORE_SKILL_LINE_LIMIT=200
+PROFILE_SKILL_LINE_LIMIT=120
 
 pass() { echo "✅ PASS: $1"; }
 warn() { echo "⚠️  WARN: $1"; WARNED=1; }
@@ -56,6 +58,25 @@ check_json_file() {
   fi
 }
 
+check_skill_line_budget() {
+  local file="$1"
+  local max_lines="$2"
+  local label="$3"
+
+  if [[ ! -f "$file" ]]; then
+    fail "$file missing for line-budget check"
+    return
+  fi
+
+  local line_count
+  line_count="$(wc -l < "$file" | tr -d ' ')"
+  if [[ "$line_count" -le "$max_lines" ]]; then
+    pass "$file has $line_count lines within $label budget ($max_lines)"
+  else
+    fail "$file has $line_count lines, exceeds $label budget ($max_lines)"
+  fi
+}
+
 check_skill_frontmatter_yaml() {
   local file="$1"
 
@@ -96,6 +117,55 @@ PY
   fi
 }
 
+run_install_smoke() {
+  local label="$1"
+  local profiles="$2"
+  shift 2
+
+  local tmp_home
+  local log_file
+  tmp_home="$(mktemp -d "/tmp/codexminimal-install-${label}-XXXXXX")"
+  log_file="$tmp_home/install.log"
+
+  if CODEX_HOME="$tmp_home/.codex" \
+      CODEXMINIMAL_INSTALL_PROFILES="$profiles" \
+      CODEXMINIMAL_SKIP_READINESS=1 \
+      bash install.sh >"$log_file" 2>&1; then
+    pass "install smoke passes for $label"
+  else
+    cat "$log_file"
+    fail "install smoke failed for $label"
+    rm -rf "$tmp_home"
+    return
+  fi
+
+  local skill
+  for skill in "${CORE_SKILLS[@]}"; do
+    if [[ -f "$tmp_home/.codex/skills/$skill/SKILL.md" ]]; then
+      pass "$label install includes core skill $skill"
+    else
+      fail "$label install missing core skill $skill"
+    fi
+  done
+
+  for skill in "$@"; do
+    if [[ -f "$tmp_home/.codex/skills/$skill/SKILL.md" ]]; then
+      pass "$label install includes profile skill $skill"
+    else
+      fail "$label install missing profile skill $skill"
+    fi
+  done
+
+  local expected_profile_skills=" $* "
+  for skill in "${OPTIONAL_SKILLS[@]}"; do
+    if [[ "$expected_profile_skills" != *" $skill "* && -e "$tmp_home/.codex/skills/$skill" ]]; then
+      fail "$label install unexpectedly includes profile skill $skill"
+    fi
+  done
+
+  rm -rf "$tmp_home"
+}
+
 echo "== CodexMinimal Local Readiness Check =="
 
 echo
@@ -132,17 +202,25 @@ done
 echo
 echo "== Optional profile skills =="
 
-OPTIONAL_SKILLS=(
+NESTJS_PROFILE_SKILLS=(
   nestjs-sdd-planner
   nestjs-tdd-builder
   nestjs-bug-fixer
   nestjs-code-reviewer
   nestjs-refactor-guardian
+)
+
+RUST_PROFILE_SKILLS=(
   rust-sdd-planner
   rust-tdd-builder
   rust-bug-fixer
   rust-code-reviewer
   rust-refactor-guardian
+)
+
+OPTIONAL_SKILLS=(
+  "${NESTJS_PROFILE_SKILLS[@]}"
+  "${RUST_PROFILE_SKILLS[@]}"
 )
 
 for skill in "${OPTIONAL_SKILLS[@]}"; do
@@ -157,6 +235,19 @@ for skill in "${OPTIONAL_SKILLS[@]}"; do
     check_contains "skills/$skill/SKILL.md" "## Output Format"
   else
     warn "optional profile skill not present: skills/$skill"
+  fi
+done
+
+echo
+echo "== Skill Size Budget =="
+
+for skill in "${CORE_SKILLS[@]}"; do
+  check_skill_line_budget "skills/$skill/SKILL.md" "$CORE_SKILL_LINE_LIMIT" "core"
+done
+
+for skill in "${OPTIONAL_SKILLS[@]}"; do
+  if [[ -d "skills/$skill" ]]; then
+    check_skill_line_budget "skills/$skill/SKILL.md" "$PROFILE_SKILL_LINE_LIMIT" "profile"
   fi
 done
 
@@ -198,6 +289,7 @@ DOCS=(
   docs/indexing.md
   docs/rule-registry.md
   docs/evals.md
+  docs/codex-cli-playbook.md
   docs/benchmark.md
   docs/artifacts.md
   docs/harness-state.md
@@ -458,6 +550,14 @@ for pair in "${SYNC_PAIRS[@]}"; do
     fail "$left differs from $right"
   fi
 done
+
+echo
+echo "== Install Smoke Tests =="
+
+run_install_smoke "core" ""
+run_install_smoke "nestjs" "nestjs" "${NESTJS_PROFILE_SKILLS[@]}"
+run_install_smoke "rust" "rust" "${RUST_PROFILE_SKILLS[@]}"
+run_install_smoke "nestjs-rust" "nestjs,rust" "${NESTJS_PROFILE_SKILLS[@]}" "${RUST_PROFILE_SKILLS[@]}"
 
 echo
 echo "== install target preview =="

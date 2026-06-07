@@ -78,6 +78,8 @@ Vai trò của từng lớp:
 | `project-indexer` | build / repair `docs/ai` indexes |
 | `repo-phase-orchestrator` | viết phase plan, tracker, runtime state |
 
+`check-codexminimal.sh` enforces compact skill entrypoints: core skills must stay at or below 200 lines, and optional profile skills must stay at or below 120 lines.
+
 ## Profiles
 
 | Layer | Vai trò |

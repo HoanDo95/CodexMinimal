@@ -52,6 +52,8 @@ To run all bundled sample evals:
 bash evals/run-sample-evals.sh
 ```
 
+The readiness check also runs install smoke tests for `core`, `nestjs`, `rust`, and `nestjs,rust` in temporary `CODEX_HOME` directories.
+
 ## Recommended Practice
 
 - run golden cases after changing prompts or templates
