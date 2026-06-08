@@ -8,19 +8,25 @@ Use this when `AGENTS.md` or `docs/ai` is missing, stale, or inconsistent.
 
 ## New Feature
 
-`task-router -> feature-intake-gate -> repo-phase-orchestrator -> external execution -> project-indexer`
+`task-router -> idsd-orchestrator -> repo-phase-orchestrator -> external execution -> verification -> project-indexer`
 
-Use this when the requirement is new, underspecified, or changes behavior and should be steered through design before code.
+Use this when the requirement is new, underspecified, starts from intent, or changes behavior and should be steered through visible agent decisions before code.
 
-Inside `feature-intake-gate`, the expected pre-implementation path is:
+Inside `idsd-orchestrator`, the expected pre-implementation package is:
 
-`brainstorming -> implementation-spec-writer -> repo-phase-orchestrator`
+- intent contract
+- selected agent cards
+- decision ledger
+- acceptance evidence
+- optional compatibility gates
 
-## Spec To Plan
+## Legacy Spec To Plan
+
+Legacy compatibility flow:
 
 `task-router -> implementation-spec-writer -> repo-phase-orchestrator`
 
-Use this when the design direction is already agreed but implementation should still go through a concrete spec, phase plan, and tracker before coding.
+Use this only when the `legacy` profile is installed and the design direction must still go through a traditional spec, phase plan, and tracker before coding.
 
 For NestJS repositories with the `nestjs` profile active:
 
@@ -29,6 +35,8 @@ For NestJS repositories with the `nestjs` profile active:
 For Rust repositories with the `rust` profile active:
 
 `task-router -> rust-sdd-planner -> repo-phase-orchestrator`
+
+Use these SDD flows only when the user explicitly asks for SDD or an existing team contract requires a traditional spec.
 
 ## Bug Fix
 

@@ -23,6 +23,7 @@
         "simple",
         "scan",
         "planner",
+        "idsd",
         "sdd",
         "tdd",
         "coding",
@@ -37,6 +38,7 @@
       "type": "string",
       "enum": [
         "none",
+        "idsd-orchestrator",
         "feature-intake-gate",
         "brainstorming",
         "implementation-spec-writer",
@@ -61,6 +63,7 @@
         "type": "string",
         "enum": [
           "feature-intake-gate",
+          "idsd-orchestrator",
           "brainstorming",
           "implementation-spec-writer",
           "project-init",

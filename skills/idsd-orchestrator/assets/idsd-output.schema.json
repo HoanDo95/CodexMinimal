@@ -1,0 +1,55 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "classification",
+    "currentStage",
+    "intentContract",
+    "agentCards",
+    "decisionLedgerEntries",
+    "acceptanceEvidence",
+    "optionalCompatibilityGates",
+    "protectedFileOrRiskConcerns",
+    "nextSkill",
+    "followUpChain",
+    "stopCondition",
+    "suggestedPrompt"
+  ],
+  "properties": {
+    "classification": {
+      "type": "string",
+      "enum": ["idsd"]
+    },
+    "currentStage": {
+      "type": "string",
+      "enum": ["intent-contract", "agent-carding", "evidence-planning", "phase-handoff"]
+    },
+    "intentContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["intent", "businessRules", "nonGoals", "constraints", "acceptanceCriteria"],
+      "properties": {
+        "intent": { "type": "string" },
+        "businessRules": { "type": "array", "items": { "type": "string" } },
+        "nonGoals": { "type": "array", "items": { "type": "string" } },
+        "constraints": { "type": "array", "items": { "type": "string" } },
+        "acceptanceCriteria": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "agentCards": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["planner", "architect", "implementer", "verifier", "reviewer"]
+      }
+    },
+    "decisionLedgerEntries": { "type": "array", "items": { "type": "string" } },
+    "acceptanceEvidence": { "type": "array", "items": { "type": "string" } },
+    "optionalCompatibilityGates": { "type": "array", "items": { "type": "string" } },
+    "protectedFileOrRiskConcerns": { "type": "array", "items": { "type": "string" } },
+    "nextSkill": { "type": "string" },
+    "followUpChain": { "type": "array", "items": { "type": "string" } },
+    "stopCondition": { "type": "string" },
+    "suggestedPrompt": { "type": "string" }
+  }
+}

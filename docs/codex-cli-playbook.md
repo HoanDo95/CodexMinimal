@@ -7,7 +7,7 @@ Use Codex CLI surfaces when they add deterministic evidence or an independent re
 Use CodexMinimal skills for normal interactive work:
 
 - `task-router` for routing, safety gates, model and effort selection
-- `feature-intake-gate` for new or unclear feature requests
+- `idsd-orchestrator` for new or unclear feature requests
 - `project-init` for repository bootstrap or rule/profile sync
 - `project-indexer` after code, structure, or index changes
 - profile skills only when the active stack profile allows them

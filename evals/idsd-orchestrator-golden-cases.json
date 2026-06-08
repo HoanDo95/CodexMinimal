@@ -1,0 +1,23 @@
+[
+  {
+    "name": "intent_only_feature_contract",
+    "input": "Build a usage-based billing workflow from this intent: teams should be charged fairly and admins should understand every charge.",
+    "expected": {
+      "classification": "idsd",
+      "currentStage": "intent-contract",
+      "agentCards": ["planner", "architect", "verifier"],
+      "optionalCompatibilityGates": [],
+      "nextSkill": "repo-phase-orchestrator"
+    }
+  },
+  {
+    "name": "legacy_sdd_request_stays_compat_only",
+    "input": "Write an SDD spec for this feature, but keep the new system focused on IDSD.",
+    "expected": {
+      "classification": "idsd",
+      "currentStage": "intent-contract",
+      "optionalCompatibilityGates": ["legacy-sdd-explicit-request"],
+      "nextSkill": "repo-phase-orchestrator"
+    }
+  }
+]

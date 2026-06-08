@@ -41,6 +41,7 @@ Classify as one of:
 - simple
 - scan
 - planner
+- idsd
 - sdd
 - tdd
 - coding
@@ -57,6 +58,7 @@ See `references/classification-rules.md` for detailed classification and follow-
 Choose exactly one primary skill for the current step:
 
 - none
+- idsd-orchestrator
 - feature-intake-gate
 - brainstorming
 - implementation-spec-writer
@@ -76,9 +78,10 @@ Choose exactly one primary skill for the current step:
 
 Add follow-up skills only when the workflow naturally chains into a later step, for example:
 
-- `feature-intake-gate -> repo-phase-orchestrator -> project-indexer`
-- `brainstorming -> implementation-spec-writer -> repo-phase-orchestrator`
-- `implementation-spec-writer -> repo-phase-orchestrator`
+- `idsd-orchestrator -> repo-phase-orchestrator -> project-indexer`
+- `feature-intake-gate -> repo-phase-orchestrator -> project-indexer` for legacy compatibility
+- `brainstorming -> implementation-spec-writer -> repo-phase-orchestrator` for legacy compatibility
+- `implementation-spec-writer -> repo-phase-orchestrator` for legacy compatibility
 - `brainstorming -> profile-specific spec skill -> repo-phase-orchestrator`
 - `nestjs-sdd-planner -> repo-phase-orchestrator`
 - `nestjs-bug-fixer -> project-indexer`
@@ -89,25 +92,19 @@ Add follow-up skills only when the workflow naturally chains into a later step, 
 
 ## Pre-Implementation Sequence
 
-For new features, changed behavior, or unclear requirements, prefer this sequence:
+For new features, changed behavior, or unclear requirements, prefer IDSD as the default sequence:
 
-1. `feature-intake-gate`
+1. `idsd-orchestrator`
 2. `repo-phase-orchestrator`
 3. external execution skill
 
-Inside `feature-intake-gate`, the default internal sequence is:
-
-1. `brainstorming`
-2. `implementation-spec-writer`
-3. `repo-phase-orchestrator`
-
-Use `feature-intake-gate` as the default for feature intake.
-Use the underlying stage skills directly only when the user explicitly wants a specific stage or a previous stage is already approved.
+Use `idsd-orchestrator` to turn intent into a bounded intent contract, agent cards, decision ledger, and acceptance evidence before phase planning.
+Use `feature-intake-gate`, `implementation-spec-writer`, and profile SDD planners only as compatibility paths when the user explicitly requests that older workflow or an existing approved plan depends on it.
 Use external execution after the phase plan and tracker exist.
 Treat internal execution-oriented skills as optional legacy profiles, not the default cross-stack path.
 Treat `nestjs-*` skills as optional profile skills. Use them only when the active stack profile is `nestjs` or the user explicitly selects them.
 Treat `rust-*` skills as optional profile skills. Use them only when the active stack profile is `rust` or the user explicitly selects them.
-Prefer `implementation-spec-writer` as the generic default spec stage.
+Use `implementation-spec-writer` only as an explicit legacy compatibility stage.
 
 ## Required Reads
 

@@ -11,7 +11,7 @@ Use task-router for repository bootstrap, then continue with project-init in boo
 ## 2. Thêm feature mới
 
 ```text
-Use CodexMinimal flow for this feature request. Start with task-router, route through feature-intake-gate, write the spec with implementation-spec-writer unless the active profile says otherwise, then continue to repo-phase-orchestrator.
+Use CodexMinimal IDSD flow for this feature request. Start with task-router, route through idsd-orchestrator, capture the intent contract, agent cards, decision ledger, and acceptance evidence, then continue to repo-phase-orchestrator.
 ```
 
 ## 3. Sửa bug
@@ -77,10 +77,10 @@ Review this diff. Use CodexMinimal flow.
 - Bootstrap:
   `task-router -> project-init -> project-indexer`
 - Generic feature:
-  `task-router -> feature-intake-gate -> implementation-spec-writer -> repo-phase-orchestrator -> external execution -> project-indexer`
+  `task-router -> idsd-orchestrator -> repo-phase-orchestrator -> external execution -> verification -> project-indexer`
 - NestJS feature:
-  `task-router -> feature-intake-gate -> nestjs-sdd-planner -> repo-phase-orchestrator -> external execution -> project-indexer`
+  `task-router -> idsd-orchestrator -> repo-phase-orchestrator -> external execution -> verification -> project-indexer`
 - Rust feature:
-  `task-router -> feature-intake-gate -> rust-sdd-planner -> repo-phase-orchestrator -> external execution -> project-indexer`
+  `task-router -> idsd-orchestrator -> repo-phase-orchestrator -> external execution -> verification -> project-indexer`
 - User-mediated learning:
   `explicit user feedback -> record_feedback_issue.py -> feedback-ledger.json -> promote_feedback_rules.py -> rule-registry.md`

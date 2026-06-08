@@ -47,8 +47,9 @@ CodexMinimal routes each step through one primary skill.
 
 When the work naturally spans multiple steps, the router may recommend a follow-up chain, such as:
 
-- `feature-intake-gate -> repo-phase-orchestrator -> external execution -> project-indexer`
-- `implementation-spec-writer -> repo-phase-orchestrator`
+- `idsd-orchestrator -> repo-phase-orchestrator -> external execution -> verification -> project-indexer`
+- `feature-intake-gate -> repo-phase-orchestrator -> external execution -> project-indexer` for legacy compatibility
+- `implementation-spec-writer -> repo-phase-orchestrator` for legacy compatibility
 - `nestjs-bug-fixer -> project-indexer`
 - `rust-bug-fixer -> project-indexer`
 
@@ -65,7 +66,7 @@ CodexMinimal is intended to remain a harness layer:
 
 - it routes
 - it persists durable repo rules
-- it prepares specs, phase plans, and trackers
+- it prepares intent evidence, phase plans, and trackers
 - it keeps runtime state for the active work item
 - it refreshes indexes after work
 

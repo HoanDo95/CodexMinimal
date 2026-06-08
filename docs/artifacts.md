@@ -2,6 +2,35 @@
 
 CodexMinimal currently separates artifacts by stage.
 
+## IDSD Intent Package
+
+Written by `idsd-orchestrator` by default:
+
+- `docs/codexminimal/idsd/YYYY-MM-DD-<topic>-intent.md`
+
+The package contains intent contract, selected agent cards, decision ledger, acceptance evidence, and optional compatibility gates.
+
+Scaffold with:
+
+```bash
+python3 scripts/scaffold_idsd_intent.py --topic "<topic>" --intent "<intent>"
+```
+
+For evidence collection, create a full trace folder with:
+
+```bash
+python3 scripts/start_idsd_trace.py \
+  --topic "<topic>" \
+  --intent "<intent>" \
+  --stack nestjs
+```
+
+Trace folders are written to:
+
+- `docs/codexminimal/idsd-traces/<topic>/`
+
+See [IDSD Usage Guide](idsd-usage-guide.md) for target-project usage.
+
 ## Brainstorm Design
 
 Written by external `brainstorming`:
@@ -10,7 +39,7 @@ Written by external `brainstorming`:
 
 ## Implementation Spec
 
-Written by `implementation-spec-writer` by default, or by a profile-specific spec skill such as `nestjs-sdd-planner` or `rust-sdd-planner`:
+Written by `implementation-spec-writer` only for legacy compatibility, or by a profile-specific spec skill such as `nestjs-sdd-planner` or `rust-sdd-planner` when explicitly requested:
 
 - `docs/codexminimal/specs/YYYY-MM-DD-<topic>-spec.md`
 

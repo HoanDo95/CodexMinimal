@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bao cao kien truc IDSD CodexMinimal</title>
+  <style>
+    :root {
+      --ink: #18212f;
+      --muted: #657186;
+      --line: #d8dee8;
+      --panel: #f7f9fc;
+      --id: #1f7a6d;
+      --phase: #315f9f;
+      --legacy: #8a5a16;
+      --risk: #a33d3d;
+      --ok: #2d6f45;
+      --bg: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 15px/1.55 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      padding: 40px 48px 24px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #fbfcfe 0%, #ffffff 100%);
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 32px 56px;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    h1 { font-size: 30px; }
+    h2 { font-size: 21px; margin-top: 34px; }
+    h3 { font-size: 16px; margin-top: 18px; }
+    p { margin: 10px 0 0; color: var(--muted); }
+
+    .meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 10px;
+      background: #fff;
+      color: var(--ink);
+      font-size: 13px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: var(--panel);
+    }
+
+    .panel strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .status {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .status .panel { background: #fff; }
+    .ok { color: var(--ok); }
+    .warn { color: var(--legacy); }
+    .risk { color: var(--risk); }
+
+    .diagram {
+      margin-top: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      overflow-x: auto;
+      padding: 12px;
+    }
+
+    svg {
+      display: block;
+      min-width: 920px;
+      width: 100%;
+      height: auto;
+    }
+
+    .node rect {
+      fill: #fff;
+      stroke: var(--line);
+      stroke-width: 1.5;
+      rx: 7;
+    }
+
+    .node text {
+      fill: var(--ink);
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .node .sub {
+      fill: var(--muted);
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .idsd rect { stroke: var(--id); fill: #eef8f5; }
+    .phase rect { stroke: var(--phase); fill: #eff5ff; }
+    .legacy rect { stroke: var(--legacy); fill: #fff7e8; }
+    .risknode rect { stroke: var(--risk); fill: #fff1f1; }
+
+    .edge {
+      stroke: #758196;
+      stroke-width: 1.7;
+      fill: none;
+      marker-end: url(#arrow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f2f5f9;
+      font-size: 13px;
+      color: var(--ink);
+    }
+
+    td { color: var(--muted); }
+    tr:last-child td { border-bottom: 0; }
+
+    .tag {
+      display: inline-block;
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-size: 12px;
+      font-weight: 650;
+      background: #eef1f5;
+      color: var(--ink);
+    }
+
+    .tag.done { background: #e8f5ee; color: var(--ok); }
+    .tag.next { background: #edf3ff; color: var(--phase); }
+    .tag.watch { background: #fff3dc; color: var(--legacy); }
+
+    @media (max-width: 820px) {
+      header { padding: 28px 22px 20px; }
+      main { padding: 22px 18px 40px; }
+      .grid, .status { grid-template-columns: 1fr; }
+      h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Bao cao kien truc IDSD CodexMinimal</h1>
+    <p>Snapshot cho nhánh <strong>feat/IDSD</strong>: IDSD đã trở thành workflow lõi. SDD/TDD không còn nằm trong core mặc định, chỉ còn là cơ chế tương thích hoặc bằng chứng khi được chọn rõ.</p>
+    <div class="meta">
+      <span class="pill">Ngày: 2026-06-08</span>
+      <span class="pill">Phạm vi: router, core skill, docs, evals, installer, scaffold helper</span>
+      <span class="pill">Cài mặc định: chỉ core IDSD</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="status">
+      <div class="panel">
+        <strong class="ok">Kiến trúc</strong>
+        <p>Hướng core là hợp lý: IDSD sở hữu intent, evidence, decision visibility và handoff.</p>
+      </div>
+      <div class="panel">
+        <strong class="ok">Routing</strong>
+        <p>Feature mới hoặc chưa rõ hiện route mặc định vào <code>idsd-orchestrator</code>.</p>
+      </div>
+      <div class="panel">
+        <strong class="warn">Tương thích</strong>
+        <p>SDD/TDD vẫn còn qua profile rõ ràng, nhưng không còn nằm trong core install mặc định.</p>
+      </div>
+      <div class="panel">
+        <strong class="risk">Điểm cần theo dõi</strong>
+        <p>Cần thêm trace thực tế để hiệu chỉnh agent cards, độ sâu evidence và risk gates.</p>
+      </div>
+    </section>
+
+    <h2>Thay doi flow</h2>
+    <p>Thay đổi chính là chuyển từ spec-first gating sang intent-first orchestration. Spec vẫn có thể tồn tại, nhưng chỉ là bằng chứng tùy chọn bên trong IDSD.</p>
+
+    <div class="diagram" aria-label="Flow before and after IDSD">
+      <svg viewBox="0 0 1120 390" role="img">
+        <defs>
+          <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#758196"></path>
+          </marker>
+        </defs>
+
+        <text x="30" y="32" font-size="18" font-weight="700" fill="#18212f">Trước đây: feature intake kiểu SDD</text>
+        <g class="node" transform="translate(30 62)">
+          <rect width="150" height="58"></rect>
+          <text x="16" y="25">task-router</text>
+          <text class="sub" x="16" y="43">phan loai request</text>
+        </g>
+        <path class="edge" d="M180 91 H230"></path>
+        <g class="node legacy" transform="translate(230 62)">
+          <rect width="170" height="58"></rect>
+          <text x="16" y="25">feature-intake</text>
+          <text class="sub" x="16" y="43">brainstorm/spec gate</text>
+        </g>
+        <path class="edge" d="M400 91 H450"></path>
+        <g class="node legacy" transform="translate(450 62)">
+          <rect width="185" height="58"></rect>
+          <text x="16" y="25">spec writer</text>
+          <text class="sub" x="16" y="43">generic/profile SDD</text>
+        </g>
+        <path class="edge" d="M635 91 H685"></path>
+        <g class="node phase" transform="translate(685 62)">
+          <rect width="180" height="58"></rect>
+          <text x="16" y="25">phase plan</text>
+          <text class="sub" x="16" y="43">handoff tracker</text>
+        </g>
+
+        <text x="30" y="190" font-size="18" font-weight="700" fill="#18212f">Hien tai: core workflow IDSD</text>
+        <g class="node" transform="translate(30 222)">
+          <rect width="150" height="58"></rect>
+          <text x="16" y="25">task-router</text>
+          <text class="sub" x="16" y="43">classification: idsd</text>
+        </g>
+        <path class="edge" d="M180 251 H230"></path>
+        <g class="node idsd" transform="translate(230 205)">
+          <rect width="220" height="92"></rect>
+          <text x="16" y="25">idsd-orchestrator</text>
+          <text class="sub" x="16" y="45">intent contract</text>
+          <text class="sub" x="16" y="62">agent cards</text>
+          <text class="sub" x="16" y="79">decision + evidence</text>
+        </g>
+        <path class="edge" d="M450 251 H500"></path>
+        <g class="node phase" transform="translate(500 222)">
+          <rect width="170" height="58"></rect>
+          <text x="16" y="25">phase plan</text>
+          <text class="sub" x="16" y="43">execution co gioi han</text>
+        </g>
+        <path class="edge" d="M670 251 H720"></path>
+        <g class="node" transform="translate(720 222)">
+          <rect width="155" height="58"></rect>
+          <text x="16" y="25">execution</text>
+          <text class="sub" x="16" y="43">agent ben ngoai</text>
+        </g>
+        <path class="edge" d="M875 251 H925"></path>
+        <g class="node risknode" transform="translate(925 222)">
+          <rect width="155" height="58"></rect>
+          <text x="16" y="25">verification</text>
+          <text class="sub" x="16" y="43">acceptance evidence</text>
+        </g>
+      </svg>
+    </div>
+
+    <h2>Do thi kien truc hien tai</h2>
+    <p>IDSD hiện nằm phía trên các stack profile. NestJS/Rust profile vẫn hữu ích, nhưng chỉ nên được dùng sau khi IDSD đã làm rõ intent và evidence cần có.</p>
+
+    <div class="diagram" aria-label="IDSD architecture graph">
+      <svg viewBox="0 0 1120 420" role="img">
+        <defs>
+          <marker id="arrow2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#758196"></path>
+          </marker>
+        </defs>
+
+        <g class="node" transform="translate(475 22)">
+          <rect width="170" height="58"></rect>
+          <text x="16" y="25">User intent</text>
+          <text class="sub" x="16" y="43">muc tieu + rang buoc</text>
+        </g>
+        <path class="edge" marker-end="url(#arrow2)" d="M560 80 V115"></path>
+
+        <g class="node idsd" transform="translate(405 115)">
+          <rect width="310" height="92"></rect>
+          <text x="16" y="25">IDSD Orchestrator</text>
+          <text class="sub" x="16" y="45">intent contract + agent cards</text>
+          <text class="sub" x="16" y="62">decision ledger</text>
+          <text class="sub" x="16" y="79">acceptance evidence</text>
+        </g>
+
+        <path class="edge" marker-end="url(#arrow2)" d="M405 161 H285"></path>
+        <g class="node legacy" transform="translate(35 132)">
+          <rect width="250" height="58"></rect>
+          <text x="16" y="25">Legacy compatibility</text>
+          <text class="sub" x="16" y="43">chi khi duoc chon</text>
+        </g>
+
+        <path class="edge" marker-end="url(#arrow2)" d="M715 161 H835"></path>
+        <g class="node risknode" transform="translate(835 132)">
+          <rect width="250" height="58"></rect>
+          <text x="16" y="25">Risk gates</text>
+          <text class="sub" x="16" y="43">protected/security/refactor</text>
+        </g>
+
+        <path class="edge" marker-end="url(#arrow2)" d="M560 207 V252"></path>
+        <g class="node phase" transform="translate(405 252)">
+          <rect width="310" height="58"></rect>
+          <text x="16" y="25">Repo phase orchestrator</text>
+          <text class="sub" x="16" y="43">phase plan + tracker</text>
+        </g>
+
+        <path class="edge" marker-end="url(#arrow2)" d="M405 281 H285"></path>
+        <g class="node" transform="translate(35 252)">
+          <rect width="250" height="58"></rect>
+          <text x="16" y="25">Stack profiles</text>
+          <text class="sub" x="16" y="43">helper NestJS / Rust</text>
+        </g>
+
+        <path class="edge" marker-end="url(#arrow2)" d="M715 281 H835"></path>
+        <g class="node" transform="translate(835 252)">
+          <rect width="250" height="58"></rect>
+          <text x="16" y="25">External execution</text>
+          <text class="sub" x="16" y="43">subagent/plan executor</text>
+        </g>
+
+        <path class="edge" marker-end="url(#arrow2)" d="M560 310 V345"></path>
+        <g class="node" transform="translate(405 345)">
+          <rect width="310" height="58"></rect>
+          <text x="16" y="25">Project indexer</text>
+          <text class="sub" x="16" y="43">cap nhat context</text>
+        </g>
+      </svg>
+    </div>
+
+    <h2>Danh gia hien tai</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Khu vực</th>
+          <th>Trạng thái</th>
+          <th>Ý nghĩa</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Vị trí trong core</td>
+          <td><span class="tag done">ổn</span></td>
+          <td>IDSD nên nằm trong core vì nó điều phối intent và evidence trước mọi execution theo stack.</td>
+          <td>Giữ IDSD phía trên NestJS/Rust profiles.</td>
+        </tr>
+        <tr>
+          <td>Vai trò SDD/TDD</td>
+          <td><span class="tag done">đã rõ</span></td>
+          <td>Không còn là workflow điều khiển hoặc core skill mặc định. Chỉ còn là compatibility hoặc evidence mechanism.</td>
+          <td>Chỉ cài legacy compatibility khi workflow cũ vẫn cần.</td>
+        </tr>
+        <tr>
+          <td>Schema/eval</td>
+          <td><span class="tag done">đã sửa</span></td>
+          <td>Fixture IDSD đã dùng field khớp schema. Evals mặc định tập trung vào core IDSD.</td>
+          <td>Chạy sample evals sau mỗi thay đổi policy IDSD.</td>
+        </tr>
+        <tr>
+          <td>Hiệu chỉnh thực tế</td>
+          <td><span class="tag watch">cần trace</span></td>
+          <td>Agent cards và evidence depth đã đủ để thử thực chiến có kiểm soát, nhưng chưa đủ trace để siết policy mạnh.</td>
+          <td>Thu thập 3-5 trace IDSD thật trước khi harden gate.</td>
+        </tr>
+        <tr>
+          <td>Automation</td>
+          <td><span class="tag done">đã có helper</span></td>
+          <td>Đã có <code>scripts/scaffold_idsd_intent.py</code> và <code>scripts/start_idsd_trace.py</code> để tạo intent package và trace folder deterministically.</td>
+          <td>Dùng trace helper này trong các task thực tế đầu tiên.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Muc do san sang thuc chien</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Mức</th>
+          <th>Đánh giá</th>
+          <th>Lý do</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Thử thực chiến có kiểm soát</td>
+          <td><span class="tag done">sẵn sàng</span></td>
+          <td>Core routing, IDSD skill, scaffold helper, install split, evals và readiness guard đều đã có.</td>
+        </tr>
+        <tr>
+          <td>Áp dụng rộng cho mọi repo</td>
+          <td><span class="tag watch">chưa nên</span></td>
+          <td>Cần thêm trace thực tế để biết evidence depth, risk gates và agent-card selection có quá nhẹ hoặc quá nặng không.</td>
+        </tr>
+        <tr>
+          <td>Production-hardened workflow</td>
+          <td><span class="tag next">giai đoạn sau</span></td>
+          <td>Cần replay trace, benchmark thao tác thật, và policy promotion từ feedback ledger.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Ke hoach cai thien tiep theo</h2>
+    <div class="grid">
+      <div class="panel">
+        <strong>Phase 1: Thử với repo thật</strong>
+        <p>Chạy 3-5 feature nhỏ bằng <code>scripts/start_idsd_trace.py</code>, rồi gửi lại nguyên thư mục trace.</p>
+      </div>
+      <div class="panel">
+        <strong>Phase 2: Siết evidence</strong>
+        <p>Dựa trên trace để quyết định acceptance evidence tối thiểu, agent card nào bắt buộc, và khi nào cần review/security gate.</p>
+      </div>
+      <div class="panel">
+        <strong>Phase 3: Chuẩn hóa eval</strong>
+        <p>Chuyển các trace tốt thành golden cases hoặc opt-in LLM eval để phát hiện drift trong router và orchestrator.</p>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

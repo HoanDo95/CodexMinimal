@@ -10,6 +10,7 @@ In practice, evals in this repository serve two roles:
 ## What To Evaluate
 
 - router classification and safety-gate decisions
+- IDSD intent contract, agent-card, decision-ledger, and acceptance-evidence completeness
 - planner output completeness
 - phase-plan and tracker handoff completeness
 - indexer output consistency
@@ -57,10 +58,24 @@ python3 evals/run-golden-evals.py \
   --results evals/samples/task-router-results.sample.json
 ```
 
+To grade IDSD orchestrator sample cases:
+
+```bash
+python3 evals/run-golden-evals.py \
+  --cases evals/idsd-orchestrator-golden-cases.json \
+  --results evals/samples/idsd-orchestrator-results.sample.json
+```
+
 To run all bundled sample evals:
 
 ```bash
 bash evals/run-sample-evals.sh
+```
+
+Legacy and profile-specific evals are opt-in so the default sample run stays focused on the IDSD core:
+
+```bash
+CODEXMINIMAL_RUN_LEGACY_EVALS=1 CODEXMINIMAL_RUN_PROFILE_EVALS=1 bash evals/run-sample-evals.sh
 ```
 
 The readiness check also runs install smoke tests for `core`, `nestjs`, `rust`, and `nestjs,rust` in temporary `CODEX_HOME` directories.

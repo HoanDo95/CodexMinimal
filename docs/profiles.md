@@ -9,7 +9,7 @@ The default install and default runtime assumptions are `core` plus the `generic
 Core owns:
 
 - routing
-- generic spec writing
+- IDSD orchestration
 - repository bootstrap
 - indexing
 - phase planning
@@ -41,6 +41,8 @@ When the active profile is `nestjs`, CodexMinimal may use:
 
 These are optional profile skills, not part of the generic harness contract.
 
+SDD planners are legacy compatibility tools. The default feature workflow remains `idsd-orchestrator`, even when a stack profile is active.
+
 ## Rust Profile
 
 When the active profile is `rust`, CodexMinimal may use:
@@ -53,12 +55,20 @@ When the active profile is `rust`, CodexMinimal may use:
 
 These are optional profile skills, not part of the generic harness contract.
 
+SDD planners are legacy compatibility tools. The default feature workflow remains `idsd-orchestrator`, even when a stack profile is active.
+
 ## Install Modes
 
 Default install:
 
 ```bash
 bash install.sh
+```
+
+Core plus legacy SDD compatibility:
+
+```bash
+CODEXMINIMAL_INSTALL_PROFILES=legacy bash install.sh
 ```
 
 Core plus NestJS profile:

@@ -14,11 +14,23 @@
     "name": "new_feature_needs_brainstorm_spec_plan",
     "input": "Add a team invitations feature to this NestJS app. I only know the rough goal right now.",
     "expected": {
-      "classification": "planner",
-      "primarySkill": "feature-intake-gate",
+      "classification": "idsd",
+      "primarySkill": "idsd-orchestrator",
       "followUpSkills": ["repo-phase-orchestrator", "project-indexer"],
       "responseMode": "standard",
       "contextBudget": "medium",
+      "safetyGate": "proceed"
+    }
+  },
+  {
+    "name": "intent_driven_feature_orchestration",
+    "input": "I want to build a customer onboarding feature from intent only. Use IDSD and let the agents organize the plan, evidence, and verification.",
+    "expected": {
+      "classification": "idsd",
+      "primarySkill": "idsd-orchestrator",
+      "followUpSkills": ["repo-phase-orchestrator", "project-indexer"],
+      "responseMode": "standard",
+      "contextBudget": "high",
       "safetyGate": "proceed"
     }
   },

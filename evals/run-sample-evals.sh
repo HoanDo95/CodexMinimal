@@ -6,8 +6,8 @@ python3 evals/run-golden-evals.py \
   --results evals/samples/task-router-results.sample.json
 
 python3 evals/run-golden-evals.py \
-  --cases evals/feature-intake-gate-golden-cases.json \
-  --results evals/samples/feature-intake-gate-results.sample.json
+  --cases evals/idsd-orchestrator-golden-cases.json \
+  --results evals/samples/idsd-orchestrator-results.sample.json
 
 python3 evals/run-golden-evals.py \
   --cases evals/project-init-golden-cases.json \
@@ -17,17 +17,23 @@ python3 evals/run-golden-evals.py \
   --cases evals/project-indexer-golden-cases.json \
   --results evals/samples/project-indexer-results.sample.json
 
-python3 evals/run-golden-evals.py \
-  --cases evals/implementation-spec-writer-golden-cases.json \
-  --results evals/samples/implementation-spec-writer-results.sample.json
+if [[ "${CODEXMINIMAL_RUN_LEGACY_EVALS:-0}" == "1" ]]; then
+  python3 evals/run-golden-evals.py \
+    --cases evals/feature-intake-gate-golden-cases.json \
+    --results evals/samples/feature-intake-gate-results.sample.json
 
-if [[ -f evals/nestjs-sdd-planner-golden-cases.json && -f evals/samples/nestjs-sdd-planner-results.sample.json ]]; then
+  python3 evals/run-golden-evals.py \
+    --cases evals/implementation-spec-writer-golden-cases.json \
+    --results evals/samples/implementation-spec-writer-results.sample.json
+fi
+
+if [[ "${CODEXMINIMAL_RUN_PROFILE_EVALS:-0}" == "1" && -f evals/nestjs-sdd-planner-golden-cases.json && -f evals/samples/nestjs-sdd-planner-results.sample.json ]]; then
   python3 evals/run-golden-evals.py \
     --cases evals/nestjs-sdd-planner-golden-cases.json \
     --results evals/samples/nestjs-sdd-planner-results.sample.json
 fi
 
-if [[ -f evals/rust-sdd-planner-golden-cases.json && -f evals/samples/rust-sdd-planner-results.sample.json ]]; then
+if [[ "${CODEXMINIMAL_RUN_PROFILE_EVALS:-0}" == "1" && -f evals/rust-sdd-planner-golden-cases.json && -f evals/samples/rust-sdd-planner-results.sample.json ]]; then
   python3 evals/run-golden-evals.py \
     --cases evals/rust-sdd-planner-golden-cases.json \
     --results evals/samples/rust-sdd-planner-results.sample.json

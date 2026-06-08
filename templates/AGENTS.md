@@ -10,11 +10,11 @@ Before any non-trivial task, internally classify the request, choose the smalles
 Use `task-router` for ambiguous, risky, multi-step, protected, refactor, review, scan, or orchestration work. For trivial requests, answer directly.
 
 Default feature intake:
-1. `feature-intake-gate`
+1. `idsd-orchestrator`
 2. `repo-phase-orchestrator`
 3. external execution
 
-Do not jump from a rough feature prompt straight into coding. Ask first if the task touches protected files, architecture boundaries, env/deploy/database, CI/CD, public API contracts, or wide multi-module changes.
+Do not jump from a rough feature prompt straight into coding. Capture intent, agent cards, decision evidence, acceptance evidence, and phase boundaries first. Ask first if the task touches protected files, architecture boundaries, env/deploy/database, CI/CD, public API contracts, or wide multi-module changes.
 <!-- CODEXMINIMAL:ROUTING END -->
 
 <!-- CODEXMINIMAL:MODEL_ROUTING START -->
@@ -85,7 +85,8 @@ Prefer deterministic local helpers for repetitive repository operations such as 
 Use the smallest suitable skill:
 - `project-init`: sync `AGENTS.md`, `docs/ai`, `docs/codexminimal`, durable rules, and protected-file guidance
 - `project-indexer`: build or repair repository indexes and `context-map.json`
-- `feature-intake-gate`: default gate for `brainstorm -> spec -> phase plan`
+- `idsd-orchestrator`: default gate for intent contract, agent cards, decision ledger, acceptance evidence, and phase-plan handoff
+- `feature-intake-gate`: legacy compatibility gate for `brainstorm -> spec -> phase plan`
 - `repo-phase-orchestrator`: write the phase plan and tracker, then hand off execution
 - profile-specific skills only after the active stack profile is clear
 - `nestjs-sdd-planner`, `nestjs-bug-fixer`, `nestjs-code-reviewer`, `nestjs-refactor-guardian`, `nestjs-tdd-builder`: optional NestJS profile skills

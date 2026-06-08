@@ -19,11 +19,21 @@ This is a hard readiness gate enforced by `check-codexminimal.sh`. Use `referenc
 
 ## Core Harness
 
-- `feature-intake-gate`: default orchestration for feature intake before implementation
-- `implementation-spec-writer`: default stack-agnostic spec writer before phase planning
+- `idsd-orchestrator`: default intent-driven workflow for new features and changed behavior; creates intent contracts, agent cards, decision ledgers, and acceptance evidence before phase planning
 - `project-init`: create or sync `AGENTS.md`, `docs/ai`, `docs/codexminimal`, durable rules, protected-file guidance, and user-mediated repeat-feedback learning state
 - `project-indexer`: build or repair compact repository indexes and `context-map.json`
 - `repo-phase-orchestrator`: write phase plans, maintain trackers, refresh harness runtime state, and hand off execution
+
+## Legacy Compatibility Profile
+
+- `feature-intake-gate`: legacy compatibility orchestration for feature intake before implementation
+- `implementation-spec-writer`: legacy compatibility stack-agnostic spec writer before phase planning
+
+Install only when old SDD-style workflows are still needed:
+
+```bash
+CODEXMINIMAL_INSTALL_PROFILES=legacy bash install.sh
+```
 
 ## Profile Boundary
 
@@ -39,8 +49,8 @@ This is a hard readiness gate enforced by `check-codexminimal.sh`. Use `referenc
 
 ## Profile-Specific Skills
 
-- `nestjs-sdd-planner`: write a concise implementation-ready specification for NestJS repos
-- `rust-sdd-planner`: write a concise implementation-ready specification for Rust repos
+- `nestjs-sdd-planner`: legacy compatibility writer for explicit NestJS SDD requests
+- `rust-sdd-planner`: legacy compatibility writer for explicit Rust SDD requests
 
 ## Optional Or Legacy Execution Profiles
 
@@ -59,10 +69,10 @@ Pick one primary skill for the current step.
 
 Add follow-up skills only when the workflow naturally chains into a later step, such as:
 
-- `feature-intake-gate -> repo-phase-orchestrator`
-- `brainstorming -> implementation-spec-writer -> repo-phase-orchestrator`
+- `feature-intake-gate -> repo-phase-orchestrator` for legacy compatibility
+- `idsd-orchestrator -> repo-phase-orchestrator -> project-indexer`
 - `brainstorming -> profile-specific spec writer -> repo-phase-orchestrator`
-- `implementation-spec-writer -> repo-phase-orchestrator`
+- `implementation-spec-writer -> repo-phase-orchestrator` for legacy compatibility
 - `nestjs-sdd-planner -> repo-phase-orchestrator`
 - `nestjs-bug-fixer -> project-indexer`
 - `nestjs-refactor-guardian -> project-indexer`
