@@ -1,6 +1,6 @@
 # CodexMinimal Cheat Sheet
 
-7 prompt ngắn để dùng hằng ngày trong repo đích.
+9 prompt ngắn để dùng hằng ngày trong repo đích.
 
 ## 1. Bootstrap repo
 
@@ -62,6 +62,26 @@ Promote user-confirmed repeated feedback from docs/codexminimal/feedback-ledger.
 Start an IDSD trace for this task, keep runtime measurements in docs/codexminimal/telemetry.json, record repeated user-confirmed issues in docs/codexminimal/feedback-ledger.json, and use the trace results to improve CodexMinimal after verification.
 ```
 
+## 9. Triển khai phase tiếp theo
+
+Khi đã có phase plan và tracker:
+
+```text
+Continue CodexMinimal from the active tracker. Execute the next open phase only, update tracker/current-work/telemetry, run verification, and stop.
+```
+
+Nếu muốn chỉ chạy preflight:
+
+```text
+Continue CodexMinimal Phase 0 only. Run baseline checks, update tracker/current-work/telemetry, and stop before implementation.
+```
+
+Nếu muốn chỉ định tracker cụ thể:
+
+```text
+Continue CodexMinimal from docs/codexminimal/trackers/<tracker-file>. Execute the next open phase only.
+```
+
 ## Gợi ý dùng ngắn hơn
 
 Nếu anh không muốn prompt dài, có thể dùng kiểu tự nhiên:
@@ -78,12 +98,18 @@ Fix bug Y in this repository. Use CodexMinimal flow.
 Review this diff. Use CodexMinimal flow.
 ```
 
+```text
+Continue CodexMinimal next phase.
+```
+
 ## Flow Nhớ Nhanh
 
 - Bootstrap:
   `task-router -> project-init -> project-indexer`
 - Generic feature:
   `task-router -> idsd-orchestrator -> repo-phase-orchestrator -> tool adapter execution -> verification -> project-indexer`
+- Phase execution:
+  `active tracker -> next open phase -> verification -> tracker/current-work/telemetry update`
 - NestJS feature:
   `task-router -> idsd-orchestrator -> repo-phase-orchestrator -> tool adapter execution -> verification -> project-indexer`
 - Rust feature:
