@@ -1,6 +1,8 @@
 # Tool Adapter Playbook
 
-Use tool adapters when they add deterministic evidence, independent review, diagnostics, or plan execution. Do not replace skill routing with adapter calls by default.
+Use Codex CLI native execution by default after CodexMinimal has selected the route and bounded the phase. Use other tool adapters when they add deterministic evidence, independent review, diagnostics, or a repository-selected execution runtime.
+
+Do not replace skill routing with adapter calls by default.
 
 ## Use Skill Workflow First
 
@@ -54,12 +56,14 @@ Best fit:
 
 Do not wire skills to a specific eval adapter until the exact runtime contract has been verified in a separate integration pass.
 
-## Execution Adapter
+## Native Execution And Execution Adapters
 
-Use execution adapters after IDSD and phase planning have created bounded work:
+Use Codex CLI native execution after IDSD and phase planning have created bounded work:
 
 ```text
-Intent -> ADR -> bounded spec -> tasks -> tests -> phase plan -> execution adapter -> verification evidence -> report
+Intent -> ADR -> bounded spec -> tasks -> tests -> phase plan -> Codex CLI native execution -> verification evidence -> report
 ```
 
-The adapter must report what it changed, how it verified the change, and where evidence was stored.
+Another execution adapter can replace native execution only when the user, repository policy, CI environment, or security boundary requires it.
+
+The execution step must report what it changed, how it verified the change, and where evidence was stored.

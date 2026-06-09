@@ -85,7 +85,7 @@ python3 /home/jason/CodexMinimal/scripts/start_idsd_trace.py \
 Default flow:
 
 ```text
-task-router -> idsd-orchestrator -> repo-phase-orchestrator -> tool adapter execution -> verification -> project-indexer
+task-router -> idsd-orchestrator -> repo-phase-orchestrator -> Codex CLI native execution -> verification -> project-indexer
 ```
 
 3. After execution, fill the trace files if they are not already complete:

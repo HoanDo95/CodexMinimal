@@ -22,7 +22,7 @@ flowchart TB
 
     R -->|new or unclear feature| IDSD[idsd-orchestrator]
     IDSD --> PLAN[repo-phase-orchestrator]
-    PLAN --> EXEC[tool adapter execution]
+    PLAN --> EXEC[Codex CLI native execution]
     EXEC --> IDX
 
     R -->|bug / review / refactor| PROFILE[optional profile skill]
@@ -49,7 +49,7 @@ flowchart LR
 |---|---|
 | `Core Harness` | route task, giữ rules, tạo intent evidence/plan/tracker, cập nhật index |
 | `Profile Layer` | thêm rule và skill riêng cho stack như `nestjs` hoặc `rust` |
-| `Execution Layer` | thực thi code thật bằng tool adapter, agent runtime, skill ngoài hoặc flow riêng của team |
+| `Execution Layer` | mặc định thực thi code bằng Codex CLI native execution; adapter khác chỉ dùng khi user hoặc repo policy chọn |
 
 Core mặc định không assume repo là NestJS hay Rust. Active profile nên được ghi ở `docs/ai/stack-profile.md`.
 
@@ -83,7 +83,7 @@ Dùng khi repo chưa có `AGENTS.md`, `docs/ai`, `docs/codexminimal` hoặc các
 flowchart LR
     A[task-router] --> B[idsd-orchestrator]
     B --> C[repo-phase-orchestrator]
-    C --> D[tool adapter execution]
+    C --> D[Codex CLI native execution]
     D --> E[verification]
     E --> F[project-indexer]
 ```
@@ -254,9 +254,9 @@ Readiness hiện kiểm tra:
 - helper scripts và template sync
 - install smoke test cho `core`, `nestjs`, `rust`, `nestjs,rust`
 
-## Tool Adapter Usage
+## Execution And Tool Adapter Usage
 
-Tool adapter là lớp mở rộng optional, không thay thế skill routing mặc định.
+CodexMinimal mặc định dùng Codex CLI native execution sau khi route, intent và phase/tracker đã rõ. Tool adapter là lớp mở rộng optional, không thay thế skill routing mặc định.
 
 | Surface | Dùng để làm gì | Policy |
 |---|---|---|

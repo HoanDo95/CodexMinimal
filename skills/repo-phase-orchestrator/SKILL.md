@@ -1,13 +1,13 @@
 ---
 name: repo-phase-orchestrator
-description: Write and maintain multi-phase repository plans with tracker files, ordered phase boundaries, execution handoff, and progress control. Use for approved specs that need phase planning and tracking before tool adapter execution. Do not implement code directly.
+description: Write and maintain multi-phase repository plans with tracker files, ordered phase boundaries, execution handoff, and progress control. Use for approved specs that need phase planning and tracking before Codex CLI native execution. Do not implement code directly.
 ---
 
 # Repo Phase Orchestrator
 
 ## Goal
 
-Write and maintain a detailed phase plan plus tracker, then hand off each current phase to a tool adapter execution workflow.
+Write and maintain a detailed phase plan plus tracker, then hand off each current phase to Codex CLI native execution by default.
 
 ## Use When
 
@@ -63,9 +63,9 @@ Do not use for:
 9. Update `docs/codexminimal/current-work.json` with the active topic, stage, phase, artifact paths, and execution workflow.
 10. Mark the current phase, scope, and verification expectations.
 11. Check protected files and risk boundaries.
-12. Handoff the current phase to a tool adapter execution workflow:
-   - selected execution adapter recommended
-   - external skill or team executor acceptable fallback
+12. Handoff the current phase to Codex CLI native execution by default:
+   - another tool adapter is acceptable only when selected by user or repository policy
+   - team executor or CI workflow is acceptable fallback when Codex CLI cannot execute safely
 13. After execution returns, update tracker status, failures, fixes, and next phase.
 14. Record phase outcome in `docs/codexminimal/telemetry.json`.
 15. Stop before advancing if the tracker, runtime state, or verification state is stale.

@@ -3,7 +3,7 @@
     "name": "approved_idsd_package_creates_plan_tracker_and_handoff",
     "actual": {
       "currentPhase": "Phase 1",
-      "executionHandoff": "tool-adapter-execution",
+      "executionHandoff": "codex-cli-native-execution",
       "runtimeStateUpdate": "current-work.json and artifact-registry.json refreshed"
     }
   },

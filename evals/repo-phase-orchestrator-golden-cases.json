@@ -1,10 +1,10 @@
 [
   {
     "name": "approved_idsd_package_creates_plan_tracker_and_handoff",
-    "input": "The IDSD package is approved. Write a multi-phase plan, create a tracker, and prepare tool adapter execution.",
+    "input": "The IDSD package is approved. Write a multi-phase plan, create a tracker, and prepare Codex CLI native execution.",
     "expected": {
       "currentPhase": "Phase 1",
-      "executionHandoff": "tool-adapter-execution",
+      "executionHandoff": "codex-cli-native-execution",
       "runtimeStateUpdate": "current-work.json and artifact-registry.json refreshed"
     }
   },

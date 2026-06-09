@@ -35,7 +35,7 @@ Project Index Lookup
 Phase Plan / Tracker
  │
  ▼
-Tool Adapter Execution
+Codex CLI Native Execution
  │
  ▼
 Index / Rule Update
@@ -47,7 +47,7 @@ CodexMinimal routes each step through one primary skill.
 
 When the work naturally spans multiple steps, the router may recommend a follow-up chain, such as:
 
-- `idsd-orchestrator -> repo-phase-orchestrator -> tool adapter execution -> verification -> project-indexer`
+- `idsd-orchestrator -> repo-phase-orchestrator -> Codex CLI native execution -> verification -> project-indexer`
 - `nestjs-bug-fixer -> project-indexer`
 - `rust-bug-fixer -> project-indexer`
 
@@ -68,8 +68,8 @@ CodexMinimal is intended to remain a harness layer:
 - it keeps runtime state for the active work item
 - it refreshes indexes after work
 
-Execution itself can be handed to a tool adapter, external skill, agent runtime, CI workflow, or team-specific executor.
-The adapter boundary should report changed files, verification evidence, and any policy refusal.
+Execution defaults to Codex CLI native execution after routing and phase planning are bounded. Another tool adapter, external agent runtime, CI workflow, or team-specific executor can be selected by user or repository policy.
+The execution boundary should report changed files, verification evidence, and any policy refusal.
 This boundary keeps the core reusable across stacks such as NestJS, Rust, React, and Next.js.
 
 ## Stack Profiles

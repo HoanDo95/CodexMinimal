@@ -8,7 +8,7 @@ Use this when `AGENTS.md` or `docs/ai` is missing, stale, or inconsistent.
 
 ## New Feature
 
-`task-router -> idsd-orchestrator -> repo-phase-orchestrator -> tool adapter execution -> verification -> project-indexer`
+`task-router -> idsd-orchestrator -> repo-phase-orchestrator -> Codex CLI native execution -> verification -> project-indexer`
 
 Use this when the requirement is new, underspecified, starts from intent, or changes behavior and should be steered through visible agent decisions before code.
 
@@ -69,7 +69,7 @@ Use this when work involves moving, renaming, splitting, or restructuring Rust m
 
 ## Large Phased Work
 
-`task-router -> repo-phase-orchestrator -> tool adapter execution`
+`task-router -> repo-phase-orchestrator -> Codex CLI native execution`
 
 Use this when the work spans multiple modules, needs explicit phase boundaries, or requires tracker-driven progress.
 
