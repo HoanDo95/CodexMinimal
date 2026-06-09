@@ -19,7 +19,6 @@ The user supplies intent, business rules, constraints, and acceptance criteria. 
 - implementation handoff
 - verification evidence
 - report outline
-- optional compatibility gates
 
 ## Default Pipeline
 
@@ -50,13 +49,9 @@ See [IDSD Usage Guide](idsd-usage-guide.md) for how traces appear inside a targe
 
 Traditional document-heavy SDD is no longer the default feature workflow.
 
-Use SDD only when:
+CodexMinimal keeps the useful part of SDD as a bounded specification stage inside IDSD. It does not ship separate spec-first planners in the core or profile install path.
 
-- the user explicitly asks for it
-- a team contract requires a traditional spec
-- an approved existing plan already depends on a legacy spec planner
-
-Bounded specification is the default translation layer inside IDSD. Legacy SDD planners are opt-in compatibility only.
+If a team needs a large standalone spec, treat it as an external artifact and summarize the parts needed for IDSD: scope, decisions, constraints, acceptance criteria, risks, and verification evidence.
 
 ## Relationship To TDD
 

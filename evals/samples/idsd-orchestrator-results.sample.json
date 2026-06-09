@@ -11,16 +11,22 @@
         "testPlan": ["Given usage exists, charges expose their source"],
         "verificationAlternatives": []
       },
-      "optionalCompatibilityGates": [],
+      "protectedFileOrRiskConcerns": [],
       "nextSkill": "repo-phase-orchestrator"
     }
   },
   {
-    "name": "legacy_sdd_request_stays_compat_only",
+    "name": "document_heavy_sdd_request_stays_idsd_bounded",
     "actual": {
       "classification": "idsd",
       "currentStage": "intent",
-      "optionalCompatibilityGates": ["legacy-sdd-explicit-request"],
+      "boundedSpecification": {
+        "behavior": ["Summarize the standalone spec request into IDSD behavior scope"],
+        "interfaces": [],
+        "dataImpacts": [],
+        "risks": ["Avoid document-heavy spec growth outside the IDSD package"],
+        "acceptanceMapping": []
+      },
       "nextSkill": "repo-phase-orchestrator"
     }
   }

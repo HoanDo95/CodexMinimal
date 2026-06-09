@@ -123,7 +123,7 @@ Persist these defaults unless the user overrides them:
 - use the smallest suitable skill
 - route new feature intake through `idsd-orchestrator` by default
 - capture intent, agent cards, decision ledger, and acceptance evidence before phase planning
-- use legacy spec skills only when the user explicitly requests old spec-first behavior
+- reduce standalone spec requests into IDSD bounded specification, decisions, tasks, tests, and verification evidence
 - write a phase plan and tracker after IDSD acceptance evidence and before coding
 - default to tool adapter execution after the phase plan exists
 - keep `current-work.json` and `artifact-registry.json` aligned with the active implementation path

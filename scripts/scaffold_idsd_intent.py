@@ -107,10 +107,6 @@ status: draft
 - Residual risks: Fill after verification.
 - Follow-up: Fill after verification.
 
-## Optional Compatibility Gates
-
-{bullet_list(args.compatibility_gate, "None")}
-
 ## Open Questions Or Assumptions
 
 {bullet_list(args.assumption, "No open questions captured yet.")}
@@ -128,7 +124,6 @@ def main() -> int:
     parser.add_argument("--acceptance-criterion", action="append", default=[], help="Acceptance criterion; may be repeated")
     parser.add_argument("--agent-card", action="append", choices=sorted(VALID_AGENT_CARDS), help="Agent card to select; may be repeated")
     parser.add_argument("--evidence", action="append", default=[], help="Acceptance evidence item; may be repeated")
-    parser.add_argument("--compatibility-gate", action="append", default=[], help="Optional legacy or evidence gate; may be repeated")
     parser.add_argument("--assumption", action="append", default=[], help="Open question or assumption; may be repeated")
     parser.add_argument("--output", help="Explicit output path; defaults to docs/codexminimal/idsd/<topic>-intent.md")
     parser.add_argument("--force", action="store_true", help="Overwrite an existing output file")

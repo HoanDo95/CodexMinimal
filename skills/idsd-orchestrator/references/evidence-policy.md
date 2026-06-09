@@ -11,7 +11,7 @@ IDSD uses evidence to keep agent autonomy observable.
 
 ## Optional Evidence
 
-- legacy spec: only when explicitly requested or needed for an external contract
+- external spec summary: when a team supplies a large standalone spec, keep only the IDSD-relevant decisions and acceptance evidence
 - TDD: when behavior can be captured in focused tests before implementation
 - security review: when user input, auth, secrets, permissions, or data exposure are involved
 - refactor impact map: when files move, public APIs change, or module boundaries shift

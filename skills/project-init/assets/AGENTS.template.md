@@ -86,7 +86,6 @@ Use the smallest suitable skill:
 - `project-init`: sync `AGENTS.md`, `docs/ai`, `docs/codexminimal`, durable rules, and protected-file guidance
 - `project-indexer`: build or repair repository indexes and `context-map.json`
 - `idsd-orchestrator`: default gate for intent contract, agent cards, decision ledger, acceptance evidence, and phase-plan handoff
-- `feature-intake-gate`: legacy compatibility gate for old `brainstorm -> spec -> phase plan`
 - `repo-phase-orchestrator`: write the phase plan and tracker, then hand off execution
 - profile-specific skills only after the active stack profile is clear
 - `nestjs-bug-fixer`, `nestjs-code-reviewer`, `nestjs-refactor-guardian`, `nestjs-tdd-builder`: optional NestJS profile skills

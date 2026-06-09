@@ -8,7 +8,7 @@ Written by `idsd-orchestrator` by default:
 
 - `docs/codexminimal/idsd/YYYY-MM-DD-<topic>-intent.md`
 
-The package contains intent contract, ADR-style decisions, bounded specification, task breakdown, test contract, selected agent cards, acceptance evidence, implementation handoff, verification, report outline, and optional compatibility gates.
+The package contains intent contract, ADR-style decisions, bounded specification, task breakdown, test contract, selected agent cards, acceptance evidence, implementation handoff, verification, and report outline.
 
 Scaffold with:
 
@@ -36,12 +36,6 @@ See [IDSD Usage Guide](idsd-usage-guide.md) for target-project usage.
 Written by external `brainstorming`:
 
 - `docs/codexminimal/designs/YYYY-MM-DD-<topic>-design.md`
-
-## Implementation Spec
-
-Written only by legacy compatibility skills when explicitly requested:
-
-- `docs/codexminimal/specs/YYYY-MM-DD-<topic>-spec.md`
 
 ## Phase Plan
 

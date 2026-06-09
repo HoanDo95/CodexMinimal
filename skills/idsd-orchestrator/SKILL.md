@@ -30,7 +30,6 @@ Do not use for:
 - direct one-line answers
 - known bug fixes with a clear reproduction
 - code review only
-- explicit legacy SDD requests that must use an old spec planner
 - implementation that already has an approved phase plan and tracker
 
 ## Required Reads
@@ -70,7 +69,7 @@ Skip missing files without broad repository scans.
 - Agent cards define responsibility, authority, required output, and stop condition.
 - Acceptance criteria must be observable and verifiable.
 - TDD is the preferred executable evidence when behavior can be tested; otherwise record the verification alternative.
-- SDD planners are legacy compatibility tools and run only from the `legacy` profile on explicit user request.
+- Standalone document-heavy specs are external input; reduce them to IDSD decisions, bounded specification, tasks, tests, and verification evidence.
 - Do not start implementation until protected-file and risk gates are known.
 
 ## Output Format
@@ -98,8 +97,6 @@ idsd
 ### Decision ledger entries
 
 ### Acceptance evidence
-
-### Optional compatibility gates
 
 ### Protected-file or risk concerns
 

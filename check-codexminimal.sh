@@ -219,9 +219,9 @@ run_install_smoke() {
   local forbidden_skills=" $forbidden "
   for skill in $forbidden_skills; do
     if [[ -e "$tmp_home/.codex/skills/$skill" ]]; then
-      fail "$label install unexpectedly includes legacy skill $skill"
+      fail "$label install unexpectedly includes forbidden skill $skill"
     else
-      pass "$label install omits legacy skill $skill"
+      pass "$label install omits forbidden skill $skill"
     fi
   done
 
@@ -353,15 +353,7 @@ RUST_PROFILE_SKILLS=(
   rust-refactor-guardian
 )
 
-LEGACY_COMPAT_SKILLS=(
-  feature-intake-gate
-  implementation-spec-writer
-  nestjs-sdd-planner
-  rust-sdd-planner
-)
-
 OPTIONAL_SKILLS=(
-  "${LEGACY_COMPAT_SKILLS[@]}"
   "${NESTJS_PROFILE_SKILLS[@]}"
   "${RUST_PROFILE_SKILLS[@]}"
 )
@@ -467,19 +459,6 @@ check_nonempty_file evals/samples/idsd-orchestrator-results.sample.json
 check_nonempty_file evals/samples/project-init-results.sample.json
 check_nonempty_file evals/samples/project-indexer-results.sample.json
 check_nonempty_file evals/samples/repo-phase-orchestrator-results.sample.json
-
-if [[ "${CODEXMINIMAL_CHECK_LEGACY:-0}" == "1" ]]; then
-  check_nonempty_file evals/feature-intake-gate-golden-cases.json
-  check_nonempty_file evals/samples/feature-intake-gate-results.sample.json
-  check_nonempty_file evals/implementation-spec-writer-golden-cases.json
-  check_nonempty_file evals/samples/implementation-spec-writer-results.sample.json
-  check_nonempty_file skills/nestjs-sdd-planner/assets/spec-output.schema.json
-  check_nonempty_file evals/nestjs-sdd-planner-golden-cases.json
-  check_nonempty_file evals/samples/nestjs-sdd-planner-results.sample.json
-  check_nonempty_file skills/rust-sdd-planner/assets/spec-output.schema.json
-  check_nonempty_file evals/rust-sdd-planner-golden-cases.json
-  check_nonempty_file evals/samples/rust-sdd-planner-results.sample.json
-fi
 
 echo
 echo "== Shell syntax =="
@@ -595,20 +574,6 @@ if command -v python3 >/dev/null 2>&1; then
   check_json_file evals/samples/project-init-results.sample.json
   check_json_file evals/samples/project-indexer-results.sample.json
   check_json_file evals/samples/repo-phase-orchestrator-results.sample.json
-  if [[ "${CODEXMINIMAL_CHECK_LEGACY:-0}" == "1" ]]; then
-    check_json_file skills/feature-intake-gate/assets/intake-output.schema.json
-    check_json_file skills/implementation-spec-writer/assets/spec-output.schema.json
-    check_json_file evals/feature-intake-gate-golden-cases.json
-    check_json_file evals/implementation-spec-writer-golden-cases.json
-    check_json_file evals/samples/feature-intake-gate-results.sample.json
-    check_json_file evals/samples/implementation-spec-writer-results.sample.json
-    check_json_file skills/nestjs-sdd-planner/assets/spec-output.schema.json
-    check_json_file evals/nestjs-sdd-planner-golden-cases.json
-    check_json_file evals/samples/nestjs-sdd-planner-results.sample.json
-    check_json_file skills/rust-sdd-planner/assets/spec-output.schema.json
-    check_json_file evals/rust-sdd-planner-golden-cases.json
-    check_json_file evals/samples/rust-sdd-planner-results.sample.json
-  fi
 else
   warn "python3 not found, skipped JSON validation"
 fi
@@ -724,11 +689,10 @@ done
 echo
 echo "== Install Smoke Tests =="
 
-run_install_smoke "core" "" "${LEGACY_COMPAT_SKILLS[*]}"
-run_install_smoke "legacy" "legacy" "" "${LEGACY_COMPAT_SKILLS[@]}"
-run_install_smoke "nestjs" "nestjs" "${LEGACY_COMPAT_SKILLS[*]}" "${NESTJS_PROFILE_SKILLS[@]}"
-run_install_smoke "rust" "rust" "${LEGACY_COMPAT_SKILLS[*]}" "${RUST_PROFILE_SKILLS[@]}"
-run_install_smoke "nestjs-rust" "nestjs,rust" "${LEGACY_COMPAT_SKILLS[*]}" "${NESTJS_PROFILE_SKILLS[@]}" "${RUST_PROFILE_SKILLS[@]}"
+run_install_smoke "core" "" ""
+run_install_smoke "nestjs" "nestjs" "" "${NESTJS_PROFILE_SKILLS[@]}"
+run_install_smoke "rust" "rust" "" "${RUST_PROFILE_SKILLS[@]}"
+run_install_smoke "nestjs-rust" "nestjs,rust" "" "${NESTJS_PROFILE_SKILLS[@]}" "${RUST_PROFILE_SKILLS[@]}"
 
 echo
 echo "== install target preview =="

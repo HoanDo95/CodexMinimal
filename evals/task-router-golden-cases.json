@@ -11,7 +11,7 @@
     }
   },
   {
-    "name": "new_feature_needs_brainstorm_spec_plan",
+    "name": "new_feature_needs_idsd_pipeline",
     "input": "Add a team invitations feature to this NestJS app. I only know the rough goal right now.",
     "expected": {
       "classification": "idsd",

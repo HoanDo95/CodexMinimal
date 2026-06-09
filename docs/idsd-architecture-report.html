@@ -12,7 +12,7 @@
       --panel: #f7f9fc;
       --id: #1f7a6d;
       --phase: #315f9f;
-      --legacy: #8a5a16;
+      --watch: #8a5a16;
       --risk: #a33d3d;
       --ok: #2d6f45;
       --bg: #ffffff;
@@ -93,7 +93,7 @@
 
     .status .panel { background: #fff; }
     .ok { color: var(--ok); }
-    .warn { color: var(--legacy); }
+    .warn { color: var(--watch); }
     .risk { color: var(--risk); }
 
     .diagram {
@@ -133,7 +133,7 @@
 
     .idsd rect { stroke: var(--id); fill: #eef8f5; }
     .phase rect { stroke: var(--phase); fill: #eff5ff; }
-    .legacy rect { stroke: var(--legacy); fill: #fff7e8; }
+    .previous rect { stroke: var(--watch); fill: #fff7e8; }
     .risknode rect { stroke: var(--risk); fill: #fff1f1; }
 
     .edge {
@@ -181,7 +181,7 @@
 
     .tag.done { background: #e8f5ee; color: var(--ok); }
     .tag.next { background: #edf3ff; color: var(--phase); }
-    .tag.watch { background: #fff3dc; color: var(--legacy); }
+    .tag.watch { background: #fff3dc; color: var(--watch); }
 
     @media (max-width: 820px) {
       header { padding: 28px 22px 20px; }
@@ -194,9 +194,9 @@
 <body>
   <header>
     <h1>Bao cao kien truc IDSD CodexMinimal</h1>
-    <p>Snapshot cho nhánh <strong>feat/IDSD</strong>: IDSD đã trở thành workflow lõi. SDD/TDD được dùng như stage bounded spec và test evidence bên trong IDSD pipeline, còn SDD document-heavy chỉ là legacy opt-in.</p>
+    <p>Snapshot cho nhánh <strong>feat/IDSD</strong>: IDSD đã trở thành workflow lõi. SDD/TDD được dùng như stage bounded spec và test evidence bên trong IDSD pipeline; SDD document-heavy không còn là workflow cài đặt riêng.</p>
     <div class="meta">
-      <span class="pill">Ngày: 2026-06-08</span>
+      <span class="pill">Ngày: 2026-06-09</span>
       <span class="pill">Phạm vi: router, core skill, docs, evals, installer, scaffold helper</span>
       <span class="pill">Cài mặc định: chỉ core IDSD</span>
     </div>
@@ -213,8 +213,8 @@
         <p>Feature mới hoặc chưa rõ hiện route mặc định vào <code>idsd-orchestrator</code>.</p>
       </div>
       <div class="panel">
-        <strong class="warn">Tương thích</strong>
-        <p>SDD-lite và TDD là stage trong pipeline. SDD planner cũ chỉ còn qua legacy profile.</p>
+        <strong class="warn">Ranh giới</strong>
+        <p>SDD-lite và TDD là stage trong pipeline. Không còn spec-first planner riêng trong repo.</p>
       </div>
       <div class="panel">
         <strong class="risk">Điểm cần theo dõi</strong>
@@ -233,23 +233,23 @@
           </marker>
         </defs>
 
-        <text x="30" y="32" font-size="18" font-weight="700" fill="#18212f">Trước đây: feature intake kiểu SDD</text>
+        <text x="30" y="32" font-size="18" font-weight="700" fill="#18212f">Trước đây: spec-first gating</text>
         <g class="node" transform="translate(30 62)">
           <rect width="150" height="58"></rect>
           <text x="16" y="25">task-router</text>
           <text class="sub" x="16" y="43">phan loai request</text>
         </g>
         <path class="edge" d="M180 91 H230"></path>
-        <g class="node legacy" transform="translate(230 62)">
+        <g class="node previous" transform="translate(230 62)">
           <rect width="170" height="58"></rect>
-          <text x="16" y="25">feature-intake</text>
+          <text x="16" y="25">intake gate</text>
           <text class="sub" x="16" y="43">brainstorm/spec gate</text>
         </g>
         <path class="edge" d="M400 91 H450"></path>
-        <g class="node legacy" transform="translate(450 62)">
+        <g class="node previous" transform="translate(450 62)">
           <rect width="185" height="58"></rect>
           <text x="16" y="25">spec writer</text>
-          <text class="sub" x="16" y="43">legacy SDD only</text>
+          <text class="sub" x="16" y="43">da loai khoi core</text>
         </g>
         <path class="edge" d="M635 91 H685"></path>
         <g class="node phase" transform="translate(685 62)">
@@ -320,10 +320,10 @@
         </g>
 
         <path class="edge" marker-end="url(#arrow2)" d="M405 161 H285"></path>
-        <g class="node legacy" transform="translate(35 132)">
+        <g class="node previous" transform="translate(35 132)">
           <rect width="250" height="58"></rect>
-          <text x="16" y="25">Legacy compatibility</text>
-          <text class="sub" x="16" y="43">chi khi duoc chon</text>
+          <text x="16" y="25">Standalone spec</text>
+          <text class="sub" x="16" y="43">input ngoai can tom tat</text>
         </g>
 
         <path class="edge" marker-end="url(#arrow2)" d="M715 161 H835"></path>
@@ -383,8 +383,8 @@
         <tr>
           <td>Vai trò SDD/TDD</td>
           <td><span class="tag done">đã rõ</span></td>
-          <td>SDD-lite/TDD là stage evidence trong IDSD. SDD planner cũ chỉ là compatibility.</td>
-          <td>Giữ bounded spec/test trong IDSD; chỉ cài legacy compatibility khi workflow cũ vẫn cần.</td>
+          <td>SDD-lite/TDD là stage evidence trong IDSD. Spec-first planner riêng đã được loại khỏi repo.</td>
+          <td>Giữ bounded spec/test trong IDSD; standalone spec chỉ là input ngoài cần tóm tắt vào IDSD.</td>
         </tr>
         <tr>
           <td>Schema/eval</td>

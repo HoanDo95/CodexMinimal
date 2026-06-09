@@ -18,12 +18,6 @@ CORE_SKILLS=(
   project-indexer
   repo-phase-orchestrator
 )
-LEGACY_COMPAT_SKILLS=(
-  feature-intake-gate
-  implementation-spec-writer
-  nestjs-sdd-planner
-  rust-sdd-planner
-)
 NESTJS_PROFILE_SKILLS=(
   nestjs-tdd-builder
   nestjs-bug-fixer
@@ -93,10 +87,6 @@ echo "Installing core skills into $SKILLS_DIR ..."
 
 INSTALL_SKILLS=("${CORE_SKILLS[@]}")
 ACTIVE_PROFILES=()
-if profile_requested "legacy"; then
-  INSTALL_SKILLS+=("${LEGACY_COMPAT_SKILLS[@]}")
-  ACTIVE_PROFILES+=("legacy")
-fi
 if profile_requested "nestjs"; then
   INSTALL_SKILLS+=("${NESTJS_PROFILE_SKILLS[@]}")
   ACTIVE_PROFILES+=("nestjs")

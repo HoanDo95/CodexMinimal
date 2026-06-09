@@ -42,7 +42,6 @@ Classify as one of:
 - scan
 - planner
 - idsd
-- sdd (legacy compatibility only)
 - tdd
 - coding
 - bug-fix
@@ -72,19 +71,9 @@ Choose exactly one primary skill for the current step:
 - rust-code-reviewer
 - rust-refactor-guardian
 
-Legacy-only skills are valid only when the `legacy` profile is installed and explicitly requested:
-
-- feature-intake-gate
-- implementation-spec-writer
-- nestjs-sdd-planner
-- rust-sdd-planner
-
 Add follow-up skills only when the workflow naturally chains into a later step, for example:
 
 - `idsd-orchestrator -> repo-phase-orchestrator -> project-indexer`
-- `feature-intake-gate -> repo-phase-orchestrator -> project-indexer` for legacy compatibility
-- `brainstorming -> implementation-spec-writer -> repo-phase-orchestrator` for legacy compatibility
-- `implementation-spec-writer -> repo-phase-orchestrator` for legacy compatibility
 - `nestjs-bug-fixer -> project-indexer`
 - `nestjs-refactor-guardian -> project-indexer`
 - `rust-bug-fixer -> project-indexer`
@@ -99,12 +88,9 @@ For new features, changed behavior, or unclear requirements, prefer IDSD as the 
 3. tool adapter execution
 
 Use `idsd-orchestrator` to turn intent into a bounded intent contract, agent cards, decision ledger, and acceptance evidence before phase planning.
-Use `feature-intake-gate`, `implementation-spec-writer`, and `*-sdd-planner` only when the `legacy` profile is installed and the user explicitly requests that older workflow or an existing approved plan depends on it.
 Use tool adapter execution after the phase plan and tracker exist.
-Treat internal execution-oriented skills as optional legacy profiles, not the default cross-stack path.
 Treat `nestjs-*` skills as optional profile skills. Use them only when the active stack profile is `nestjs` or the user explicitly selects them.
 Treat `rust-*` skills as optional profile skills. Use them only when the active stack profile is `rust` or the user explicitly selects them.
-Use `implementation-spec-writer` only as an explicit legacy compatibility stage.
 
 ## Required Reads
 

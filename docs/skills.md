@@ -24,19 +24,6 @@ This is a hard readiness gate enforced by `check-codexminimal.sh`. Use `referenc
 - `project-indexer`: build or repair compact repository indexes and `context-map.json`
 - `repo-phase-orchestrator`: write phase plans, maintain trackers, refresh harness runtime state, and hand off execution
 
-## Legacy Compatibility Profile
-
-- `feature-intake-gate`: legacy compatibility orchestration for feature intake before implementation
-- `implementation-spec-writer`: legacy compatibility stack-agnostic spec writer before phase planning
-- `nestjs-sdd-planner`: legacy compatibility writer for explicit old NestJS spec-first requests
-- `rust-sdd-planner`: legacy compatibility writer for explicit old Rust spec-first requests
-
-Install only when old SDD-style workflows are still needed:
-
-```bash
-CODEXMINIMAL_INSTALL_PROFILES=legacy bash install.sh
-```
-
 ## Profile Boundary
 
 - `docs/ai/stack-profile.md` is the source of truth for stack-specific assumptions
@@ -66,10 +53,8 @@ Pick one primary skill for the current step.
 
 Add follow-up skills only when the workflow naturally chains into a later step, such as:
 
-- `feature-intake-gate -> repo-phase-orchestrator` for legacy compatibility
 - `idsd-orchestrator -> repo-phase-orchestrator -> project-indexer`
 - `brainstorming -> profile-specific execution profile -> repo-phase-orchestrator`
-- `implementation-spec-writer -> repo-phase-orchestrator` for legacy compatibility
 - `nestjs-bug-fixer -> project-indexer`
 - `nestjs-refactor-guardian -> project-indexer`
 - `rust-bug-fixer -> project-indexer`

@@ -70,29 +70,12 @@ When the active profile is `rust`, CodexMinimal may use:
 These are optional profile skills, not part of the generic harness contract.
 The default feature workflow remains `idsd-orchestrator`, even when a stack profile is active.
 
-## Legacy Compatibility
-
-The `legacy` profile is the only profile that installs old spec-first compatibility skills:
-
-- `feature-intake-gate`
-- `implementation-spec-writer`
-- `nestjs-sdd-planner`
-- `rust-sdd-planner`
-
-Keep this profile opt-in so normal profile installs show IDSD output first.
-
 ## Install Modes
 
 Default install:
 
 ```bash
 bash install.sh
-```
-
-Core plus legacy SDD compatibility:
-
-```bash
-CODEXMINIMAL_INSTALL_PROFILES=legacy bash install.sh
 ```
 
 Core plus NestJS profile:

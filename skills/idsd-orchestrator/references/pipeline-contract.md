@@ -13,4 +13,4 @@ Default pipeline:
 
 Keep each stage concise. Expand only when risk, protected files, public contracts, data migrations, or security boundaries require it.
 
-The SDD stage in this pipeline is bounded specification. It is not the legacy spec-first workflow.
+The SDD stage in this pipeline is bounded specification. It is not a separate spec-first workflow.

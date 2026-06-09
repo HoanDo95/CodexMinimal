@@ -10,7 +10,7 @@
     }
   },
   {
-    "name": "new_feature_needs_brainstorm_spec_plan",
+    "name": "new_feature_needs_idsd_pipeline",
     "actual": {
       "classification": "idsd",
       "primarySkill": "idsd-orchestrator",
