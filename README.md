@@ -148,6 +148,8 @@ Design rule:
 
 ## Install
 
+Skill-pack install:
+
 ```bash
 git clone <your-repo-url>
 cd CodexMinimal
@@ -170,6 +172,22 @@ CODEXMINIMAL_INSTALL_PROFILES=nestjs,rust bash install.sh
 - cài profile chỉ khi có `CODEXMINIMAL_INSTALL_PROFILES`
 - không overwrite unmanaged skills nếu không có `CODEXMINIMAL_FORCE=1`
 - chạy readiness check gọn trước khi install, trừ khi `CODEXMINIMAL_SKIP_READINESS=1`
+
+## Plugin Packaging
+
+CodexMinimal also ships a local plugin manifest:
+
+- `.codex-plugin/plugin.json`
+
+The plugin surface points at the same `skills/` directory and is meant for testing Codex plugin-level discovery. It does not add a mandatory always-call skill and does not depend on Superpowers or any single execution engine.
+
+The intended plugin behavior is:
+
+```text
+natural prompt -> Codex plugin skill discovery -> task-router -> IDSD/index/profile flow
+```
+
+Skill-pack install remains available while plugin packaging is being dogfooded.
 
 ## Quick Start In Target Repo
 

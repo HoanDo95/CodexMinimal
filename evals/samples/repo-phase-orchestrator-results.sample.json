@@ -1,9 +1,9 @@
 [
   {
-    "name": "approved_spec_creates_plan_tracker_and_handoff",
+    "name": "approved_idsd_package_creates_plan_tracker_and_handoff",
     "actual": {
       "currentPhase": "Phase 1",
-      "executionHandoff": "subagent-driven-development",
+      "executionHandoff": "tool-adapter-execution",
       "runtimeStateUpdate": "current-work.json and artifact-registry.json refreshed"
     }
   },

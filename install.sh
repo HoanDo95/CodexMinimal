@@ -5,12 +5,6 @@ ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 MARKER_FILE=".codexminimal-owner"
 FORCE_INSTALL="${CODEXMINIMAL_FORCE:-0}"
 INSTALL_PROFILES_RAW="${CODEXMINIMAL_INSTALL_PROFILES:-}"
-SUPERPOWERS_CACHE_ROOT="${HOME}/.codex/plugins/cache/openai-curated/superpowers"
-COMPANION_SKILLS=(
-  brainstorming
-  subagent-driven-development
-  executing-plans
-)
 CORE_SKILLS=(
   task-router
   idsd-orchestrator
@@ -51,22 +45,6 @@ profile_requested() {
       return 1
       ;;
   esac
-}
-
-companion_skill_present() {
-  local skill="$1"
-
-  if [[ -d "$SKILLS_DIR/$skill" ]]; then
-    return 0
-  fi
-
-  if find "$SUPERPOWERS_CACHE_ROOT" -path "*/skills/$skill/SKILL.md" -print -quit >/dev/null 2>&1; then
-    local match
-    match="$(find "$SUPERPOWERS_CACHE_ROOT" -path "*/skills/$skill/SKILL.md" -print -quit 2>/dev/null || true)"
-    [[ -n "$match" ]] && return 0
-  fi
-
-  return 1
 }
 
 if [[ -x "$ROOT_DIR/check-codexminimal.sh" && "${CODEXMINIMAL_SKIP_READINESS:-0}" != "1" ]]; then
@@ -125,13 +103,6 @@ for skill in "${INSTALL_SKILLS[@]}"; do
   printf 'CodexMinimal\n' > "$target_dir/$MARKER_FILE"
 done
 
-missing_companions=()
-for skill in "${COMPANION_SKILLS[@]}"; do
-  if ! companion_skill_present "$skill"; then
-    missing_companions+=("$skill")
-  fi
-done
-
 echo
 echo "CodexMinimal installed successfully."
 echo
@@ -147,13 +118,4 @@ if [[ "${#ACTIVE_PROFILES[@]}" -gt 0 ]]; then
 else
   echo "Profiles: none"
 fi
-if [[ "${#missing_companions[@]}" -gt 0 ]]; then
-  echo
-  echo "Full mode: unavailable"
-  echo "Missing recommended companion skills:"
-  for skill in "${missing_companions[@]}"; do
-    echo "- $skill"
-  done
-else
-  echo "Full mode: available"
-fi
+echo "Plugin manifest: $ROOT_DIR/.codex-plugin/plugin.json"

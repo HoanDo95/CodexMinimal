@@ -310,6 +310,7 @@ echo "== Root files =="
 check_file README.md
 check_file install.sh
 check_file uninstall.sh
+check_file .codex-plugin/plugin.json
 check_file templates/AGENTS.md
 check_nonempty_file README.md
 check_nonempty_file docs/idsd-architecture-report.html
@@ -452,6 +453,7 @@ check_nonempty_file evals/project-indexer-golden-cases.json
 check_nonempty_file evals/repo-phase-orchestrator-golden-cases.json
 check_nonempty_file evals/run-golden-evals.py
 check_nonempty_file evals/run-sample-evals.sh
+check_nonempty_file .codex-plugin/plugin.json
 check_nonempty_file scripts/scaffold_idsd_intent.py
 check_nonempty_file scripts/start_idsd_trace.py
 check_nonempty_file evals/samples/task-router-results.sample.json
@@ -558,8 +560,9 @@ if command -v python3 >/dev/null 2>&1; then
   check_json_file templates/docs-codexminimal/current-work.json
   check_json_file templates/docs-codexminimal/artifact-registry.json
   check_json_file templates/docs-codexminimal/telemetry.json
-  check_json_file templates/docs-codexminimal/feedback-ledger.json
-  check_json_file skills/task-router/assets/router-output.schema.json
+check_json_file templates/docs-codexminimal/feedback-ledger.json
+check_json_file .codex-plugin/plugin.json
+check_json_file skills/task-router/assets/router-output.schema.json
   check_json_file skills/idsd-orchestrator/assets/idsd-output.schema.json
   check_json_file skills/project-init/assets/init-output.schema.json
   check_json_file skills/project-init/assets/feedback-ledger.template.json

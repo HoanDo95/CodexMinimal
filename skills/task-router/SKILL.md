@@ -58,7 +58,6 @@ Choose exactly one primary skill for the current step:
 
 - none
 - idsd-orchestrator
-- brainstorming
 - project-init
 - project-indexer
 - repo-phase-orchestrator

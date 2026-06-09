@@ -31,12 +31,6 @@ Trace folders are written to:
 
 See [IDSD Usage Guide](idsd-usage-guide.md) for target-project usage.
 
-## Brainstorm Design
-
-Written by external `brainstorming`:
-
-- `docs/codexminimal/designs/YYYY-MM-DD-<topic>-design.md`
-
 ## Phase Plan
 
 Written by `repo-phase-orchestrator`:
@@ -65,7 +59,4 @@ Maintained by `project-init` and `repo-phase-orchestrator`:
 
 ## Execution
 
-Execution itself is expected to be handed to external Superpowers skills such as:
-
-- `subagent-driven-development`
-- `executing-plans`
+Execution itself is expected to be handed to a tool adapter, agent runtime, CI workflow, or team-specific executor after IDSD and phase planning have bounded the work.

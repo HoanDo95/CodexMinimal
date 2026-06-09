@@ -30,12 +30,6 @@ This is a hard readiness gate enforced by `check-codexminimal.sh`. Use `referenc
 - default profile is `generic`
 - profile-specific skills should be used only when the active profile allows them
 
-## External Stage And Execution Skills
-
-- `brainstorming`: explore intent, constraints, options, and tradeoffs before design is fixed
-- `subagent-driven-development`: optional execution adapter path after a current phase is ready
-- `executing-plans`: external fallback for plan execution when subagent-driven execution is not desired
-
 ## Optional Execution Profiles
 
 - `nestjs-tdd-builder`: implement clear behavior with tests first
@@ -54,7 +48,6 @@ Pick one primary skill for the current step.
 Add follow-up skills only when the workflow naturally chains into a later step, such as:
 
 - `idsd-orchestrator -> repo-phase-orchestrator -> project-indexer`
-- `brainstorming -> profile-specific execution profile -> repo-phase-orchestrator`
 - `nestjs-bug-fixer -> project-indexer`
 - `nestjs-refactor-guardian -> project-indexer`
 - `rust-bug-fixer -> project-indexer`

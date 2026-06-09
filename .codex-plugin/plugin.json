@@ -1,0 +1,36 @@
+{
+  "name": "codexminimal",
+  "version": "0.1.0",
+  "description": "Minimal tool-agnostic harness for intent-driven software delivery, index-first routing, and lightweight workflow evidence.",
+  "author": {
+    "name": "CodexMinimal"
+  },
+  "license": "MIT",
+  "keywords": [
+    "idsd",
+    "task-routing",
+    "index-first",
+    "workflow-evidence",
+    "tool-agnostic"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "CodexMinimal",
+    "shortDescription": "Intent-driven routing, planning, indexing, and evidence for coding agents",
+    "longDescription": "CodexMinimal routes non-trivial repository work through a small tool-agnostic harness: task routing, IDSD intent packages, phase planning, project indexing, profile overlays, verification evidence, and feedback learning.",
+    "developerName": "CodexMinimal",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Add a feature to this repository using CodexMinimal.",
+      "Bootstrap CodexMinimal for this project.",
+      "Review this change with CodexMinimal routing."
+    ],
+    "brandColor": "#1F7A6D",
+    "screenshots": []
+  }
+}
