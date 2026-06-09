@@ -89,19 +89,6 @@ Use these files for different kinds of improvement evidence:
 | Full IDSD evidence | `docs/codexminimal/idsd-traces/<topic>/` | Per-task trace folder with prompt, repo context, ADR, specification, tests, implementation, verification, and results. |
 | Refactor history | `docs/ai/refactor-log.md` | Human-readable record of structural changes when a refactor profile is used. |
 
-## External Review Snapshots
-
-Sometimes you may import runtime files from another repository into this skill-pack repository only for review or audit.
-
-Rules:
-
-- treat imported snapshots as temporary review input, not as live CodexMinimal runtime state
-- the source of truth remains the target repository's `docs/codexminimal/`
-- keep imported review bundles outside committed project state
-- the default ignored staging folder is `Report/`
-
-If you need a deeper audit, include the related `idsd`, `plans`, `trackers`, and `reports` markdown files with the imported runtime JSON files.
-
 Do not mix these surfaces:
 
 - put measurements and phase events in `telemetry.json`
