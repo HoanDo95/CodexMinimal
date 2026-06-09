@@ -42,7 +42,7 @@ Classify as one of:
 - scan
 - planner
 - idsd
-- sdd
+- sdd (legacy compatibility only)
 - tdd
 - coding
 - bug-fix
@@ -59,22 +59,25 @@ Choose exactly one primary skill for the current step:
 
 - none
 - idsd-orchestrator
-- feature-intake-gate
 - brainstorming
-- implementation-spec-writer
 - project-init
 - project-indexer
 - repo-phase-orchestrator
-- nestjs-sdd-planner
 - nestjs-tdd-builder
 - nestjs-bug-fixer
 - nestjs-code-reviewer
 - nestjs-refactor-guardian
-- rust-sdd-planner
 - rust-tdd-builder
 - rust-bug-fixer
 - rust-code-reviewer
 - rust-refactor-guardian
+
+Legacy-only skills are valid only when the `legacy` profile is installed and explicitly requested:
+
+- feature-intake-gate
+- implementation-spec-writer
+- nestjs-sdd-planner
+- rust-sdd-planner
 
 Add follow-up skills only when the workflow naturally chains into a later step, for example:
 
@@ -82,11 +85,8 @@ Add follow-up skills only when the workflow naturally chains into a later step, 
 - `feature-intake-gate -> repo-phase-orchestrator -> project-indexer` for legacy compatibility
 - `brainstorming -> implementation-spec-writer -> repo-phase-orchestrator` for legacy compatibility
 - `implementation-spec-writer -> repo-phase-orchestrator` for legacy compatibility
-- `brainstorming -> profile-specific spec skill -> repo-phase-orchestrator`
-- `nestjs-sdd-planner -> repo-phase-orchestrator`
 - `nestjs-bug-fixer -> project-indexer`
 - `nestjs-refactor-guardian -> project-indexer`
-- `rust-sdd-planner -> repo-phase-orchestrator`
 - `rust-bug-fixer -> project-indexer`
 - `rust-refactor-guardian -> project-indexer`
 
@@ -99,7 +99,7 @@ For new features, changed behavior, or unclear requirements, prefer IDSD as the 
 3. tool adapter execution
 
 Use `idsd-orchestrator` to turn intent into a bounded intent contract, agent cards, decision ledger, and acceptance evidence before phase planning.
-Use `feature-intake-gate`, `implementation-spec-writer`, and profile SDD planners only as compatibility paths when the user explicitly requests that older workflow or an existing approved plan depends on it.
+Use `feature-intake-gate`, `implementation-spec-writer`, and `*-sdd-planner` only when the `legacy` profile is installed and the user explicitly requests that older workflow or an existing approved plan depends on it.
 Use tool adapter execution after the phase plan and tracker exist.
 Treat internal execution-oriented skills as optional legacy profiles, not the default cross-stack path.
 Treat `nestjs-*` skills as optional profile skills. Use them only when the active stack profile is `nestjs` or the user explicitly selects them.

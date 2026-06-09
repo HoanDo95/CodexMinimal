@@ -121,10 +121,10 @@ Persist these defaults unless the user overrides them:
 
 - classify non-trivial tasks before starting
 - use the smallest suitable skill
-- route new feature intake through `feature-intake-gate` by default
-- brainstorm before writing specs for new features or changed behavior
-- use `implementation-spec-writer` as the default generic spec stage
-- write a phase plan and tracker after spec approval and before coding
+- route new feature intake through `idsd-orchestrator` by default
+- capture intent, agent cards, decision ledger, and acceptance evidence before phase planning
+- use legacy spec skills only when the user explicitly requests old spec-first behavior
+- write a phase plan and tracker after IDSD acceptance evidence and before coding
 - default to tool adapter execution after the phase plan exists
 - keep `current-work.json` and `artifact-registry.json` aligned with the active implementation path
 - read `docs/codexminimal/feedback-ledger.json` before planning or execution-oriented routing

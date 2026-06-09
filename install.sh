@@ -21,16 +21,16 @@ CORE_SKILLS=(
 LEGACY_COMPAT_SKILLS=(
   feature-intake-gate
   implementation-spec-writer
+  nestjs-sdd-planner
+  rust-sdd-planner
 )
 NESTJS_PROFILE_SKILLS=(
-  nestjs-sdd-planner
   nestjs-tdd-builder
   nestjs-bug-fixer
   nestjs-code-reviewer
   nestjs-refactor-guardian
 )
 RUST_PROFILE_SKILLS=(
-  rust-sdd-planner
   rust-tdd-builder
   rust-bug-fixer
   rust-code-reviewer

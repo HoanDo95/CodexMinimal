@@ -28,15 +28,15 @@ Legacy compatibility flow:
 
 Use this only when the `legacy` profile is installed and the design direction must still go through a traditional spec, phase plan, and tracker before coding.
 
-For NestJS repositories with the `nestjs` profile active:
+For old NestJS spec-first compatibility with the `legacy` profile active:
 
 `task-router -> nestjs-sdd-planner -> repo-phase-orchestrator`
 
-For Rust repositories with the `rust` profile active:
+For old Rust spec-first compatibility with the `legacy` profile active:
 
 `task-router -> rust-sdd-planner -> repo-phase-orchestrator`
 
-Use these SDD flows only when the user explicitly asks for SDD or an existing team contract requires a traditional spec.
+Use these flows only when the user explicitly asks for legacy spec-first behavior or an existing team contract requires a traditional spec.
 
 ## Bug Fix
 

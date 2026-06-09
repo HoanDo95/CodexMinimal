@@ -25,18 +25,18 @@ if [[ "${CODEXMINIMAL_RUN_LEGACY_EVALS:-0}" == "1" ]]; then
   python3 evals/run-golden-evals.py \
     --cases evals/implementation-spec-writer-golden-cases.json \
     --results evals/samples/implementation-spec-writer-results.sample.json
-fi
 
-if [[ "${CODEXMINIMAL_RUN_PROFILE_EVALS:-0}" == "1" && -f evals/nestjs-sdd-planner-golden-cases.json && -f evals/samples/nestjs-sdd-planner-results.sample.json ]]; then
-  python3 evals/run-golden-evals.py \
-    --cases evals/nestjs-sdd-planner-golden-cases.json \
-    --results evals/samples/nestjs-sdd-planner-results.sample.json
-fi
+  if [[ -f evals/nestjs-sdd-planner-golden-cases.json && -f evals/samples/nestjs-sdd-planner-results.sample.json ]]; then
+    python3 evals/run-golden-evals.py \
+      --cases evals/nestjs-sdd-planner-golden-cases.json \
+      --results evals/samples/nestjs-sdd-planner-results.sample.json
+  fi
 
-if [[ "${CODEXMINIMAL_RUN_PROFILE_EVALS:-0}" == "1" && -f evals/rust-sdd-planner-golden-cases.json && -f evals/samples/rust-sdd-planner-results.sample.json ]]; then
-  python3 evals/run-golden-evals.py \
-    --cases evals/rust-sdd-planner-golden-cases.json \
-    --results evals/samples/rust-sdd-planner-results.sample.json
+  if [[ -f evals/rust-sdd-planner-golden-cases.json && -f evals/samples/rust-sdd-planner-results.sample.json ]]; then
+    python3 evals/run-golden-evals.py \
+      --cases evals/rust-sdd-planner-golden-cases.json \
+      --results evals/samples/rust-sdd-planner-results.sample.json
+  fi
 fi
 
 python3 evals/run-golden-evals.py \

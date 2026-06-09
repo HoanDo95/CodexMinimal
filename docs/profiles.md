@@ -50,29 +50,36 @@ Generic core should still index and plan using neutral areas:
 
 When the active profile is `nestjs`, CodexMinimal may use:
 
-- `nestjs-sdd-planner`
 - `nestjs-tdd-builder`
 - `nestjs-bug-fixer`
 - `nestjs-code-reviewer`
 - `nestjs-refactor-guardian`
 
 These are optional profile skills, not part of the generic harness contract.
-
-SDD planners are legacy compatibility tools. The default feature workflow remains `idsd-orchestrator`, even when a stack profile is active.
+The default feature workflow remains `idsd-orchestrator`, even when a stack profile is active.
 
 ## Rust Profile
 
 When the active profile is `rust`, CodexMinimal may use:
 
-- `rust-sdd-planner`
 - `rust-tdd-builder`
 - `rust-bug-fixer`
 - `rust-code-reviewer`
 - `rust-refactor-guardian`
 
 These are optional profile skills, not part of the generic harness contract.
+The default feature workflow remains `idsd-orchestrator`, even when a stack profile is active.
 
-SDD planners are legacy compatibility tools. The default feature workflow remains `idsd-orchestrator`, even when a stack profile is active.
+## Legacy Compatibility
+
+The `legacy` profile is the only profile that installs old spec-first compatibility skills:
+
+- `feature-intake-gate`
+- `implementation-spec-writer`
+- `nestjs-sdd-planner`
+- `rust-sdd-planner`
+
+Keep this profile opt-in so normal profile installs show IDSD output first.
 
 ## Install Modes
 

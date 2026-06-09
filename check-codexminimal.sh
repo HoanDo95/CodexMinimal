@@ -333,7 +333,6 @@ echo
 echo "== Optional profile skills =="
 
 NESTJS_PROFILE_SKILLS=(
-  nestjs-sdd-planner
   nestjs-tdd-builder
   nestjs-bug-fixer
   nestjs-code-reviewer
@@ -341,16 +340,21 @@ NESTJS_PROFILE_SKILLS=(
 )
 
 RUST_PROFILE_SKILLS=(
-  rust-sdd-planner
   rust-tdd-builder
   rust-bug-fixer
   rust-code-reviewer
   rust-refactor-guardian
 )
 
-OPTIONAL_SKILLS=(
+LEGACY_COMPAT_SKILLS=(
   feature-intake-gate
   implementation-spec-writer
+  nestjs-sdd-planner
+  rust-sdd-planner
+)
+
+OPTIONAL_SKILLS=(
+  "${LEGACY_COMPAT_SKILLS[@]}"
   "${NESTJS_PROFILE_SKILLS[@]}"
   "${RUST_PROFILE_SKILLS[@]}"
 )
@@ -444,10 +448,8 @@ echo "== Eval Assets =="
 check_nonempty_file evals/README.md
 check_nonempty_file evals/task-router-golden-cases.json
 check_nonempty_file evals/idsd-orchestrator-golden-cases.json
-check_nonempty_file evals/feature-intake-gate-golden-cases.json
 check_nonempty_file evals/project-init-golden-cases.json
 check_nonempty_file evals/project-indexer-golden-cases.json
-check_nonempty_file evals/implementation-spec-writer-golden-cases.json
 check_nonempty_file evals/repo-phase-orchestrator-golden-cases.json
 check_nonempty_file evals/run-golden-evals.py
 check_nonempty_file evals/run-sample-evals.sh
@@ -455,18 +457,18 @@ check_nonempty_file scripts/scaffold_idsd_intent.py
 check_nonempty_file scripts/start_idsd_trace.py
 check_nonempty_file evals/samples/task-router-results.sample.json
 check_nonempty_file evals/samples/idsd-orchestrator-results.sample.json
-check_nonempty_file evals/samples/feature-intake-gate-results.sample.json
 check_nonempty_file evals/samples/project-init-results.sample.json
 check_nonempty_file evals/samples/project-indexer-results.sample.json
-check_nonempty_file evals/samples/implementation-spec-writer-results.sample.json
 check_nonempty_file evals/samples/repo-phase-orchestrator-results.sample.json
 
-if [[ -d "skills/nestjs-sdd-planner" ]]; then
+if [[ "${CODEXMINIMAL_CHECK_LEGACY:-0}" == "1" ]]; then
+  check_nonempty_file evals/feature-intake-gate-golden-cases.json
+  check_nonempty_file evals/samples/feature-intake-gate-results.sample.json
+  check_nonempty_file evals/implementation-spec-writer-golden-cases.json
+  check_nonempty_file evals/samples/implementation-spec-writer-results.sample.json
+  check_nonempty_file skills/nestjs-sdd-planner/assets/spec-output.schema.json
   check_nonempty_file evals/nestjs-sdd-planner-golden-cases.json
   check_nonempty_file evals/samples/nestjs-sdd-planner-results.sample.json
-fi
-
-if [[ -d "skills/rust-sdd-planner" ]]; then
   check_nonempty_file skills/rust-sdd-planner/assets/spec-output.schema.json
   check_nonempty_file evals/rust-sdd-planner-golden-cases.json
   check_nonempty_file evals/samples/rust-sdd-planner-results.sample.json
@@ -573,31 +575,29 @@ if command -v python3 >/dev/null 2>&1; then
   check_json_file templates/docs-codexminimal/feedback-ledger.json
   check_json_file skills/task-router/assets/router-output.schema.json
   check_json_file skills/idsd-orchestrator/assets/idsd-output.schema.json
-  check_json_file skills/feature-intake-gate/assets/intake-output.schema.json
   check_json_file skills/project-init/assets/init-output.schema.json
   check_json_file skills/project-init/assets/feedback-ledger.template.json
   check_json_file skills/project-indexer/assets/indexer-output.schema.json
-  check_json_file skills/implementation-spec-writer/assets/spec-output.schema.json
   check_json_file evals/task-router-golden-cases.json
   check_json_file evals/idsd-orchestrator-golden-cases.json
-  check_json_file evals/feature-intake-gate-golden-cases.json
   check_json_file evals/project-init-golden-cases.json
   check_json_file evals/project-indexer-golden-cases.json
-  check_json_file evals/implementation-spec-writer-golden-cases.json
   check_json_file evals/repo-phase-orchestrator-golden-cases.json
   check_json_file evals/samples/task-router-results.sample.json
   check_json_file evals/samples/idsd-orchestrator-results.sample.json
-  check_json_file evals/samples/feature-intake-gate-results.sample.json
   check_json_file evals/samples/project-init-results.sample.json
   check_json_file evals/samples/project-indexer-results.sample.json
-  check_json_file evals/samples/implementation-spec-writer-results.sample.json
   check_json_file evals/samples/repo-phase-orchestrator-results.sample.json
-  if [[ -d "skills/nestjs-sdd-planner" ]]; then
+  if [[ "${CODEXMINIMAL_CHECK_LEGACY:-0}" == "1" ]]; then
+    check_json_file skills/feature-intake-gate/assets/intake-output.schema.json
+    check_json_file skills/implementation-spec-writer/assets/spec-output.schema.json
+    check_json_file evals/feature-intake-gate-golden-cases.json
+    check_json_file evals/implementation-spec-writer-golden-cases.json
+    check_json_file evals/samples/feature-intake-gate-results.sample.json
+    check_json_file evals/samples/implementation-spec-writer-results.sample.json
     check_json_file skills/nestjs-sdd-planner/assets/spec-output.schema.json
     check_json_file evals/nestjs-sdd-planner-golden-cases.json
     check_json_file evals/samples/nestjs-sdd-planner-results.sample.json
-  fi
-  if [[ -d "skills/rust-sdd-planner" ]]; then
     check_json_file skills/rust-sdd-planner/assets/spec-output.schema.json
     check_json_file evals/rust-sdd-planner-golden-cases.json
     check_json_file evals/samples/rust-sdd-planner-results.sample.json
@@ -717,11 +717,11 @@ done
 echo
 echo "== Install Smoke Tests =="
 
-run_install_smoke "core" "" "feature-intake-gate implementation-spec-writer"
-run_install_smoke "legacy" "legacy" "" feature-intake-gate implementation-spec-writer
-run_install_smoke "nestjs" "nestjs" "feature-intake-gate implementation-spec-writer" "${NESTJS_PROFILE_SKILLS[@]}"
-run_install_smoke "rust" "rust" "feature-intake-gate implementation-spec-writer" "${RUST_PROFILE_SKILLS[@]}"
-run_install_smoke "nestjs-rust" "nestjs,rust" "feature-intake-gate implementation-spec-writer" "${NESTJS_PROFILE_SKILLS[@]}" "${RUST_PROFILE_SKILLS[@]}"
+run_install_smoke "core" "" "${LEGACY_COMPAT_SKILLS[*]}"
+run_install_smoke "legacy" "legacy" "" "${LEGACY_COMPAT_SKILLS[@]}"
+run_install_smoke "nestjs" "nestjs" "${LEGACY_COMPAT_SKILLS[*]}" "${NESTJS_PROFILE_SKILLS[@]}"
+run_install_smoke "rust" "rust" "${LEGACY_COMPAT_SKILLS[*]}" "${RUST_PROFILE_SKILLS[@]}"
+run_install_smoke "nestjs-rust" "nestjs,rust" "${LEGACY_COMPAT_SKILLS[*]}" "${NESTJS_PROFILE_SKILLS[@]}" "${RUST_PROFILE_SKILLS[@]}"
 
 echo
 echo "== install target preview =="

@@ -64,10 +64,10 @@ To run all bundled sample evals:
 bash evals/run-sample-evals.sh
 ```
 
-Legacy and profile-specific evals are opt-in so the default sample run stays focused on the IDSD core:
+Legacy evals are opt-in so the default sample run stays focused on the IDSD core:
 
 ```bash
-CODEXMINIMAL_RUN_LEGACY_EVALS=1 CODEXMINIMAL_RUN_PROFILE_EVALS=1 bash evals/run-sample-evals.sh
+CODEXMINIMAL_RUN_LEGACY_EVALS=1 bash evals/run-sample-evals.sh
 ```
 
 The readiness check also runs install smoke tests for `core`, `nestjs`, `rust`, and `nestjs,rust` in temporary `CODEX_HOME` directories.

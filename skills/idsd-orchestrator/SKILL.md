@@ -30,7 +30,7 @@ Do not use for:
 - direct one-line answers
 - known bug fixes with a clear reproduction
 - code review only
-- explicit legacy SDD requests that must use a profile-specific SDD planner
+- explicit legacy SDD requests that must use an old spec planner
 - implementation that already has an approved phase plan and tracker
 
 ## Required Reads
@@ -68,7 +68,7 @@ Skip missing files without broad repository scans.
 - Agent cards define responsibility, authority, required output, and stop condition.
 - Acceptance criteria must be observable and verifiable.
 - TDD may be selected as evidence for behavior, but it does not replace intent capture.
-- SDD planners are legacy compatibility tools and run only on explicit user request.
+- SDD planners are legacy compatibility tools and run only from the `legacy` profile on explicit user request.
 - Do not start implementation until protected-file and risk gates are known.
 
 ## Output Format

@@ -39,7 +39,7 @@ Written by external `brainstorming`:
 
 ## Implementation Spec
 
-Written by `implementation-spec-writer` only for legacy compatibility, or by a profile-specific spec skill such as `nestjs-sdd-planner` or `rust-sdd-planner` when explicitly requested:
+Written only by legacy compatibility skills when explicitly requested:
 
 - `docs/codexminimal/specs/YYYY-MM-DD-<topic>-spec.md`
 

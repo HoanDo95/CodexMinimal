@@ -41,7 +41,7 @@ Use SDD only when:
 
 - the user explicitly asks for it
 - a team contract requires a traditional spec
-- an approved existing plan already depends on a profile SDD planner
+- an approved existing plan already depends on a legacy spec planner
 
 When used, SDD is an evidence artifact inside IDSD, not the controlling workflow.
 

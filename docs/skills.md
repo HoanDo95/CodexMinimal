@@ -28,6 +28,8 @@ This is a hard readiness gate enforced by `check-codexminimal.sh`. Use `referenc
 
 - `feature-intake-gate`: legacy compatibility orchestration for feature intake before implementation
 - `implementation-spec-writer`: legacy compatibility stack-agnostic spec writer before phase planning
+- `nestjs-sdd-planner`: legacy compatibility writer for explicit old NestJS spec-first requests
+- `rust-sdd-planner`: legacy compatibility writer for explicit old Rust spec-first requests
 
 Install only when old SDD-style workflows are still needed:
 
@@ -47,12 +49,7 @@ CODEXMINIMAL_INSTALL_PROFILES=legacy bash install.sh
 - `subagent-driven-development`: optional execution adapter path after a current phase is ready
 - `executing-plans`: external fallback for plan execution when subagent-driven execution is not desired
 
-## Profile-Specific Skills
-
-- `nestjs-sdd-planner`: legacy compatibility writer for explicit NestJS SDD requests
-- `rust-sdd-planner`: legacy compatibility writer for explicit Rust SDD requests
-
-## Optional Or Legacy Execution Profiles
+## Optional Execution Profiles
 
 - `nestjs-tdd-builder`: implement clear behavior with tests first
 - `nestjs-bug-fixer`: reproduce, isolate, fix, and regression-test a specific bug
@@ -71,12 +68,10 @@ Add follow-up skills only when the workflow naturally chains into a later step, 
 
 - `feature-intake-gate -> repo-phase-orchestrator` for legacy compatibility
 - `idsd-orchestrator -> repo-phase-orchestrator -> project-indexer`
-- `brainstorming -> profile-specific spec writer -> repo-phase-orchestrator`
+- `brainstorming -> profile-specific execution profile -> repo-phase-orchestrator`
 - `implementation-spec-writer -> repo-phase-orchestrator` for legacy compatibility
-- `nestjs-sdd-planner -> repo-phase-orchestrator`
 - `nestjs-bug-fixer -> project-indexer`
 - `nestjs-refactor-guardian -> project-indexer`
-- `rust-sdd-planner -> repo-phase-orchestrator`
 - `rust-bug-fixer -> project-indexer`
 - `rust-refactor-guardian -> project-indexer`
 
