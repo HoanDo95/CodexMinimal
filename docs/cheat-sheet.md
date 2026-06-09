@@ -56,6 +56,12 @@ Record this as explicit user feedback in CodexMinimal. Add or update the issue i
 Promote user-confirmed repeated feedback from docs/codexminimal/feedback-ledger.json into docs/ai/rule-registry.md if the configured strike threshold is reached, then confirm which durable rule was added.
 ```
 
+## 8. Tạo trace để cải thiện CodexMinimal
+
+```text
+Start an IDSD trace for this task, keep runtime measurements in docs/codexminimal/telemetry.json, record repeated user-confirmed issues in docs/codexminimal/feedback-ledger.json, and use the trace results to improve CodexMinimal after verification.
+```
+
 ## Gợi ý dùng ngắn hơn
 
 Nếu anh không muốn prompt dài, có thể dùng kiểu tự nhiên:
@@ -84,3 +90,5 @@ Review this diff. Use CodexMinimal flow.
   `task-router -> idsd-orchestrator -> repo-phase-orchestrator -> tool adapter execution -> verification -> project-indexer`
 - User-mediated learning:
   `explicit user feedback -> record_feedback_issue.py -> feedback-ledger.json -> promote_feedback_rules.py -> rule-registry.md`
+- Improvement evidence:
+  `idsd-traces/<topic> + telemetry.json + feedback-ledger.json -> policy/eval improvement`

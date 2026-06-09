@@ -76,6 +76,26 @@ Default lifecycle:
 - `watch`: one strike before promotion
 - `promoted`: at or above the configured promotion threshold, and therefore treated as a durable rule
 
+## Improvement Log Locations
+
+Use these files for different kinds of improvement evidence:
+
+| Need | File or folder | Notes |
+|---|---|---|
+| Active task state | `docs/codexminimal/current-work.json` | Current topic, stage, phase, artifact paths, blockers, and open questions. |
+| Artifact links | `docs/codexminimal/artifact-registry.json` | Machine-readable links between intent/spec/plan/tracker artifacts. |
+| Runtime measurements | `docs/codexminimal/telemetry.json` | Session summaries, phase handoffs, verification outcomes, budget raises, broad scans, and other workflow metrics. |
+| Repeated user feedback | `docs/codexminimal/feedback-ledger.json` | User-confirmed repeated issues that may become durable rules. |
+| Full IDSD evidence | `docs/codexminimal/idsd-traces/<topic>/` | Per-task trace folder with prompt, repo context, ADR, specification, tests, implementation, verification, and results. |
+| Refactor history | `docs/ai/refactor-log.md` | Human-readable record of structural changes when a refactor profile is used. |
+
+Do not mix these surfaces:
+
+- put measurements and phase events in `telemetry.json`
+- put repeated correction patterns in `feedback-ledger.json`
+- put per-task evidence in an IDSD trace folder
+- promote only explicit user-confirmed feedback into `docs/ai/rule-registry.md`
+
 ## Why This Matters
 
 Without these files, a workflow can look structured while still drifting between sessions.

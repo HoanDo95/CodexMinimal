@@ -230,6 +230,15 @@ Các file runtime giúp harness:
 - ghi lại phase handoff và verification outcome
 - tạo nền để đo workflow có giảm exploration waste hay không
 
+Log cải thiện nằm ở các surface khác nhau:
+
+- `docs/codexminimal/telemetry.json`: runtime metrics, phase handoff, verification outcome
+- `docs/codexminimal/feedback-ledger.json`: lỗi lặp lại hoặc feedback đã được user xác nhận
+- `docs/codexminimal/idsd-traces/<topic>/`: evidence đầy đủ cho một task thật
+- `docs/ai/refactor-log.md`: lịch sử refactor khi dùng profile refactor
+
+Chi tiết nằm ở [Harness State](docs/harness-state.md).
+
 ## Verification
 
 ```bash
