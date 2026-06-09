@@ -125,7 +125,7 @@ Persist these defaults unless the user overrides them:
 - brainstorm before writing specs for new features or changed behavior
 - use `implementation-spec-writer` as the default generic spec stage
 - write a phase plan and tracker after spec approval and before coding
-- default to external execution after the phase plan exists
+- default to tool adapter execution after the phase plan exists
 - keep `current-work.json` and `artifact-registry.json` aligned with the active implementation path
 - read `docs/codexminimal/feedback-ledger.json` before planning or execution-oriented routing
 - record repeat-feedback strikes only from explicit user feedback or an explicitly approved review authority
@@ -156,7 +156,7 @@ Persist these defaults unless the user overrides them:
 - `gpt-5.5 high`: multi-module, high-risk, failing tests, database/env/deploy work
 - `gpt-5.4`: balanced fallback for clear everyday coding and focused implementation
 - `gpt-5.4-mini`: bounded scan, quick summarization, low-risk analysis
-- do not recommend `gpt-5.3-codex`; treat it as a migrated legacy alias if it appears in older configs
+- do not recommend stale legacy model aliases as current default paths
 
 Ask before expensive model/effort escalation unless the task is trivial or already authorized.
 

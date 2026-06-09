@@ -7,6 +7,6 @@ Use:
 - `gpt-5.4 medium` for everyday coding, focused implementation, and normal fix-test loops when the task is clear and does not need frontier-level reasoning.
 - `gpt-5.4-mini low` for bounded scan, quick summarization, or simple risk analysis.
 
-Do not recommend `gpt-5.3-codex`; treat it as a stale migration alias, not an active routing target.
+Do not recommend stale legacy model aliases as active routing targets.
 
 Do not recommend high effort unless risk justifies it.

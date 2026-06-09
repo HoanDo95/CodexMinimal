@@ -12,7 +12,7 @@ Use `task-router` for ambiguous, risky, multi-step, protected, refactor, review,
 Default feature intake:
 1. `idsd-orchestrator`
 2. `repo-phase-orchestrator`
-3. external execution
+3. tool adapter execution
 
 Do not jump from a rough feature prompt straight into coding. Capture intent, agent cards, decision evidence, acceptance evidence, and phase boundaries first. Ask first if the task touches protected files, architecture boundaries, env/deploy/database, CI/CD, public API contracts, or wide multi-module changes.
 <!-- CODEXMINIMAL:ROUTING END -->
@@ -24,7 +24,7 @@ Do not jump from a rough feature prompt straight into coding. Capture intent, ag
 - `gpt-5.5 high`: high-risk multi-module, failing-test, env/deploy/database, or protected-boundary work
 - `gpt-5.4`: balanced fallback for clear everyday coding and focused fix-test loops
 - `gpt-5.4-mini`: bounded scan, quick repository search, and summarization
-- Do not route to `gpt-5.3-codex`; treat it as an old alias, not a current default path
+- Do not route to stale legacy model aliases as current default paths
 
 Do not escalate model/effort without a concrete reason.
 <!-- CODEXMINIMAL:MODEL_ROUTING END -->

@@ -29,7 +29,7 @@ Use `gpt-5.4-mini` for:
 - quick code search
 - small risk analysis
 
-Do not route to `gpt-5.3-codex`.
+Do not route to stale legacy model aliases as current default paths.
 If it appears in older notes or configs, treat it as a stale migration alias and move to `gpt-5.5`, `gpt-5.4`, or `gpt-5.4-mini` instead.
 
 Do not escalate effort unless quality, risk, or test evidence justifies it.

@@ -44,7 +44,7 @@ CODEXMINIMAL_INSTALL_PROFILES=legacy bash install.sh
 ## External Stage And Execution Skills
 
 - `brainstorming`: explore intent, constraints, options, and tradeoffs before design is fixed
-- `subagent-driven-development`: recommended external execution path after a current phase is ready
+- `subagent-driven-development`: optional execution adapter path after a current phase is ready
 - `executing-plans`: external fallback for plan execution when subagent-driven execution is not desired
 
 ## Profile-Specific Skills
@@ -91,16 +91,15 @@ Add follow-up skills only when the workflow naturally chains into a later step, 
 - `scripts/validate_harness_runtime.py`: validate `current-work.json`, `artifact-registry.json`, `telemetry.json`, and `feedback-ledger.json`
 - `scripts/render_index_stubs.py`: render missing docs/ai index stubs from templates
 
-## Codex CLI Surfaces
+## Tool Adapter Surfaces
 
-Use local Codex CLI surfaces when they provide stronger automation than prompt-only workflow:
+Use tool adapters when they provide stronger automation than prompt-only workflow:
 
-- `codex review --uncommitted`: review staged, unstaged, and untracked local changes
-- `codex review --base <branch>`: review the current branch against a base branch
-- `codex review --commit <sha>`: review a single committed change
-- `codex doctor --json`: capture redacted machine-readable environment diagnostics
-- `codex exec --json --output-schema <file>`: run schema-shaped non-interactive workflows for future eval or router automation
+- `review adapter`: review staged, unstaged, branch, commit, or PR changes
+- `diagnostic adapter`: capture redacted machine-readable environment diagnostics
+- `eval adapter`: run schema-shaped non-interactive workflows for future eval or router automation
+- `execution adapter`: execute an approved phase plan and return evidence
 
-These are documented as usage surfaces in this pilot. Do not make existing skills depend on them until a separate integration pass has verified the exact runtime contract.
+These are documented as extension surfaces in this pilot. Do not make existing skills depend on one tool until a separate integration pass has verified the exact runtime contract.
 
-See `docs/codex-cli-playbook.md` for the operating playbook.
+See `docs/tool-adapter-playbook.md` for the operating playbook.

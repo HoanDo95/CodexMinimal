@@ -53,7 +53,7 @@ IDSD may select TDD for a phase when tests are the right evidence mechanism.
 
 ## Default Flow
 
-`task-router -> idsd-orchestrator -> repo-phase-orchestrator -> external execution -> verification -> project-indexer`
+`task-router -> idsd-orchestrator -> repo-phase-orchestrator -> tool adapter execution -> verification -> project-indexer`
 
 ## Evidence Rule
 

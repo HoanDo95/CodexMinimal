@@ -26,7 +26,7 @@ Use `gpt-5.4-mini` for:
 - quick repository search
 - small risk analysis
 
-Do not route to `gpt-5.3-codex`.
+Do not route to stale legacy model aliases as current default paths.
 
 If it appears in older prompts, configs, or notes, treat it as a stale migration alias and move to `gpt-5.5`, `gpt-5.4`, or `gpt-5.4-mini` instead.
 

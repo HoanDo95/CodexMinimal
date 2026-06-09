@@ -1,10 +1,10 @@
-# Codex Review Policy
+# Review Adapter Policy
 
-`codex review` is useful as an independent review pass, but it may send repository diffs to an external service. Treat it as an explicit data-export action.
+A review adapter is useful as an independent review pass, but it may send repository diffs to an external service. Treat it as an explicit data-export action unless the adapter is proven local-only.
 
 ## Allowed Use
 
-Run `codex review` only after deterministic checks pass and one of these is true:
+Run a review adapter only after deterministic checks pass and one of these is true:
 
 - the repository or diff is approved for external review
 - the user explicitly approves the current review scope
@@ -14,9 +14,9 @@ Run `codex review` only after deterministic checks pass and one of these is true
 
 Prefer the smallest useful scope:
 
-- `codex review --commit <sha>` for one committed change
-- `codex review --base <branch>` for a branch-level review
-- `codex review --uncommitted` only for local work explicitly approved for external review
+- one committed change
+- one branch-level diff
+- local uncommitted work only when explicitly approved for external review
 
 ## Required Guardrails
 
@@ -26,12 +26,11 @@ Prefer the smallest useful scope:
 - Keep findings separate from test results.
 - Record when review was skipped because external review was not approved.
 
-## Safe Wrapper
+## Adapter Wrapper
 
-Use the bundled wrapper when possible:
+If a concrete adapter is added later, its wrapper should enforce:
 
-```bash
-CODEXMINIMAL_ALLOW_EXTERNAL_REVIEW=1 scripts/safe_codex_review.sh --commit <sha>
-```
-
-Without `CODEXMINIMAL_ALLOW_EXTERNAL_REVIEW=1`, the wrapper refuses to run.
+- explicit opt-in for external review
+- sensitive-path refusal before upload or execution
+- clear scope arguments
+- captured review evidence location

@@ -1,7 +1,7 @@
 [
   {
     "name": "approved_spec_creates_plan_tracker_and_handoff",
-    "input": "The user spec is approved. Write a multi-phase plan, create a tracker, and prepare external execution.",
+    "input": "The user spec is approved. Write a multi-phase plan, create a tracker, and prepare tool adapter execution.",
     "expected": {
       "currentPhase": "Phase 1",
       "executionHandoff": "subagent-driven-development",

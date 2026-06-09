@@ -423,7 +423,7 @@ DOCS=(
   docs/indexing.md
   docs/rule-registry.md
   docs/evals.md
-  docs/codex-cli-playbook.md
+  docs/tool-adapter-playbook.md
   docs/review-policy.md
   docs/benchmark.md
   docs/artifacts.md
@@ -479,7 +479,6 @@ SCRIPTS=(
   install.sh
   uninstall.sh
   release.sh
-  scripts/safe_codex_review.sh
   check-codexminimal.sh
   evals/run-sample-evals.sh
 )
@@ -511,7 +510,6 @@ PY_SCRIPTS=(
   scripts/render_index_stubs.py
   scripts/scaffold_idsd_intent.py
   scripts/start_idsd_trace.py
-  scripts/run_codex_exec_evals.py
   evals/run-golden-evals.py
 )
 

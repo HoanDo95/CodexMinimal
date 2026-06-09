@@ -25,26 +25,18 @@ In practice, evals in this repository serve two roles:
 3. workflow traces from real repositories
 4. graders or dataset-based evals when behavior stabilizes
 
-## Codex Exec Automation
+## Adapter Automation
 
-For future automation, prefer `codex exec` with JSON output and a schema file over freeform text capture:
+For future automation, prefer adapter output with JSON and a schema file over freeform text capture.
+Use adapter evals only after validating the exact input/output contract for the selected runtime.
+The current bundled evals remain deterministic sample fixtures and do not require any external LLM tool.
 
-```bash
-codex exec --json --output-schema skills/task-router/assets/router-output.schema.json <prompt>
-```
+Minimum eval-adapter contract:
 
-Use this only after validating the exact output contract for the target workflow. The current bundled evals remain deterministic sample fixtures.
-
-To run opt-in LLM evals through Codex CLI:
-
-```bash
-CODEXMINIMAL_RUN_LLM_EVALS=1 python3 scripts/run_codex_exec_evals.py \
-  --cases evals/task-router-golden-cases.json \
-  --schema skills/task-router/assets/router-output.schema.json \
-  --output evals/results/task-router-codex-exec-results.json
-```
-
-Without `CODEXMINIMAL_RUN_LLM_EVALS=1`, the script refuses to call Codex.
+- input: case file, schema file, repo root, and explicit runtime selection
+- output: machine-readable result file plus captured evidence
+- failure modes: runtime unavailable, schema mismatch, unsafe export policy, or grader failure
+- policy: opt-in only; never part of default readiness
 
 ## Starter Assets
 

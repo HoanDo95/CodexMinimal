@@ -32,21 +32,9 @@ If you keep this repository in another local path, run the same command from tha
 bash check-codexminimal.sh
 ```
 
-Validate the local Codex CLI environment when setup or auth behavior is unclear:
+Validate only the deterministic harness by default. Tool runtime diagnostics belong to the selected adapter and should not be part of core readiness.
 
-```bash
-codex doctor --json
-```
-
-Use Codex's non-interactive review before push or release when a local diff should get an independent pass:
-
-```bash
-codex review --uncommitted
-codex review --base main
-codex review --commit <sha>
-```
-
-See `docs/codex-cli-playbook.md` for when to use review, diagnostics, or non-interactive JSON execution.
+See `docs/tool-adapter-playbook.md` for how to wire optional review, eval, or diagnostic adapters.
 See `docs/review-policy.md` before running external review on private or unpublished diffs.
 
 When bootstrapping a target repository, `project-init` should create:

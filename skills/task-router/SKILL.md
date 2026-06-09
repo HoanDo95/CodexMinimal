@@ -96,11 +96,11 @@ For new features, changed behavior, or unclear requirements, prefer IDSD as the 
 
 1. `idsd-orchestrator`
 2. `repo-phase-orchestrator`
-3. external execution skill
+3. tool adapter execution
 
 Use `idsd-orchestrator` to turn intent into a bounded intent contract, agent cards, decision ledger, and acceptance evidence before phase planning.
 Use `feature-intake-gate`, `implementation-spec-writer`, and profile SDD planners only as compatibility paths when the user explicitly requests that older workflow or an existing approved plan depends on it.
-Use external execution after the phase plan and tracker exist.
+Use tool adapter execution after the phase plan and tracker exist.
 Treat internal execution-oriented skills as optional legacy profiles, not the default cross-stack path.
 Treat `nestjs-*` skills as optional profile skills. Use them only when the active stack profile is `nestjs` or the user explicitly selects them.
 Treat `rust-*` skills as optional profile skills. Use them only when the active stack profile is `rust` or the user explicitly selects them.

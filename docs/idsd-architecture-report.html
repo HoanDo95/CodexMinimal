@@ -276,13 +276,13 @@
         <g class="node phase" transform="translate(500 222)">
           <rect width="170" height="58"></rect>
           <text x="16" y="25">phase plan</text>
-          <text class="sub" x="16" y="43">execution co gioi han</text>
+          <text class="sub" x="16" y="43">adapter boundary</text>
         </g>
         <path class="edge" d="M670 251 H720"></path>
         <g class="node" transform="translate(720 222)">
           <rect width="155" height="58"></rect>
-          <text x="16" y="25">execution</text>
-          <text class="sub" x="16" y="43">agent ben ngoai</text>
+          <text x="16" y="25">tool adapter</text>
+          <text class="sub" x="16" y="43">runtime tuy chon</text>
         </g>
         <path class="edge" d="M875 251 H925"></path>
         <g class="node risknode" transform="translate(925 222)">
@@ -350,8 +350,8 @@
         <path class="edge" marker-end="url(#arrow2)" d="M715 281 H835"></path>
         <g class="node" transform="translate(835 252)">
           <rect width="250" height="58"></rect>
-          <text x="16" y="25">External execution</text>
-          <text class="sub" x="16" y="43">subagent/plan executor</text>
+          <text x="16" y="25">Tool adapter</text>
+          <text class="sub" x="16" y="43">executor/review/eval</text>
         </g>
 
         <path class="edge" marker-end="url(#arrow2)" d="M560 310 V345"></path>
@@ -377,7 +377,7 @@
         <tr>
           <td>Vị trí trong core</td>
           <td><span class="tag done">ổn</span></td>
-          <td>IDSD nên nằm trong core vì nó điều phối intent và evidence trước mọi execution theo stack.</td>
+          <td>IDSD nên nằm trong core vì nó điều phối intent và evidence trước mọi tool adapter theo stack.</td>
           <td>Giữ IDSD phía trên NestJS/Rust profiles.</td>
         </tr>
         <tr>

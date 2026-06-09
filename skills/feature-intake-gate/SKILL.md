@@ -69,7 +69,7 @@ Exit criteria:
 - `brainstorm` exits only after direction and constraints are approved
 - `spec` exits only after the spec is approved and open questions are bounded
 - `phase-plan` exits only after a phase plan and tracker exist
-- `ready-to-execute` means the current phase may be handed to an external execution skill
+- `ready-to-execute` means the current phase may be handed to a tool adapter execution workflow
 
 ## Output Format
 

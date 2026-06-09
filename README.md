@@ -1,6 +1,6 @@
 # CodexMinimal
 
-Minimal harness layer for Codex CLI.
+Minimal tool-agnostic harness layer for intent-driven software delivery.
 
 CodexMinimal không cố trở thành một super-agent. Nó là lớp điều phối để giúp LLM làm việc có kiểm soát hơn:
 
@@ -22,7 +22,7 @@ flowchart TB
 
     R -->|new or unclear feature| IDSD[idsd-orchestrator]
     IDSD --> PLAN[repo-phase-orchestrator]
-    PLAN --> EXEC[external execution]
+    PLAN --> EXEC[tool adapter execution]
     EXEC --> IDX
 
     R -->|bug / review / refactor| PROFILE[optional profile skill]
@@ -39,7 +39,7 @@ flowchart LR
     Core --> Nest[NestJS profile optional]
     Core --> Rust[Rust profile optional]
     Core --> Checks[readiness + evals]
-    Core --> CLI[Codex CLI opt-in tooling]
+    Core --> Adapter[tool adapter surface]
 
     Nest --> NS[nestjs-sdd / tdd / bug / review / refactor]
     Rust --> RS[rust-sdd / tdd / bug / review / refactor]
@@ -49,7 +49,7 @@ flowchart LR
 |---|---|
 | `Core Harness` | route task, giữ rules, tạo intent evidence/plan/tracker, cập nhật index |
 | `Profile Layer` | thêm rule và skill riêng cho stack như `nestjs` hoặc `rust` |
-| `Execution Layer` | thực thi code thật bằng Codex agent, Superpowers skill hoặc flow riêng của team |
+| `Execution Layer` | thực thi code thật bằng tool adapter, agent runtime, skill ngoài hoặc flow riêng của team |
 
 Core mặc định không assume repo là NestJS hay Rust. Active profile nên được ghi ở `docs/ai/stack-profile.md`.
 
@@ -85,7 +85,7 @@ Dùng khi repo chưa có `AGENTS.md`, `docs/ai`, `docs/codexminimal` hoặc các
 flowchart LR
     A[task-router] --> B[idsd-orchestrator]
     B --> C[repo-phase-orchestrator]
-    C --> D[external execution]
+    C --> D[tool adapter execution]
     D --> E[verification]
     E --> F[project-indexer]
 ```
@@ -113,8 +113,8 @@ Dùng khi đã có failing test, runtime error, compiler error, panic, regressio
 flowchart LR
     A[task-router] --> B{review surface}
     B -->|profile-aware review| C[nestjs-code-reviewer or rust-code-reviewer]
-    B -->|independent CLI pass| D[safe_codex_review.sh]
-    D --> E[codex review]
+    B -->|independent adapter pass| D[external review adapter]
+    D --> E[review evidence]
 ```
 
 Dùng khi cần findings-only hoặc muốn thêm một lượt review độc lập trước khi merge/push.
@@ -228,30 +228,22 @@ Readiness hiện kiểm tra:
 - helper scripts và template sync
 - install smoke test cho `core`, `nestjs`, `rust`, `nestjs,rust`
 
-## Codex CLI Usage
+## Tool Adapter Usage
 
-Codex CLI được dùng như optional automation, không thay thế skill routing mặc định.
+Tool adapter là lớp mở rộng optional, không thay thế skill routing mặc định.
 
 | Surface | Dùng để làm gì | Policy |
 |---|---|---|
-| `codex exec --json` | LLM eval có schema, regression capture cho router/planner | opt-in bằng `CODEXMINIMAL_RUN_LLM_EVALS=1` |
-| `codex review` | independent code-review pass cho diff/commit/branch | dùng `scripts/safe_codex_review.sh`, yêu cầu explicit approval |
-| `codex doctor --json` | debug môi trường, auth, model, CLI behavior | không chạy trong default readiness |
+| `eval adapter` | LLM eval có schema, regression capture cho router/planner | opt-in; không chạy trong default readiness |
+| `review adapter` | independent code-review pass cho diff/commit/branch | yêu cầu explicit approval khi có thể xuất dữ liệu ra ngoài |
+| `diagnostic adapter` | debug môi trường, auth, model, runtime behavior | không chạy trong default readiness |
 
-Opt-in LLM eval:
+Adapter contract tối thiểu:
 
-```bash
-CODEXMINIMAL_RUN_LLM_EVALS=1 python3 scripts/run_codex_exec_evals.py \
-  --cases evals/task-router-golden-cases.json \
-  --schema skills/task-router/assets/router-output.schema.json \
-  --output evals/results/task-router-codex-exec-results.json
-```
-
-Guarded review:
-
-```bash
-CODEXMINIMAL_ALLOW_EXTERNAL_REVIEW=1 scripts/safe_codex_review.sh --commit <sha>
-```
+- input rõ: repo root, prompt/case, schema nếu có, policy xuất dữ liệu
+- output rõ: JSON hoặc log có thể lưu làm evidence
+- failure rõ: exit code, lỗi runtime, lỗi schema, hoặc lỗi policy
+- không được làm skills core phụ thuộc vào một tool runtime cụ thể
 
 ## Status
 
@@ -273,7 +265,7 @@ CODEXMINIMAL_ALLOW_EXTERNAL_REVIEW=1 scripts/safe_codex_review.sh --commit <sha>
 - [Flows](docs/flows.md)
 - [Artifacts](docs/artifacts.md)
 - [Harness State](docs/harness-state.md)
-- [Codex CLI Playbook](docs/codex-cli-playbook.md)
+- [Tool Adapter Playbook](docs/tool-adapter-playbook.md)
 - [Review Policy](docs/review-policy.md)
 - [Evals](docs/evals.md)
 - [Benchmark](docs/benchmark.md)

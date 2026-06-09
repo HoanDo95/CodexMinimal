@@ -77,10 +77,10 @@ Review this diff. Use CodexMinimal flow.
 - Bootstrap:
   `task-router -> project-init -> project-indexer`
 - Generic feature:
-  `task-router -> idsd-orchestrator -> repo-phase-orchestrator -> external execution -> verification -> project-indexer`
+  `task-router -> idsd-orchestrator -> repo-phase-orchestrator -> tool adapter execution -> verification -> project-indexer`
 - NestJS feature:
-  `task-router -> idsd-orchestrator -> repo-phase-orchestrator -> external execution -> verification -> project-indexer`
+  `task-router -> idsd-orchestrator -> repo-phase-orchestrator -> tool adapter execution -> verification -> project-indexer`
 - Rust feature:
-  `task-router -> idsd-orchestrator -> repo-phase-orchestrator -> external execution -> verification -> project-indexer`
+  `task-router -> idsd-orchestrator -> repo-phase-orchestrator -> tool adapter execution -> verification -> project-indexer`
 - User-mediated learning:
   `explicit user feedback -> record_feedback_issue.py -> feedback-ledger.json -> promote_feedback_rules.py -> rule-registry.md`

@@ -21,7 +21,7 @@ What is not covered:
 - multi-turn work on a real target repository
 - token usage over long feature delivery sessions
 - model latency under remote API load
-- end-to-end quality differences between Codex CLI models
+- end-to-end quality differences between external model/tool adapters
 
 ## Commands
 
@@ -66,23 +66,18 @@ The remaining unknown is real-repository behavior:
 - whether the router chooses the right flow under real ambiguity
 - whether optional profiles add enough value to justify their extra surface area
 
-## Model Support Snapshot
+## Adapter Support Snapshot
 
-Observed locally on `2026-06-04` from Codex CLI model cache:
+CodexMinimal core does not require a specific tool runtime or local model cache.
+Adapter-specific model support should be recorded by the adapter integration that uses it.
 
-- `gpt-5.5`
-- `gpt-5.4`
-- `gpt-5.4-mini`
-- `codex-auto-review` as an internal approval-review model
-
-That means the current router should prefer `gpt-5.5`, `gpt-5.4`, and `gpt-5.4-mini`.
-Do not keep `gpt-5.3-codex` in active routing guidance.
+Keep core benchmark results focused on deterministic harness behavior unless an adapter benchmark explicitly opts in.
 
 ## Official OpenAI Model Snapshot
 
 As of the GPT-5.5 release notes and current model docs:
 
-- GPT-5.5 is the strongest Codex-facing model for complex coding and agentic work
+- GPT-5.5 is the strongest currently documented option in this model set for complex coding and agentic work
 - GPT-5.5 matches GPT-5.4 per-token latency in real-world serving while delivering higher quality
 - GPT-5.5 also uses fewer tokens than GPT-5.4 for many Codex tasks
 - GPT-5.4 remains a valid balanced fallback for everyday coding
