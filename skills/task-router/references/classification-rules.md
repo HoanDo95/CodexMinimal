@@ -8,10 +8,11 @@
 - bug-fix/debug: error, failing test, regression, stack trace
 - review: inspect diff/code without modifying
 - refactor: move/rename/split/restructure
-- orchestrator: multi-phase work with tracker/commits
+- orchestrator: multi-phase work with tracker/commits, existing phase tracker continuation, next open phase execution, or phase blocker triage
 
 Pick one primary skill for the current step.
 Recommend follow-up skills only when the workflow naturally chains into a later step.
 For new feature work, prefer `idsd-orchestrator` before code.
 Use `idsd-orchestrator -> repo-phase-orchestrator -> project-indexer` as the generic expanded sequence.
+For "continue next phase", "Phase 0 only", active tracker execution, or blocker triage after a tracker exists, route directly to `repo-phase-orchestrator` with `compact` response mode and `low` context budget unless protected files, deploy/env/database, or multi-module uncertainty require escalation.
 Treat standalone document-heavy specs as external input. Summarize their usable decisions into the IDSD bounded specification instead of routing to a separate spec planner.

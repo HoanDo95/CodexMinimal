@@ -46,24 +46,29 @@ Do not use for:
 
 ## Workflow
 
-1. Read the approved spec and identify phase boundaries.
-2. Write or update the phase plan at:
+1. If the request continues an existing tracker, use compact phase execution mode:
+   - read only the active tracker, `current-work.json`, `telemetry.json`, protected-files policy, and files named by the current phase or blocker
+   - execute or triage only the next open phase
+   - write terse tracker/current-work/telemetry updates
+   - stop after verification or blocker capture
+2. Read the approved spec and identify phase boundaries when creating or revising a plan.
+3. Write or update the phase plan at:
    - `docs/codexminimal/plans/YYYY-MM-DD-<topic>-phase-plan.md`
-3. Ensure the plan is detailed enough to drive execution.
-4. Keep each individual plan file concise: maximum 200 lines.
-5. If a plan would exceed 200 lines, split it into phase files and keep the root plan as an index.
-6. Create or update the tracker at:
+4. Ensure the plan is detailed enough to drive execution.
+5. Keep each individual plan file concise: maximum 200 lines.
+6. If a plan would exceed 200 lines, split it into phase files and keep the root plan as an index.
+7. Create or update the tracker at:
    - `docs/codexminimal/trackers/YYYY-MM-DD-<topic>-tracker.md`
-7. Update `docs/codexminimal/artifact-registry.json` so the approved spec, active phase plan, and tracker are linked.
-8. Update `docs/codexminimal/current-work.json` with the active topic, stage, phase, artifact paths, and execution workflow.
-9. Mark the current phase, scope, and verification expectations.
-10. Check protected files and risk boundaries.
-11. Handoff the current phase to a tool adapter execution workflow:
+8. Update `docs/codexminimal/artifact-registry.json` so the approved spec, active phase plan, and tracker are linked.
+9. Update `docs/codexminimal/current-work.json` with the active topic, stage, phase, artifact paths, and execution workflow.
+10. Mark the current phase, scope, and verification expectations.
+11. Check protected files and risk boundaries.
+12. Handoff the current phase to a tool adapter execution workflow:
    - selected execution adapter recommended
    - external skill or team executor acceptable fallback
-12. After execution returns, update tracker status, failures, fixes, and next phase.
-13. Record phase outcome in `docs/codexminimal/telemetry.json`.
-14. Stop before advancing if the tracker, runtime state, or verification state is stale.
+13. After execution returns, update tracker status, failures, fixes, and next phase.
+14. Record phase outcome in `docs/codexminimal/telemetry.json`.
+15. Stop before advancing if the tracker, runtime state, or verification state is stale.
 
 ## Blocking Rules
 
@@ -74,6 +79,18 @@ Do not advance if:
 - protected file requires approval
 - scope drift is detected
 - the phase plan is missing or under-specified for execution
+
+## Compact Phase Execution
+
+Use this mode for prompts such as `Continue CodexMinimal next phase`, `Continue Phase 0 only`, or `triage the current blocker`.
+
+Rules:
+
+- do not regenerate IDSD artifacts
+- do not rewrite the full phase plan unless it is stale or missing
+- do not scan beyond the active tracker and named files unless verification proves it is necessary
+- keep telemetry to one short phase event
+- keep the final report to current phase, changed files, verification, blocker, and next action
 
 ## Output Format
 

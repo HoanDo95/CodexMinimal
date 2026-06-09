@@ -66,6 +66,27 @@ bash evals/run-sample-evals.sh
 
 The readiness check also runs install smoke tests for `core`, `nestjs`, `rust`, and `nestjs,rust` in temporary `CODEX_HOME` directories.
 
+## Route Sanity Checks
+
+Use `evals/task-router-golden-cases.json` to verify route behavior after prompt or policy changes.
+
+Important route cases:
+
+- rough new feature -> `idsd-orchestrator`, `standard`, `medium`
+- intent-only feature -> `idsd-orchestrator`, `standard`, `high`
+- repo bootstrap -> `project-init`
+- profile bug fix -> matching profile bug fixer
+- protected deploy/env change -> `ask-user`, `high`
+- existing tracker continuation -> `repo-phase-orchestrator`, `compact`, `low`
+
+Run:
+
+```bash
+bash evals/run-sample-evals.sh
+```
+
+If a natural prompt routes to the wrong primary skill, add or update a task-router golden case before changing router policy.
+
 ## Recommended Practice
 
 - run golden cases after changing prompts or templates

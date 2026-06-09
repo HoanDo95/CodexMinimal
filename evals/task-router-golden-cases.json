@@ -47,6 +47,30 @@
     }
   },
   {
+    "name": "compact_next_phase_execution",
+    "input": "Continue CodexMinimal next phase.",
+    "expected": {
+      "classification": "orchestrator",
+      "primarySkill": "repo-phase-orchestrator",
+      "followUpSkills": ["project-indexer"],
+      "responseMode": "compact",
+      "contextBudget": "low",
+      "safetyGate": "proceed"
+    }
+  },
+  {
+    "name": "phase_zero_preflight_only",
+    "input": "Continue CodexMinimal Phase 0 only. Run baseline checks and stop before implementation.",
+    "expected": {
+      "classification": "orchestrator",
+      "primarySkill": "repo-phase-orchestrator",
+      "followUpSkills": [],
+      "responseMode": "compact",
+      "contextBudget": "low",
+      "safetyGate": "proceed"
+    }
+  },
+  {
     "name": "nestjs_bug_fix",
     "input": "The POST /users endpoint returns 500 when email is missing. Fix it.",
     "expected": {

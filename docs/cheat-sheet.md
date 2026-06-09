@@ -70,6 +70,12 @@ Khi đã có phase plan và tracker:
 Continue CodexMinimal from the active tracker. Execute the next open phase only, update tracker/current-work/telemetry, run verification, and stop.
 ```
 
+Token-saving version:
+
+```text
+Continue CodexMinimal next phase in compact mode.
+```
+
 Nếu muốn chỉ chạy preflight:
 
 ```text

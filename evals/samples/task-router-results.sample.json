@@ -43,6 +43,28 @@
     }
   },
   {
+    "name": "compact_next_phase_execution",
+    "actual": {
+      "classification": "orchestrator",
+      "primarySkill": "repo-phase-orchestrator",
+      "followUpSkills": ["project-indexer"],
+      "responseMode": "compact",
+      "contextBudget": "low",
+      "safetyGate": "proceed"
+    }
+  },
+  {
+    "name": "phase_zero_preflight_only",
+    "actual": {
+      "classification": "orchestrator",
+      "primarySkill": "repo-phase-orchestrator",
+      "followUpSkills": [],
+      "responseMode": "compact",
+      "contextBudget": "low",
+      "safetyGate": "proceed"
+    }
+  },
+  {
     "name": "nestjs_bug_fix",
     "actual": {
       "classification": "bug-fix",

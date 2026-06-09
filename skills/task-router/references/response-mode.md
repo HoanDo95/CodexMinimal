@@ -10,6 +10,7 @@ Use `compact` when:
 - the user prioritizes speed
 - the task is repetitive or operational
 - the answer should minimize token usage
+- the request continues an existing tracker phase or asks for blocker triage after planning is done
 
 Use `standard` when:
 

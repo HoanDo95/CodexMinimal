@@ -12,3 +12,4 @@ Rules:
 - if the budget is exhausted and confidence is still low, reroute or ask the user
 - do not continue scanning by inertia
 - do not broad-scan the repository under `low`
+- use `low` for existing tracker continuation: read the tracker, current-work, telemetry, and only the files named by the active phase or blocker

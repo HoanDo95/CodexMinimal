@@ -15,6 +15,8 @@ Use for:
 - simple repo questions
 - review of a narrow change
 - speed-priority tasks
+- continuing an existing tracker phase
+- Phase 0 baseline or blocker triage after planning is complete
 
 ### Medium
 

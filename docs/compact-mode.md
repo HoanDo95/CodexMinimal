@@ -16,6 +16,8 @@ Make the answer:
 - operational tasks
 - repeated workflows
 - bounded code or repo questions
+- continuing an already-approved phase tracker
+- Phase 0 preflight, baseline checks, or current blocker triage
 - when the user clearly prioritizes speed
 
 ## Rules
@@ -38,6 +40,26 @@ That means:
 
 This still does not mean there is a separate centralized compression engine for every conversation.
 The current approach is policy-driven compaction at the workflow layer.
+
+## Compact Phase Execution
+
+Use this when planning artifacts already exist and the user says something like:
+
+```text
+Continue CodexMinimal next phase.
+```
+
+Expected behavior:
+
+- route to `repo-phase-orchestrator`
+- use `compact` response mode
+- use `low` context budget
+- read active tracker/runtime state first
+- execute or triage only the next open phase
+- update tracker/current-work/telemetry with short evidence
+- stop after verification or blocker capture
+
+Do not recreate IDSD intent, ADR, specification, or a full phase plan unless the existing artifacts are missing or stale.
 
 ## Auto-Compact Guidance
 

@@ -17,6 +17,16 @@ At minimum, execution feedback should include:
 
 The harness should not advance phase state without this feedback.
 
+For compact phase execution, keep feedback terse:
+
+- one line for phase outcome
+- one list of changed files
+- one list of verification commands and exit codes
+- one blocker list if blocked
+- one next action
+
+Do not paste long command output unless it is the only useful evidence.
+
 If scope drift appears during execution:
 
 - stop
