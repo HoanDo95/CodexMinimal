@@ -102,6 +102,9 @@ Use one of:
 - `nestjs-rust`
 - `other`
 
+Use `generic` for frameworks without an active bundled profile, such as Fastify, Express, Rails, Laravel, Django, or Go services.
+Record detected framework evidence in `docs/ai/stack-profile.md`, but do not activate a profile that does not exist yet.
+
 ## Task Type Examples
 
 Use short labels such as:

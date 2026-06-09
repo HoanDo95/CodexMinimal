@@ -546,14 +546,23 @@ echo "== context-map schema =="
 
 check_contains templates/docs-ai/context-map.json '"version": 2'
 check_contains templates/docs-ai/context-map.json '"stackProfile"'
+check_contains templates/docs-ai/context-map.json '"detectedStack"'
+check_contains templates/docs-ai/context-map.json '"entrypoints"'
 check_contains templates/docs-ai/context-map.json '"modules"'
+check_contains templates/docs-ai/context-map.json '"handlers"'
 check_contains templates/docs-ai/context-map.json '"controllers"'
 check_contains templates/docs-ai/context-map.json '"services"'
+check_contains templates/docs-ai/context-map.json '"dataAccess"'
 check_contains templates/docs-ai/context-map.json '"repositories"'
 check_contains templates/docs-ai/context-map.json '"entities"'
 check_contains templates/docs-ai/context-map.json '"dtos"'
+check_contains templates/docs-ai/context-map.json '"contracts"'
 check_contains templates/docs-ai/context-map.json '"routes"'
+check_contains templates/docs-ai/context-map.json '"jobs"'
+check_contains templates/docs-ai/context-map.json '"integrations"'
+check_contains templates/docs-ai/context-map.json '"configuration"'
 check_contains templates/docs-ai/context-map.json '"surfaces"'
+check_contains templates/docs-ai/context-map.json '"verification"'
 check_contains templates/docs-ai/context-map.json '"protectedPaths"'
 
 if command -v python3 >/dev/null 2>&1; then

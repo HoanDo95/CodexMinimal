@@ -143,6 +143,8 @@ Dùng khi move/rename/split module, đổi folder structure hoặc chạm vào b
 Design rule:
 
 - profile chỉ bật từ repo evidence rõ hoặc user chỉ định
+- framework được phát hiện không tự động kích hoạt profile
+- repo Fastify/Express/Rails/Laravel/Django/Go/etc. vẫn dùng `generic` nếu chưa có profile riêng
 - stack-specific rules không nhồi vào generic `AGENTS.md`
 - `nestjs` và `rust` có thể cài riêng hoặc cùng lúc
 

@@ -8,15 +8,32 @@ High-level AI-readable map of this repository.
 
 - Package manager:
 - Framework:
+- Detected stack:
+- Active profile: generic
 - Main app entry:
 - Test command:
 - Lint command:
 - Build command:
+- Typecheck command:
+- Smoke command:
 
 ## Key Areas
 
 | Area | Path | Responsibility |
 |---|---|---|
+
+Use generic areas first:
+
+- entrypoints
+- routes
+- handlers
+- domain modules
+- data access
+- contracts/schemas
+- integrations
+- jobs
+- configuration
+- tests
 
 ## Main Workflows
 

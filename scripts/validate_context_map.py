@@ -7,16 +7,24 @@ from pathlib import Path
 REQUIRED_TOP_LEVEL_KEYS = {
     "version",
     "project",
+    "entrypoints",
     "modules",
+    "handlers",
     "controllers",
     "services",
+    "dataAccess",
     "repositories",
     "entities",
     "dtos",
+    "contracts",
     "routes",
+    "jobs",
+    "integrations",
+    "configuration",
     "surfaces",
     "tests",
     "scripts",
+    "verification",
     "protectedPaths",
 }
 
@@ -47,6 +55,19 @@ def main() -> int:
     stack_profile = project.get("stackProfile")
     if not isinstance(stack_profile, str):
         print("INVALID_PROJECT stackProfile must be a string")
+        return 1
+    detected_stack = project.get("detectedStack")
+    if not isinstance(detected_stack, list):
+        print("INVALID_PROJECT detectedStack must be a list")
+        return 1
+
+    verification = data.get("verification", {})
+    if not isinstance(verification, dict):
+        print("INVALID_VERIFICATION verification must be an object")
+        return 1
+    commands = verification.get("commands")
+    if not isinstance(commands, list):
+        print("INVALID_VERIFICATION commands must be a list")
         return 1
 
     protected = data.get("protectedPaths", {})

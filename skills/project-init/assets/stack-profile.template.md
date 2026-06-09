@@ -6,9 +6,20 @@ Source of truth for stack-specific assumptions used by CodexMinimal.
 
 - `generic`
 
+## Generic-First Rule
+
+- Detection evidence is not profile activation.
+- Keep `generic` active until the user explicitly selects a supported profile or a bundled profile can be justified from repo evidence.
+- If the framework is detected but unsupported, record it below and keep generic routing.
+
 ## Detection Evidence
 
 - Add the files, dependencies, or conventions that justify the active profile.
+
+## Detected But Generic
+
+- Record frameworks or runtimes seen in the repo that do not have an active profile yet.
+- Example: `fastify` detected in `package.json`, active profile remains `generic`.
 
 ## Allowed Profile Skills
 

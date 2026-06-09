@@ -85,9 +85,18 @@ The active stack profile should be recorded in:
 Rules:
 
 - default to `generic`
+- detection evidence is not profile activation
+- if a framework is detected but unsupported, record it and keep generic routing
 - activate a profile only from explicit repository evidence or direct user instruction
 - keep stack-specific skills behind the active profile boundary
 - keep generic harness rules in `AGENTS.md`, not in profile overlays
+
+Generic context should use neutral architecture vocabulary first:
+
+- entrypoints, routes, handlers
+- domain modules and data access
+- contracts, schemas, and integrations
+- jobs, configuration, tests, and verification commands
 
 ## Runtime State
 

@@ -29,6 +29,23 @@ Default:
 
 Promote to a stack profile only when repository evidence is clear or the user explicitly asks for it.
 
+Detection evidence is not profile activation.
+If a repository uses a framework without a bundled profile, keep `generic` active and record the framework under `Detected But Generic`.
+For example, a Fastify repository should remain `generic` until a Fastify profile exists or the user explicitly asks for one.
+
+Generic core should still index and plan using neutral areas:
+
+- entrypoints
+- routes
+- handlers
+- domain modules
+- data access
+- contracts or schemas
+- integrations
+- jobs
+- configuration
+- tests
+
 ## NestJS Profile
 
 When the active profile is `nestjs`, CodexMinimal may use:
