@@ -59,7 +59,7 @@ Do not wire skills to a specific eval adapter until the exact runtime contract h
 Use execution adapters after IDSD and phase planning have created bounded work:
 
 ```text
-Intent -> IDSD artifacts -> phase plan -> execution adapter -> verification evidence
+Intent -> ADR -> bounded spec -> tasks -> tests -> phase plan -> execution adapter -> verification evidence -> report
 ```
 
 The adapter must report what it changed, how it verified the change, and where evidence was stored.

@@ -5,6 +5,10 @@
     "classification",
     "currentStage",
     "intentContract",
+    "architectureDecisions",
+    "boundedSpecification",
+    "taskBreakdown",
+    "testContract",
     "agentCards",
     "decisionLedgerEntries",
     "acceptanceEvidence",
@@ -13,6 +17,7 @@
     "nextSkill",
     "followUpChain",
     "stopCondition",
+    "reportOutline",
     "suggestedPrompt"
   ],
   "properties": {
@@ -22,7 +27,7 @@
     },
     "currentStage": {
       "type": "string",
-      "enum": ["intent-contract", "agent-carding", "evidence-planning", "phase-handoff"]
+      "enum": ["intent", "architecture-decision", "specification", "task-breakdown", "tests", "implementation-handoff", "verification", "report"]
     },
     "intentContract": {
       "type": "object",
@@ -34,6 +39,30 @@
         "nonGoals": { "type": "array", "items": { "type": "string" } },
         "constraints": { "type": "array", "items": { "type": "string" } },
         "acceptanceCriteria": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "architectureDecisions": { "type": "array", "items": { "type": "string" } },
+    "boundedSpecification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["behavior", "interfaces", "dataImpacts", "risks", "acceptanceMapping"],
+      "properties": {
+        "behavior": { "type": "array", "items": { "type": "string" } },
+        "interfaces": { "type": "array", "items": { "type": "string" } },
+        "dataImpacts": { "type": "array", "items": { "type": "string" } },
+        "risks": { "type": "array", "items": { "type": "string" } },
+        "acceptanceMapping": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "taskBreakdown": { "type": "array", "items": { "type": "string" } },
+    "testContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tddMode", "testPlan", "verificationAlternatives"],
+      "properties": {
+        "tddMode": { "type": "string", "enum": ["test-first-required", "test-plan-only", "manual-verification-acceptable", "not-applicable"] },
+        "testPlan": { "type": "array", "items": { "type": "string" } },
+        "verificationAlternatives": { "type": "array", "items": { "type": "string" } }
       }
     },
     "agentCards": {
@@ -50,6 +79,7 @@
     "nextSkill": { "type": "string" },
     "followUpChain": { "type": "array", "items": { "type": "string" } },
     "stopCondition": { "type": "string" },
+    "reportOutline": { "type": "array", "items": { "type": "string" } },
     "suggestedPrompt": { "type": "string" }
   }
 }

@@ -4,8 +4,14 @@
     "input": "Build a usage-based billing workflow from this intent: teams should be charged fairly and admins should understand every charge.",
     "expected": {
       "classification": "idsd",
-      "currentStage": "intent-contract",
+      "currentStage": "intent",
       "agentCards": ["planner", "architect", "verifier"],
+      "taskBreakdown": ["Define billing charge source mapping", "Define admin charge visibility", "Define verification evidence"],
+      "testContract": {
+        "tddMode": "test-plan-only",
+        "testPlan": ["Given usage exists, charges expose their source"],
+        "verificationAlternatives": []
+      },
       "optionalCompatibilityGates": [],
       "nextSkill": "repo-phase-orchestrator"
     }
@@ -15,7 +21,7 @@
     "input": "Write an SDD spec for this feature, but keep the new system focused on IDSD.",
     "expected": {
       "classification": "idsd",
-      "currentStage": "intent-contract",
+      "currentStage": "intent",
       "optionalCompatibilityGates": ["legacy-sdd-explicit-request"],
       "nextSkill": "repo-phase-orchestrator"
     }

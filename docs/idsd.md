@@ -9,10 +9,23 @@ IDSD means Intent-Driven Spec Development in this repository. The goal is to red
 The user supplies intent, business rules, constraints, and acceptance criteria. The agent then creates the minimum operating package needed to proceed:
 
 - intent contract
+- architecture decisions
+- bounded specification
+- task breakdown
+- test contract
 - agent cards
 - decision ledger
 - acceptance evidence
+- implementation handoff
+- verification evidence
+- report outline
 - optional compatibility gates
+
+## Default Pipeline
+
+`Intent (IDSD) -> Architecture Decision (ADR) -> Specification (bounded SDD) -> Task Breakdown -> Tests (TDD) -> Implementation -> Verification -> Report`
+
+IDSD owns the pipeline. SDD and TDD are bounded evidence stages inside IDSD, not separate default workflows.
 
 The deterministic scaffold helper can create the initial package:
 
@@ -35,7 +48,7 @@ See [IDSD Usage Guide](idsd-usage-guide.md) for how traces appear inside a targe
 
 ## Relationship To SDD
 
-Traditional SDD is no longer the default feature workflow.
+Traditional document-heavy SDD is no longer the default feature workflow.
 
 Use SDD only when:
 
@@ -43,11 +56,11 @@ Use SDD only when:
 - a team contract requires a traditional spec
 - an approved existing plan already depends on a legacy spec planner
 
-When used, SDD is an evidence artifact inside IDSD, not the controlling workflow.
+Bounded specification is the default translation layer inside IDSD. Legacy SDD planners are opt-in compatibility only.
 
 ## Relationship To TDD
 
-TDD remains useful as executable evidence for behavior, but it does not replace intent, agent boundaries, risk decisions, or acceptance evidence.
+TDD remains useful as executable evidence for behavior, but it does not replace intent, ADR, bounded specification, risk decisions, or acceptance evidence.
 
 IDSD may select TDD for a phase when tests are the right evidence mechanism.
 

@@ -15,9 +15,15 @@ Use this when the requirement is new, underspecified, starts from intent, or cha
 Inside `idsd-orchestrator`, the expected pre-implementation package is:
 
 - intent contract
+- ADR-style architecture decisions
+- bounded specification
+- task breakdown
+- TDD/test contract
 - selected agent cards
 - decision ledger
 - acceptance evidence
+- implementation handoff
+- verification and report outline
 - optional compatibility gates
 
 ## Legacy Spec To Plan

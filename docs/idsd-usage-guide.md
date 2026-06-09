@@ -43,15 +43,25 @@ trace.json
 intent-package.md
 original-prompt.md
 repo-context.md
+adr.md
+specification.md
+task-breakdown.md
+tests.md
+implementation.md
 verification.md
 results.md
 ```
 
 Use them like this:
 
-- `intent-package.md`: intent contract, selected agent cards, decision ledger, acceptance evidence.
+- `intent-package.md`: compact IDSD pipeline package.
 - `original-prompt.md`: the original task prompt.
 - `repo-context.md`: stack, task type, touched areas, protected or risky boundaries.
+- `adr.md`: architecture decisions and tradeoffs.
+- `specification.md`: bounded specification.
+- `task-breakdown.md`: ordered implementation tasks.
+- `tests.md`: TDD mode, test plan, and verification alternatives.
+- `implementation.md`: tool adapter handoff and changed files.
 - `verification.md`: commands run and important outputs.
 - `results.md`: what worked, what failed, what felt too heavy or too light.
 - `trace.json`: machine-readable metadata for later analysis.
@@ -81,6 +91,8 @@ task-router -> idsd-orchestrator -> repo-phase-orchestrator -> tool adapter exec
 3. After execution, fill the trace files if they are not already complete:
 
 - update `repo-context.md` with touched modules and risk boundaries
+- update `adr.md`, `specification.md`, `task-breakdown.md`, and `tests.md` before implementation
+- update `implementation.md` during execution
 - update `verification.md` with test/lint/build commands and outputs
 - update `results.md` with outcome and IDSD friction
 

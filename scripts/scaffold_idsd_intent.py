@@ -50,6 +50,31 @@ status: draft
 
 {bullet_list(args.acceptance_criterion, "No acceptance criteria captured yet.")}
 
+## Architecture Decision
+
+| Decision | Options Considered | Selected Path | Reason | Risk | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| Pipeline shape | SDD-first, TDD-first, IDSD pipeline | IDSD -> ADR -> bounded spec -> tasks -> tests -> implementation | Intent stays in control while spec and tests provide evidence. | Pipeline may feel heavy for tiny changes. | This package |
+
+## Bounded Specification
+
+- Behavior: Define expected behavior from acceptance criteria.
+- Interfaces: Define public APIs, commands, events, or UI boundaries touched.
+- Data impacts: Define persistence, migration, or compatibility impact.
+- Risks: Define protected files, security, integration, or regression risks.
+- Acceptance mapping: Map each acceptance criterion to evidence.
+
+## Task Breakdown
+
+- [ ] Convert bounded specification into implementation tasks.
+- [ ] Define verification commands before implementation.
+
+## Tests
+
+- TDD mode: test-plan-only
+- Test plan: Define failing tests where behavior is deterministic.
+- Verification alternatives: Record manual or review evidence when tests are not practical.
+
 ## Selected Agent Cards
 
 {bullet_list(cards, "planner")}
@@ -63,6 +88,24 @@ status: draft
 ## Acceptance Evidence
 
 {bullet_list(args.evidence, "Define verification commands or review evidence before execution.")}
+
+## Implementation Handoff
+
+- Tool adapter: Fill before execution.
+- Scope: Fill before execution.
+- Stop condition: Do not implement outside the bounded specification.
+
+## Verification
+
+- Commands: Fill after execution.
+- Result: Fill after execution.
+- Evidence gaps: Fill after execution.
+
+## Report
+
+- Outcome: Fill after verification.
+- Residual risks: Fill after verification.
+- Follow-up: Fill after verification.
 
 ## Optional Compatibility Gates
 

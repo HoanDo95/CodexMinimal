@@ -1,13 +1,13 @@
 ---
 name: idsd-orchestrator
-description: Orchestrate Intent-Driven Spec Development for new features, changed behavior, and ambiguous work by turning user intent into agent cards, decision evidence, acceptance evidence, and phase-planning handoff. Use before implementation for CodexMinimal's default feature workflow.
+description: Orchestrate Intent-Driven Spec Development for new features, changed behavior, and ambiguous work by turning user intent into ADR-style decisions, bounded specification, task breakdown, test evidence, implementation handoff, verification, and report. Use before implementation for CodexMinimal's default feature workflow.
 ---
 
 # IDSD Orchestrator
 
 ## Goal
 
-Turn a short user intent into an implementation-ready operating package without requiring a traditional SDD document.
+Turn a short user intent into an implementation-ready operating package without requiring a large traditional SDD document.
 
 Save approved runtime artifacts to:
 
@@ -54,20 +54,22 @@ Skip missing files without broad repository scans.
 2. Capture intent, business rules, non-goals, constraints, and acceptance criteria.
 3. Select agent cards from `references/agent-cards.md`.
 4. Create an intent contract using `assets/intent-contract.template.md`.
-5. Start a decision ledger using `assets/decision-ledger.template.md`.
-6. Define acceptance evidence using `references/evidence-policy.md`.
-7. Decide whether legacy spec, TDD, review, security, or refactor gates are needed.
-8. Record visible assumptions and tradeoffs before handoff.
-9. Handoff to `repo-phase-orchestrator` once the intent package is bounded.
-10. Handoff to `project-indexer` after implementation changes land.
+5. Follow `references/pipeline-contract.md`.
+6. Record architecture decisions in ADR style using `assets/decision-ledger.template.md`.
+7. Create a bounded specification, task breakdown, and test contract.
+8. Define verification evidence using `references/evidence-policy.md`.
+9. Record visible assumptions and tradeoffs before handoff.
+10. Handoff to `repo-phase-orchestrator` once the pipeline package is bounded.
+11. Handoff to `project-indexer` after implementation changes land.
 
 ## IDSD Rules
 
-- Intent is the source of truth; specs are optional evidence, not the default workflow.
+- Intent is the source of truth; bounded specification is the default translation layer, not a large spec-first workflow.
 - Every architectural or workflow choice needs a short decision entry.
+- ADR entries should be concise and only expand when risk justifies it.
 - Agent cards define responsibility, authority, required output, and stop condition.
 - Acceptance criteria must be observable and verifiable.
-- TDD may be selected as evidence for behavior, but it does not replace intent capture.
+- TDD is the preferred executable evidence when behavior can be tested; otherwise record the verification alternative.
 - SDD planners are legacy compatibility tools and run only from the `legacy` profile on explicit user request.
 - Do not start implementation until protected-file and risk gates are known.
 
@@ -82,6 +84,14 @@ idsd
 ### Current stage
 
 ### Intent contract
+
+### Architecture decisions
+
+### Bounded specification
+
+### Task breakdown
+
+### Test contract
 
 ### Agent cards
 
@@ -98,6 +108,8 @@ idsd
 ### Follow-up chain
 
 ### Stop condition
+
+### Report outline
 
 ### Suggested prompt
 

@@ -281,7 +281,14 @@ run_idsd_trace_smoke() {
   fi
 
   local trace_dir="$tmp_home/docs/codexminimal/idsd-traces/checkout-cleanup"
-  if [[ -f "$trace_dir/trace.json" && -f "$trace_dir/intent-package.md" && -f "$trace_dir/verification.md" ]]; then
+  if [[ -f "$trace_dir/trace.json" \
+      && -f "$trace_dir/intent-package.md" \
+      && -f "$trace_dir/adr.md" \
+      && -f "$trace_dir/specification.md" \
+      && -f "$trace_dir/task-breakdown.md" \
+      && -f "$trace_dir/tests.md" \
+      && -f "$trace_dir/implementation.md" \
+      && -f "$trace_dir/verification.md" ]]; then
     pass "IDSD trace helper writes expected trace files"
   else
     fail "IDSD trace helper missing expected trace files"

@@ -8,7 +8,7 @@ Written by `idsd-orchestrator` by default:
 
 - `docs/codexminimal/idsd/YYYY-MM-DD-<topic>-intent.md`
 
-The package contains intent contract, selected agent cards, decision ledger, acceptance evidence, and optional compatibility gates.
+The package contains intent contract, ADR-style decisions, bounded specification, task breakdown, test contract, selected agent cards, acceptance evidence, implementation handoff, verification, report outline, and optional compatibility gates.
 
 Scaffold with:
 

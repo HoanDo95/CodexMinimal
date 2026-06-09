@@ -3,8 +3,14 @@
     "name": "intent_only_feature_contract",
     "actual": {
       "classification": "idsd",
-      "currentStage": "intent-contract",
+      "currentStage": "intent",
       "agentCards": ["planner", "architect", "verifier"],
+      "taskBreakdown": ["Define billing charge source mapping", "Define admin charge visibility", "Define verification evidence"],
+      "testContract": {
+        "tddMode": "test-plan-only",
+        "testPlan": ["Given usage exists, charges expose their source"],
+        "verificationAlternatives": []
+      },
       "optionalCompatibilityGates": [],
       "nextSkill": "repo-phase-orchestrator"
     }
@@ -13,7 +19,7 @@
     "name": "legacy_sdd_request_stays_compat_only",
     "actual": {
       "classification": "idsd",
-      "currentStage": "intent-contract",
+      "currentStage": "intent",
       "optionalCompatibilityGates": ["legacy-sdd-explicit-request"],
       "nextSkill": "repo-phase-orchestrator"
     }

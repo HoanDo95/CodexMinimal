@@ -78,6 +78,11 @@ def main() -> int:
             "intentPackage": "intent-package.md",
             "originalPrompt": "original-prompt.md",
             "repoContext": "repo-context.md",
+            "adr": "adr.md",
+            "specification": "specification.md",
+            "taskBreakdown": "task-breakdown.md",
+            "tests": "tests.md",
+            "implementation": "implementation.md",
             "verification": "verification.md",
             "results": "results.md"
         }
@@ -103,6 +108,11 @@ Send this whole folder after the task has gone through the target project:
 - `intent-package.md`: generated IDSD intent package
 - `original-prompt.md`: original user prompt or task request
 - `repo-context.md`: stack, repo notes, touched modules, protected boundaries
+- `adr.md`: architecture decisions and tradeoffs
+- `specification.md`: bounded specification
+- `task-breakdown.md`: ordered implementation tasks
+- `tests.md`: TDD contract and test plan
+- `implementation.md`: tool adapter handoff and changed files
 - `verification.md`: commands run and outputs worth preserving
 - `results.md`: what worked, what failed, what should improve
 - `trace.json`: machine-readable trace metadata
@@ -132,6 +142,81 @@ Send this whole folder after the task has gone through the target project:
 ## Protected Or Risk Boundaries
 
 - Fill after execution.
+""",
+    )
+    write_text(
+        trace_dir / "adr.md",
+        """# Architecture Decisions
+
+| Decision | Options Considered | Selected Path | Reason | Risk | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| Fill before implementation. | | | | | |
+""",
+    )
+    write_text(
+        trace_dir / "specification.md",
+        """# Bounded Specification
+
+## Behavior
+
+- Fill before implementation.
+
+## Interfaces
+
+- Fill before implementation.
+
+## Data Impacts
+
+- Fill before implementation.
+
+## Risks
+
+- Fill before implementation.
+
+## Acceptance Mapping
+
+- Fill before implementation.
+""",
+    )
+    write_text(
+        trace_dir / "task-breakdown.md",
+        """# Task Breakdown
+
+- [ ] Fill before implementation.
+""",
+    )
+    write_text(
+        trace_dir / "tests.md",
+        """# Tests
+
+## TDD Mode
+
+- Fill before implementation.
+
+## Test Plan
+
+- Fill before implementation.
+
+## Verification Alternatives
+
+- Fill if tests are not practical.
+""",
+    )
+    write_text(
+        trace_dir / "implementation.md",
+        """# Implementation
+
+## Tool Adapter
+
+- Fill during execution.
+
+## Changed Files
+
+- Fill during execution.
+
+## Scope Notes
+
+- Fill during execution.
 """,
     )
     write_text(

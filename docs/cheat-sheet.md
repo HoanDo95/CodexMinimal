@@ -11,7 +11,7 @@ Use task-router for repository bootstrap, then continue with project-init in boo
 ## 2. Thêm feature mới
 
 ```text
-Use CodexMinimal IDSD flow for this feature request. Start with task-router, route through idsd-orchestrator, capture the intent contract, agent cards, decision ledger, and acceptance evidence, then continue to repo-phase-orchestrator.
+Use CodexMinimal IDSD flow for this feature request. Start with task-router, route through idsd-orchestrator, capture intent, ADR, bounded spec, task breakdown, tests, implementation handoff, verification, and report outline, then continue to repo-phase-orchestrator.
 ```
 
 ## 3. Sửa bug

@@ -10,7 +10,7 @@ In practice, evals in this repository serve two roles:
 ## What To Evaluate
 
 - router classification and safety-gate decisions
-- IDSD intent contract, agent-card, decision-ledger, and acceptance-evidence completeness
+- IDSD pipeline completeness: intent, ADR, bounded spec, task breakdown, tests, implementation handoff, verification, and report
 - planner output completeness
 - phase-plan and tracker handoff completeness
 - indexer output consistency
