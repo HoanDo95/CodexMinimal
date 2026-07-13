@@ -152,10 +152,10 @@ Persist these defaults unless the user overrides them:
 
 ## Model Routing Defaults
 
-- `gpt-5.5`: default for planning, architecture, complex coding, refactor, orchestration
-- `gpt-5.5 high`: multi-module, high-risk, failing tests, database/env/deploy work
-- `gpt-5.4`: balanced fallback for clear everyday coding and focused implementation
-- `gpt-5.4-mini`: bounded scan, quick summarization, low-risk analysis
+- `gpt-5.6-terra`: default for planning, normal coding, review, and focused implementation
+- `gpt-5.6-sol high`: complex architecture, orchestration, multi-module, high-risk, failing tests, database/env/deploy work
+- `gpt-5.6-sol medium`: escalation path when Terra is insufficient and high effort is not justified
+- `gpt-5.6-luna`: bounded scan, quick summarization, low-risk analysis, high-volume helper work
 - do not recommend stale legacy model aliases as current default paths
 
 Ask before expensive model/effort escalation unless the task is trivial or already authorized.

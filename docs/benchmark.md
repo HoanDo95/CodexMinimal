@@ -75,17 +75,18 @@ Keep core benchmark results focused on deterministic harness behavior unless an 
 
 ## Official OpenAI Model Snapshot
 
-As of the GPT-5.5 release notes and current model docs:
+As of the current OpenAI model docs:
 
-- GPT-5.5 is the strongest currently documented option in this model set for complex coding and agentic work
-- GPT-5.5 matches GPT-5.4 per-token latency in real-world serving while delivering higher quality
-- GPT-5.5 also uses fewer tokens than GPT-5.4 for many Codex tasks
-- GPT-5.4 remains a valid balanced fallback for everyday coding
-- GPT-5.4 mini is the recommended lower-latency, lower-cost small model for bounded coding, subagents, and scan-heavy work
+- GPT-5.6 Sol is the flagship option for complex reasoning and coding
+- GPT-5.6 Terra balances intelligence and cost for everyday implementation
+- GPT-5.6 Luna is optimized for cost-sensitive, high-volume workloads
+- All three GPT-5.6 frontier models support reasoning controls from `none` through `max`
+- CodexMinimal should default to Terra for cost control and reserve Sol for justified risk or complexity
+- Adapter benchmarks should be rerun before treating old latency or quality claims as current
 
-Official benchmark snapshot worth tracking:
+Previous benchmark snapshot, kept only as historical context:
 
 - `Terminal-Bench 2.0`: GPT-5.5 `82.7%`, GPT-5.4 `75.1%`
 - `SWE-Bench Pro`: GPT-5.5 `58.6%`, GPT-5.4 `57.7%`
 
-Interpret this as routing guidance, not as a guarantee for your repository.
+Interpret historical benchmark data as stale routing context, not as a guarantee for your repository.

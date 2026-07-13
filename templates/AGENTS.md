@@ -20,10 +20,10 @@ Do not jump from a rough feature prompt straight into coding. Capture intent, ag
 <!-- CODEXMINIMAL:MODEL_ROUTING START -->
 ## Model Routing
 
-- `gpt-5.5`: default for planning, architecture, non-trivial coding, refactor, and orchestration
-- `gpt-5.5 high`: high-risk multi-module, failing-test, env/deploy/database, or protected-boundary work
-- `gpt-5.4`: balanced fallback for clear everyday coding and focused fix-test loops
-- `gpt-5.4-mini`: bounded scan, quick repository search, and summarization
+- `gpt-5.6-terra`: default for planning, normal coding, review, and focused fix-test loops
+- `gpt-5.6-sol high`: complex architecture, orchestration, high-risk multi-module, failing-test, env/deploy/database, or protected-boundary work
+- `gpt-5.6-sol medium`: escalation path when Terra is insufficient and high effort is not justified
+- `gpt-5.6-luna`: bounded scan, quick repository search, summarization, and high-volume helper work
 - Do not route to stale legacy model aliases as current default paths
 
 Do not escalate model/effort without a concrete reason.

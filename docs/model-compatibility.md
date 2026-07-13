@@ -4,10 +4,10 @@ CodexMinimal is prompt-driven, so model quality and prompt compatibility matter.
 
 ## Recommended
 
-- `gpt-5.5`: default for planning, coding, review, and orchestration
-- `gpt-5.5 high`: high-risk or multi-module work
-- `gpt-5.4`: balanced fallback for everyday coding and focused fix-test loops
-- `gpt-5.4-mini`: bounded scan and summarization
+- `gpt-5.6-terra`: default for planning, coding, review, and focused fix-test loops
+- `gpt-5.6-sol high`: high-risk, complex architecture, orchestration, or multi-module work
+- `gpt-5.6-sol medium`: escalation path when Terra is insufficient and high effort is not justified
+- `gpt-5.6-luna`: bounded scan, summarization, and cost-sensitive high-volume helper work
 
 ## Tool-Agnostic Runtime Policy
 
