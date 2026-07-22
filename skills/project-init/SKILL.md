@@ -122,7 +122,7 @@ Persist these defaults unless the user overrides them:
 - classify non-trivial tasks before starting
 - use the smallest suitable skill
 - route new feature intake through `idsd-orchestrator` by default
-- capture intent, agent cards, decision ledger, and acceptance evidence before phase planning
+- capture intent, agent cards, quality-gate evidence, decision ledger, and acceptance evidence before phase planning
 - reduce standalone spec requests into IDSD bounded specification, decisions, tasks, tests, and verification evidence
 - write a phase plan and tracker after IDSD acceptance evidence and before coding
 - default to Codex CLI native execution after the phase plan exists

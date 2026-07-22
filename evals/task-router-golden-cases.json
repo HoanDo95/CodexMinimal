@@ -93,6 +93,18 @@
     }
   },
   {
+    "name": "feature_quality_gates_route_to_idsd",
+    "input": "Add a public API workflow, but make a senior system design pass and QA edge-case pass before Codex CLI implements.",
+    "expected": {
+      "classification": "idsd",
+      "primarySkill": "idsd-orchestrator",
+      "followUpSkills": ["repo-phase-orchestrator", "project-indexer"],
+      "responseMode": "standard",
+      "contextBudget": "high",
+      "safetyGate": "proceed"
+    }
+  },
+  {
     "name": "rust_bug_fix",
     "input": "The Cargo workspace panics when parsing invalid config. Fix it.",
     "expected": {

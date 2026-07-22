@@ -51,13 +51,13 @@ Skip missing files without broad repository scans.
 
 1. Classify task as `idsd`.
 2. Capture intent, business rules, non-goals, constraints, and acceptance criteria.
-3. Select agent cards from `references/agent-cards.md`.
+3. Select only the needed agent cards from `references/agent-cards.md`, including quality gates such as solution challenge, system design, or senior QA when risk requires them.
 4. Create an intent contract using `assets/intent-contract.template.md`.
 5. Follow `references/pipeline-contract.md`.
 6. Record architecture decisions in ADR style using `assets/decision-ledger.template.md`.
 7. Create a bounded specification, task breakdown, and test contract.
 8. Define verification evidence using `references/evidence-policy.md`.
-9. Record visible assumptions and tradeoffs before handoff.
+9. Record visible assumptions, solution critique, system-design boundaries, QA edge cases, and tradeoffs before handoff when selected.
 10. Handoff to `repo-phase-orchestrator` once the pipeline package is bounded.
 11. Handoff to `project-indexer` after implementation changes land.
 

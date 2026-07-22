@@ -44,8 +44,11 @@ intent-package.md
 original-prompt.md
 repo-context.md
 adr.md
+solution-review.md
+system-design.md
 specification.md
 task-breakdown.md
+qa-evidence.md
 tests.md
 implementation.md
 verification.md
@@ -58,8 +61,11 @@ Use them like this:
 - `original-prompt.md`: the original task prompt.
 - `repo-context.md`: stack, task type, touched areas, protected or risky boundaries.
 - `adr.md`: architecture decisions and tradeoffs.
+- `solution-review.md`: solution options, critique, and residual risks.
+- `system-design.md`: API, data, integration, compatibility, failure-mode, and operational boundaries.
 - `specification.md`: bounded specification.
 - `task-breakdown.md`: ordered implementation tasks.
+- `qa-evidence.md`: edge-case matrix, regression targets, evidence gaps, and acceptance verdict.
 - `tests.md`: TDD mode, test plan, and verification alternatives.
 - `implementation.md`: tool adapter handoff and changed files.
 - `verification.md`: commands run and important outputs.
@@ -77,7 +83,8 @@ python3 /home/jason/CodexMinimal/scripts/start_idsd_trace.py \
   --topic "user invite flow" \
   --intent "Admins can invite teammates and see whether each invite was accepted." \
   --stack nestjs \
-  --task-type feature
+  --task-type feature \
+  --quality-gate all
 ```
 
 2. Work through the project using CodexMinimal IDSD.
@@ -91,7 +98,7 @@ task-router -> idsd-orchestrator -> repo-phase-orchestrator -> Codex CLI native 
 3. After execution, fill the trace files if they are not already complete:
 
 - update `repo-context.md` with touched modules and risk boundaries
-- update `adr.md`, `specification.md`, `task-breakdown.md`, and `tests.md` before implementation
+- update `solution-review.md`, `system-design.md`, `adr.md`, `specification.md`, `task-breakdown.md`, `qa-evidence.md`, and `tests.md` before implementation when selected
 - update `implementation.md` during execution
 - update `verification.md` with test/lint/build commands and outputs
 - update `results.md` with outcome and IDSD friction

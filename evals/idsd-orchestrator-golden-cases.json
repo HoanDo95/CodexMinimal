@@ -31,5 +31,34 @@
       },
       "nextSkill": "repo-phase-orchestrator"
     }
+  },
+  {
+    "name": "api_feature_uses_quality_gate_cards",
+    "input": "Design and implement a public API workflow from rough intent. Challenge the solution, check system design, and make QA cover edge cases before Codex CLI codes it.",
+    "expected": {
+      "classification": "idsd",
+      "currentStage": "intent",
+      "agentCards": ["planner", "solution_challenger", "system_designer", "senior_qa", "verifier"],
+      "solutionChallenge": {
+        "options": ["Compare at least two viable API workflow shapes before ADR lock-in"],
+        "selectedPath": "Select the smallest API design that satisfies the intent and evidence gates",
+        "counterarguments": ["Record why rejected options are weaker"],
+        "residualRisks": ["Record unresolved API or rollout risk"]
+      },
+      "systemDesignGate": {
+        "boundaries": ["Public API contract boundary"],
+        "dataFlow": ["Request-to-handler-to-persistence flow"],
+        "failureModes": ["Validation and authorization failure paths"],
+        "compatibility": ["Backward compatibility or versioning expectation"],
+        "operationalRisks": ["Observability or rollout risk"]
+      },
+      "qaEvidence": {
+        "edgeCases": ["Validation, permission, compatibility, concurrency, and idempotency cases when relevant"],
+        "regressionTargets": ["Existing public API behavior must not regress"],
+        "evidenceGaps": [],
+        "acceptanceVerdict": "pending execution"
+      },
+      "nextSkill": "repo-phase-orchestrator"
+    }
   }
 ]

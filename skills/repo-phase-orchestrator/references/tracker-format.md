@@ -5,6 +5,8 @@ Tracker should record:
 - status
 - changed files
 - verification commands
+- quality gates required for the phase
+- solution/system-design/QA evidence status when selected
 - failures
 - fixes
 - commit reference

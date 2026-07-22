@@ -19,7 +19,7 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
 
-def run_scaffold(repo_root: Path, topic: str, intent: str, output: Path) -> None:
+def run_scaffold(repo_root: Path, topic: str, intent: str, output: Path, quality_gates: list[str]) -> None:
     script = Path(__file__).resolve().parent / "scaffold_idsd_intent.py"
     command = [
         "python3",
@@ -33,6 +33,8 @@ def run_scaffold(repo_root: Path, topic: str, intent: str, output: Path) -> None
         "--output",
         str(output),
     ]
+    for gate in quality_gates:
+        command.extend(["--quality-gate", gate])
     subprocess.run(command, check=True)
 
 
@@ -50,6 +52,7 @@ def main() -> int:
     parser.add_argument("--stack", default="generic", choices=sorted(VALID_STACKS), help="Target stack/profile")
     parser.add_argument("--task-type", default="feature", help="Task type such as feature, bugfix, refactor, review")
     parser.add_argument("--notes", default="", help="Optional initial notes")
+    parser.add_argument("--quality-gate", action="append", default=[], choices=["all", "senior-qa", "solution", "system-design"], help="Add IDSD quality gates to the intent package")
     parser.add_argument("--force", action="store_true", help="Overwrite an existing trace folder")
     args = parser.parse_args()
 
@@ -63,7 +66,7 @@ def main() -> int:
     created_at = now_iso()
     prompt = args.prompt or args.intent
     intent_path = trace_dir / "intent-package.md"
-    run_scaffold(repo_root, args.topic, args.intent, intent_path)
+    run_scaffold(repo_root, args.topic, args.intent, intent_path, args.quality_gate)
 
     metadata = {
         "version": 1,
@@ -72,6 +75,7 @@ def main() -> int:
         "stack": args.stack,
         "taskType": args.task_type,
         "status": "started",
+        "qualityGates": args.quality_gate,
         "createdAt": created_at,
         "updatedAt": created_at,
         "artifacts": {
@@ -79,8 +83,11 @@ def main() -> int:
             "originalPrompt": "original-prompt.md",
             "repoContext": "repo-context.md",
             "adr": "adr.md",
+            "solutionReview": "solution-review.md",
+            "systemDesign": "system-design.md",
             "specification": "specification.md",
             "taskBreakdown": "task-breakdown.md",
+            "qaEvidence": "qa-evidence.md",
             "tests": "tests.md",
             "implementation": "implementation.md",
             "verification": "verification.md",
@@ -109,8 +116,11 @@ Send this whole folder after the task has gone through the target project:
 - `original-prompt.md`: original user prompt or task request
 - `repo-context.md`: stack, repo notes, touched modules, protected boundaries
 - `adr.md`: architecture decisions and tradeoffs
+- `solution-review.md`: solution options, critique, and residual risks
+- `system-design.md`: architecture/API/data/integration boundaries and failure modes
 - `specification.md`: bounded specification
 - `task-breakdown.md`: ordered implementation tasks
+- `qa-evidence.md`: edge-case matrix, regression targets, and acceptance verdict
 - `tests.md`: TDD contract and test plan
 - `implementation.md`: tool adapter handoff and changed files
 - `verification.md`: commands run and outputs worth preserving
@@ -154,6 +164,52 @@ Send this whole folder after the task has gone through the target project:
 """,
     )
     write_text(
+        trace_dir / "solution-review.md",
+        """# Solution Review
+
+## Options
+
+- Fill before ADR lock-in.
+
+## Selected Path
+
+- Fill before implementation.
+
+## Counterarguments
+
+- Fill before implementation.
+
+## Residual Risks
+
+- Fill before implementation.
+""",
+    )
+    write_text(
+        trace_dir / "system-design.md",
+        """# System Design Gate
+
+## Boundaries
+
+- Fill when architecture, API, module, auth, persistence, async, or integration boundaries are touched.
+
+## Data Flow
+
+- Fill before implementation.
+
+## Failure Modes
+
+- Fill before implementation.
+
+## Compatibility
+
+- Fill before implementation.
+
+## Operational Risks
+
+- Fill before implementation.
+""",
+    )
+    write_text(
         trace_dir / "specification.md",
         """# Bounded Specification
 
@@ -183,6 +239,27 @@ Send this whole folder after the task has gone through the target project:
         """# Task Breakdown
 
 - [ ] Fill before implementation.
+""",
+    )
+    write_text(
+        trace_dir / "qa-evidence.md",
+        """# QA Evidence
+
+## Edge Cases
+
+- Fill before implementation.
+
+## Regression Targets
+
+- Fill before implementation.
+
+## Evidence Gaps
+
+- Fill before or after execution.
+
+## Acceptance Verdict
+
+- Fill after execution.
 """,
     )
     write_text(

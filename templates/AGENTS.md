@@ -91,6 +91,8 @@ Use the smallest suitable skill:
 - `nestjs-bug-fixer`, `nestjs-code-reviewer`, `nestjs-refactor-guardian`, `nestjs-tdd-builder`: optional NestJS profile skills
 - `rust-bug-fixer`, `rust-code-reviewer`, `rust-refactor-guardian`, `rust-tdd-builder`: optional Rust profile skills
 
+Within IDSD, select `solution_challenger`, `system_designer`, and `senior_qa` only as conditional quality gates for solution critique, architecture/API/system boundaries, and edge-case/regression evidence. These gates improve the plan and verification; Codex CLI native execution remains the default implementation layer after phase planning.
+
 Do not use a broader skill when a narrower one is sufficient.
 <!-- CODEXMINIMAL:SKILL_POLICY END -->
 

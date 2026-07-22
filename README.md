@@ -63,6 +63,16 @@ Core mặc định không assume repo là NestJS hay Rust. Active profile nên �
 | `project-indexer` | tạo/cập nhật index để LLM không scan repo rộng |
 | `repo-phase-orchestrator` | tạo phase plan, tracker và runtime state |
 
+IDSD có thêm quality-gate agent cards dùng có điều kiện:
+
+| Agent card | Vai trò |
+|---|---|
+| `solution_challenger` | phản biện solution, option bị loại, counterargument và residual risk trước khi chốt ADR |
+| `system_designer` | kiểm tra boundary API/data/auth/integration/async/migration/compatibility trước phase planning |
+| `senior_qa` | biến acceptance criteria thành edge-case matrix, regression target và post-execution acceptance verdict |
+
+Các card này không thay thế Codex CLI native execution; chúng làm plan và verification sắc hơn trước/sau khi execution chạy.
+
 `check-codexminimal.sh` enforce skill entrypoint nhỏ: core skills tối đa 200 dòng, optional profile skills tối đa 120 dòng. Policy dài nên nằm trong `references/`.
 
 ## Main Flows
@@ -88,7 +98,7 @@ flowchart LR
     E --> F[project-indexer]
 ```
 
-Dùng khi requirement mới, chưa rõ, hoặc thay đổi behavior. Mục tiêu là không để LLM code khi chưa có intent, ADR, bounded specification, task breakdown, test contract, verification evidence và phase boundary.
+Dùng khi requirement mới, chưa rõ, hoặc thay đổi behavior. Mục tiêu là không để LLM code khi chưa có intent, solution critique nếu cần, system/API boundary nếu cần, ADR, bounded specification, task breakdown, QA evidence, test contract, verification evidence và phase boundary.
 
 ### Bug Fix
 

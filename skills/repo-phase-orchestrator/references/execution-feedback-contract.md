@@ -6,8 +6,11 @@ At minimum, execution feedback should include:
 
 - current phase
 - changed files
+- quality gates applied
 - verification commands actually run
 - pass/fail result per command
+- QA verdict and evidence gaps when `senior_qa` is selected
+- solution or system-design drift discovered during execution
 - failures and fixes
 - commit reference if one exists
 - blockers
@@ -33,3 +36,5 @@ If scope drift appears during execution:
 - record the drift in the tracker
 - update `current-work.json` blockers
 - reroute before continuing
+
+If solution or system-design drift appears after execution starts, treat it as scope drift unless the active phase plan explicitly allowed that design change.

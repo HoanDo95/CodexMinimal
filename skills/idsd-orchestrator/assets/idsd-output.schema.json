@@ -26,7 +26,7 @@
     },
     "currentStage": {
       "type": "string",
-      "enum": ["intent", "architecture-decision", "specification", "task-breakdown", "tests", "implementation-handoff", "verification", "report"]
+      "enum": ["intent", "solution-challenge", "system-design", "architecture-decision", "specification", "task-breakdown", "qa-evidence", "tests", "implementation-handoff", "verification", "report"]
     },
     "intentContract": {
       "type": "object",
@@ -41,6 +41,29 @@
       }
     },
     "architectureDecisions": { "type": "array", "items": { "type": "string" } },
+    "solutionChallenge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["options", "selectedPath", "counterarguments", "residualRisks"],
+      "properties": {
+        "options": { "type": "array", "items": { "type": "string" } },
+        "selectedPath": { "type": "string" },
+        "counterarguments": { "type": "array", "items": { "type": "string" } },
+        "residualRisks": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "systemDesignGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["boundaries", "dataFlow", "failureModes", "compatibility", "operationalRisks"],
+      "properties": {
+        "boundaries": { "type": "array", "items": { "type": "string" } },
+        "dataFlow": { "type": "array", "items": { "type": "string" } },
+        "failureModes": { "type": "array", "items": { "type": "string" } },
+        "compatibility": { "type": "array", "items": { "type": "string" } },
+        "operationalRisks": { "type": "array", "items": { "type": "string" } }
+      }
+    },
     "boundedSpecification": {
       "type": "object",
       "additionalProperties": false,
@@ -54,6 +77,17 @@
       }
     },
     "taskBreakdown": { "type": "array", "items": { "type": "string" } },
+    "qaEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["edgeCases", "regressionTargets", "evidenceGaps", "acceptanceVerdict"],
+      "properties": {
+        "edgeCases": { "type": "array", "items": { "type": "string" } },
+        "regressionTargets": { "type": "array", "items": { "type": "string" } },
+        "evidenceGaps": { "type": "array", "items": { "type": "string" } },
+        "acceptanceVerdict": { "type": "string" }
+      }
+    },
     "testContract": {
       "type": "object",
       "additionalProperties": false,
@@ -68,7 +102,7 @@
       "type": "array",
       "items": {
         "type": "string",
-        "enum": ["planner", "architect", "implementer", "verifier", "reviewer"]
+        "enum": ["planner", "architect", "solution_challenger", "system_designer", "implementer", "senior_qa", "verifier", "reviewer"]
       }
     },
     "decisionLedgerEntries": { "type": "array", "items": { "type": "string" } },

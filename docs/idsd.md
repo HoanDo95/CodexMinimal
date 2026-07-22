@@ -20,9 +20,15 @@ The user supplies intent, business rules, constraints, and acceptance criteria. 
 - verification evidence
 - report outline
 
+Quality-gate cards are selected only when useful:
+
+- `solution_challenger` critiques options before ADR lock-in
+- `system_designer` checks API, data, integration, compatibility, and architecture boundaries before phase planning
+- `senior_qa` converts acceptance criteria into edge-case, regression, and post-execution evidence
+
 ## Default Pipeline
 
-`Intent (IDSD) -> Architecture Decision (ADR) -> Specification (bounded SDD) -> Task Breakdown -> Tests (TDD) -> Implementation -> Verification -> Report`
+`Intent (IDSD) -> Solution Challenge -> System Design Gate -> Architecture Decision (ADR) -> Specification (bounded SDD) -> Task Breakdown -> QA Evidence -> Tests (TDD) -> Implementation -> Verification -> Report`
 
 IDSD owns the pipeline. SDD and TDD are bounded evidence stages inside IDSD, not separate default workflows.
 

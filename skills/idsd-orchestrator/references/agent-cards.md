@@ -16,12 +16,33 @@ Use only the cards needed for the current intent.
 - required output: decision ledger entries with tradeoffs
 - stop condition: major structural decisions are visible and reviewable
 
+## Solution Challenger
+
+- responsibility: challenge the proposed solution before ADR lock-in
+- authority: reject shallow options, missing alternatives, or weak tradeoff reasoning
+- required output: viable options, rejected options, selected path, counterarguments, residual risk
+- stop condition: the selected solution can survive an explicit why-this-not-that review
+
+## System Designer
+
+- responsibility: validate architecture, API, data, integration, and operational boundaries before phase planning
+- authority: require boundary notes for public contracts, persistence, auth, async work, migrations, scaling, or compatibility
+- required output: boundary map, data flow, failure modes, compatibility notes, design risks
+- stop condition: implementation can proceed without guessing structural or contract decisions
+
 ## Implementer
 
 - responsibility: execute approved phase work with focused tests or checks
 - authority: make scoped code changes inside approved boundaries
 - required output: changed files, verification commands, residual risks
 - stop condition: phase acceptance evidence is satisfied or a blocker is recorded
+
+## Senior QA
+
+- responsibility: turn acceptance criteria into edge-case and regression evidence before and after execution
+- authority: reject completion when happy path, negative path, permission, compatibility, concurrency, or idempotency risks lack evidence
+- required output: edge-case matrix, regression targets, evidence gaps, post-execution acceptance verdict
+- stop condition: required evidence covers the confidence level selected for the phase or a blocker is explicit
 
 ## Verifier
 

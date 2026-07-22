@@ -284,8 +284,11 @@ run_idsd_trace_smoke() {
   if [[ -f "$trace_dir/trace.json" \
       && -f "$trace_dir/intent-package.md" \
       && -f "$trace_dir/adr.md" \
+      && -f "$trace_dir/solution-review.md" \
+      && -f "$trace_dir/system-design.md" \
       && -f "$trace_dir/specification.md" \
       && -f "$trace_dir/task-breakdown.md" \
+      && -f "$trace_dir/qa-evidence.md" \
       && -f "$trace_dir/tests.md" \
       && -f "$trace_dir/implementation.md" \
       && -f "$trace_dir/verification.md" ]]; then

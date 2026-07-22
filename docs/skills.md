@@ -19,7 +19,7 @@ This is a hard readiness gate enforced by `check-codexminimal.sh`. Use `referenc
 
 ## Core Harness
 
-- `idsd-orchestrator`: default intent-driven workflow for new features and changed behavior; creates intent contracts, agent cards, decision ledgers, and acceptance evidence before phase planning
+- `idsd-orchestrator`: default intent-driven workflow for new features and changed behavior; creates intent contracts, quality-gate agent cards, decision ledgers, and acceptance evidence before phase planning
 - `project-init`: create or sync `AGENTS.md`, `docs/ai`, `docs/codexminimal`, durable rules, protected-file guidance, and user-mediated repeat-feedback learning state
 - `project-indexer`: build or repair compact repository indexes and `context-map.json`
 - `repo-phase-orchestrator`: write phase plans, maintain trackers, refresh harness runtime state, and hand off execution
@@ -44,6 +44,8 @@ This is a hard readiness gate enforced by `check-codexminimal.sh`. Use `referenc
 ## Selection Rule
 
 Pick one primary skill for the current step.
+
+Inside IDSD, select `solution_challenger`, `system_designer`, and `senior_qa` as conditional quality gates. They critique, bound, and verify the work before Codex CLI native execution; they do not replace the execution layer.
 
 Add follow-up skills only when the workflow naturally chains into a later step, such as:
 

@@ -25,6 +25,12 @@ Inside `idsd-orchestrator`, the expected pre-implementation package is:
 - implementation handoff
 - verification and report outline
 
+Use quality-gate agent cards only when they add confidence:
+
+- `solution_challenger`: before ADR lock-in when multiple viable options or weak tradeoffs exist
+- `system_designer`: before phase planning when API, data, auth, async, integration, migration, compatibility, or architecture boundaries are touched
+- `senior_qa`: before and after execution when edge cases, permissions, state transitions, concurrency, idempotency, or regression risk matter
+
 ## Bug Fix
 
 Optional NestJS profile flow:

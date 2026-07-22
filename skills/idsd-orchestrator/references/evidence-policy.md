@@ -8,6 +8,9 @@ IDSD uses evidence to keep agent autonomy observable.
 - agent cards: selected responsibilities and stop conditions
 - decision ledger: assumptions, rejected options, chosen path, risk
 - acceptance evidence: how the work will be proven complete
+- solution challenge: alternatives, rejected paths, counterarguments, and residual risk when the solution is non-obvious
+- system design gate: boundary, data-flow, failure-mode, compatibility, and operational notes when public contracts or architecture are touched
+- senior QA gate: edge-case matrix, regression targets, and post-execution acceptance verdict when behavior can regress beyond the happy path
 
 ## Optional Evidence
 
@@ -15,6 +18,12 @@ IDSD uses evidence to keep agent autonomy observable.
 - TDD: when behavior can be captured in focused tests before implementation
 - security review: when user input, auth, secrets, permissions, or data exposure are involved
 - refactor impact map: when files move, public APIs change, or module boundaries shift
+
+## Gate Selection
+
+- Use `solution_challenger` for ambiguous solution shape, multiple viable approaches, high-cost implementation, or user-requested critique.
+- Use `system_designer` for API contracts, persistence, auth, async processing, integrations, migrations, scaling, compatibility, or multi-module boundaries.
+- Use `senior_qa` for user-facing workflows, public APIs, permission-sensitive behavior, state machines, concurrency, idempotency, edge cases, or repeated quality feedback.
 
 ## Completion Rule
 

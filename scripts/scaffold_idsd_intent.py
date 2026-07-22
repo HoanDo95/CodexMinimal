@@ -5,7 +5,22 @@ from datetime import date
 from pathlib import Path
 
 
-VALID_AGENT_CARDS = {"planner", "architect", "implementer", "verifier", "reviewer"}
+VALID_AGENT_CARDS = {
+    "planner",
+    "architect",
+    "solution_challenger",
+    "system_designer",
+    "implementer",
+    "senior_qa",
+    "verifier",
+    "reviewer",
+}
+QUALITY_GATE_CARDS = {
+    "solution": ["solution_challenger"],
+    "system-design": ["system_designer"],
+    "senior-qa": ["senior_qa"],
+    "all": ["solution_challenger", "system_designer", "senior_qa"],
+}
 
 
 def slugify(value: str) -> str:
@@ -21,6 +36,10 @@ def bullet_list(items: list[str], fallback: str) -> str:
 def render(args) -> str:
     today = date.today().isoformat()
     cards = args.agent_card or ["planner", "architect", "verifier"]
+    for gate in args.quality_gate:
+        for card in QUALITY_GATE_CARDS[gate]:
+            if card not in cards:
+                cards.append(card)
     invalid = sorted(set(cards) - VALID_AGENT_CARDS)
     if invalid:
         raise ValueError(f"invalid agent card(s): {', '.join(invalid)}")
@@ -56,6 +75,21 @@ status: draft
 | --- | --- | --- | --- | --- | --- |
 | Pipeline shape | SDD-first, TDD-first, IDSD pipeline | IDSD -> ADR -> bounded spec -> tasks -> tests -> implementation | Intent stays in control while spec and tests provide evidence. | Pipeline may feel heavy for tiny changes. | This package |
 
+## Solution Challenge
+
+- Options: Record viable solution options before ADR lock-in.
+- Selected path: Record the chosen path and why it survives critique.
+- Counterarguments: Record the strongest objections and how they are handled.
+- Residual risks: Record what remains risky after the solution decision.
+
+## System Design Gate
+
+- Boundaries: Record architecture, API, module, auth, persistence, async, or integration boundaries touched.
+- Data flow: Record request/event/job/data flow when behavior crosses boundaries.
+- Failure modes: Record expected failure paths and recovery or refusal behavior.
+- Compatibility: Record backward compatibility, migration, public contract, or rollout constraints.
+- Operational risks: Record scaling, observability, deployment, or support concerns.
+
 ## Bounded Specification
 
 - Behavior: Define expected behavior from acceptance criteria.
@@ -68,6 +102,13 @@ status: draft
 
 - [ ] Convert bounded specification into implementation tasks.
 - [ ] Define verification commands before implementation.
+
+## QA Evidence
+
+- Edge cases: Define happy path, negative path, permissions, validation, compatibility, concurrency, and idempotency cases when relevant.
+- Regression targets: Define behavior that must not regress.
+- Evidence gaps: Record gaps as blockers or accepted residual risk.
+- Acceptance verdict: Fill after execution.
 
 ## Tests
 
@@ -123,6 +164,7 @@ def main() -> int:
     parser.add_argument("--constraint", action="append", default=[], help="Constraint to include; may be repeated")
     parser.add_argument("--acceptance-criterion", action="append", default=[], help="Acceptance criterion; may be repeated")
     parser.add_argument("--agent-card", action="append", choices=sorted(VALID_AGENT_CARDS), help="Agent card to select; may be repeated")
+    parser.add_argument("--quality-gate", action="append", default=[], choices=sorted(QUALITY_GATE_CARDS), help="Add quality gate cards such as solution, system-design, senior-qa, or all")
     parser.add_argument("--evidence", action="append", default=[], help="Acceptance evidence item; may be repeated")
     parser.add_argument("--assumption", action="append", default=[], help="Open question or assumption; may be repeated")
     parser.add_argument("--output", help="Explicit output path; defaults to docs/codexminimal/idsd/<topic>-intent.md")

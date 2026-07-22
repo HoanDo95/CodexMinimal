@@ -85,6 +85,17 @@
     }
   },
   {
+    "name": "feature_quality_gates_route_to_idsd",
+    "actual": {
+      "classification": "idsd",
+      "primarySkill": "idsd-orchestrator",
+      "followUpSkills": ["repo-phase-orchestrator", "project-indexer"],
+      "responseMode": "standard",
+      "contextBudget": "high",
+      "safetyGate": "proceed"
+    }
+  },
+  {
     "name": "rust_bug_fix",
     "actual": {
       "classification": "bug-fix",
