@@ -5,7 +5,11 @@
     "expected": {
       "currentPhase": "Phase 1",
       "executionHandoff": "codex-cli-native-execution",
-      "runtimeStateUpdate": "current-work.json and artifact-registry.json refreshed"
+      "runtimeStateUpdate": "current-work.json and artifact-registry.json refreshed",
+      "planDraftingPolicy": "draft full detailed plan before splitting",
+      "splitPolicy": "split only when full plan exceeds 200 lines; each phase plan stays under 200 lines",
+      "qualityGateInputs": "solution_challenger, system_designer, and senior_qa evidence considered when selected",
+      "trackerHandoff": "completed phase summary, intent alignment, remaining gaps, and next phase dependencies recorded"
     }
   },
   {

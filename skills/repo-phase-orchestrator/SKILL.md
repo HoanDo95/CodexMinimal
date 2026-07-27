@@ -51,24 +51,36 @@ Do not use for:
    - execute or triage only the next open phase
    - write terse tracker/current-work/telemetry updates
    - stop after verification or blocker capture
-2. Read the approved spec and identify phase boundaries when creating or revising a plan.
-3. Write or update the phase plan at:
+2. Read the approved spec and selected IDSD quality-gate evidence before creating or revising a plan:
+   - `solution_challenger` output for solution options, rejected paths, counterarguments, and residual risk
+   - `system_designer` output for API, data, auth, integration, async, migration, compatibility, and architecture boundaries
+   - `senior_qa` output for edge cases, regression targets, permissions, concurrency, idempotency, and acceptance evidence
+3. Identify phase boundaries from the complete intent, spec, and gate evidence.
+4. Write or update the phase plan at:
    - `docs/codexminimal/plans/YYYY-MM-DD-<topic>-phase-plan.md`
-4. Ensure the plan is detailed enough to drive execution.
-5. Keep each individual plan file concise: maximum 200 lines.
-6. If a plan would exceed 200 lines, split it into phase files and keep the root plan as an index.
-7. Create or update the tracker at:
+5. Draft the full detailed plan first so the sequence, dependencies, and acceptance path are continuous.
+6. Keep each individual plan file concise: maximum 200 lines.
+7. Split only when the full plan would exceed 200 lines:
+   - keep the root plan as a complete index with intent summary, gate summary, phase map, dependencies, and links
+   - move phase detail into per-phase plan files, each under 200 lines
+   - preserve handoff context so each phase can be executed without guessing prior intent
+8. Create or update the tracker at:
    - `docs/codexminimal/trackers/YYYY-MM-DD-<topic>-tracker.md`
-8. Update `docs/codexminimal/artifact-registry.json` so the approved spec, active phase plan, and tracker are linked.
-9. Update `docs/codexminimal/current-work.json` with the active topic, stage, phase, artifact paths, and execution workflow.
-10. Mark the current phase, scope, and verification expectations.
-11. Check protected files and risk boundaries.
-12. Handoff the current phase to Codex CLI native execution by default:
+9. In the tracker, record phase handoff status:
+   - what the completed phase delivered
+   - how that result matches or diverges from the original intent
+   - selected gate evidence status and remaining gaps
+   - what the next phase must do based on the completed phase
+10. Update `docs/codexminimal/artifact-registry.json` so the approved spec, active phase plan, and tracker are linked.
+11. Update `docs/codexminimal/current-work.json` with the active topic, stage, phase, artifact paths, and execution workflow.
+12. Mark the current phase, scope, and verification expectations.
+13. Check protected files and risk boundaries.
+14. Handoff the current phase to Codex CLI native execution by default:
    - another tool adapter is acceptable only when selected by user or repository policy
    - team executor or CI workflow is acceptable fallback when Codex CLI cannot execute safely
-13. After execution returns, update tracker status, failures, fixes, and next phase.
-14. Record phase outcome in `docs/codexminimal/telemetry.json`.
-15. Stop before advancing if the tracker, runtime state, or verification state is stale.
+15. After execution returns, update tracker status, failures, fixes, intent alignment, and next phase.
+16. Record phase outcome in `docs/codexminimal/telemetry.json`.
+17. Stop before advancing if the tracker, runtime state, or verification state is stale.
 
 ## Blocking Rules
 

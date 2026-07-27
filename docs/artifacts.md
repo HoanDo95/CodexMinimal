@@ -38,13 +38,20 @@ Written by `repo-phase-orchestrator`:
 - `docs/codexminimal/plans/YYYY-MM-DD-<topic>-phase-plan.md`
 
 Each individual plan file should stay concise: maximum 200 lines.
-If planning would exceed that limit, split it into phase files and keep the root plan as an index.
+Draft the full detailed plan first so the phase sequence and dependencies are clear.
+If the full plan would exceed 200 lines, split only then:
+
+- keep the root plan as an index with intent summary, selected gate summary, phase map, dependencies, and links
+- keep each per-phase plan file under 200 lines
+- include previous/next handoff context in every phase file so execution does not become disconnected
 
 ## Tracker
 
 Written by `repo-phase-orchestrator`:
 
 - `docs/codexminimal/trackers/YYYY-MM-DD-<topic>-tracker.md`
+
+The tracker records status plus handoff evidence: what the completed phase delivered, how it maps back to the original intent, selected gate status, remaining gaps, and what the next phase must do based on the completed phase.
 
 ## Harness Runtime State
 

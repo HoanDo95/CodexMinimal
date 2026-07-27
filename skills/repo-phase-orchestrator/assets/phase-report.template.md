@@ -6,6 +6,14 @@
 
 ### Verification commands
 
+### Quality gate status
+
+### Completed phase summary
+
+### Intent alignment
+
+### Remaining intent gaps
+
 ### Failures and fixes
 
 ### Commit status
@@ -18,6 +26,8 @@
 
 ### Scope drift
 
-### Next phase
+### Next phase objective
+
+### Next phase dependencies
 
 ### Blockers
