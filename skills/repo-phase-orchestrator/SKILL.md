@@ -59,10 +59,10 @@ Do not use for:
 4. Write or update the phase plan at:
    - `docs/codexminimal/plans/YYYY-MM-DD-<topic>-phase-plan.md`
 5. Draft the full detailed plan first so the sequence, dependencies, and acceptance path are continuous.
-6. Keep each individual plan file concise: maximum 200 lines.
-7. Split only when the full plan would exceed 200 lines:
+6. Write the plan as detailed as possible: full executable steps per phase, concrete files/modules, exact verification commands, expected outputs, stop conditions, and handoff notes. Project implementation plans and trackers have no line cap. The 200/120-line budgets apply only to `SKILL.md` entrypoints and generated guidance files such as `AGENTS.md`, never to project plans.
+7. Split into per-phase plan files by phase boundary (not by line count) whenever a single file becomes hard to execute or review:
    - keep the root plan as a complete index with intent summary, gate summary, phase map, dependencies, and links
-   - move phase detail into per-phase plan files, each under 200 lines
+   - move phase detail into per-phase plan files with no line cap
    - preserve handoff context so each phase can be executed without guessing prior intent
 8. Create or update the tracker at:
    - `docs/codexminimal/trackers/YYYY-MM-DD-<topic>-tracker.md`

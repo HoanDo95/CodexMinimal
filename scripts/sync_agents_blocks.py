@@ -7,14 +7,9 @@ from pathlib import Path
 BLOCK_IDS = [
     "ROUTING",
     "MODEL_ROUTING",
-    "RESPONSE_MODE",
     "CONTEXT_BUDGET",
-    "AUTO_COMPACT",
     "SEARCH_POLICY",
-    "PROJECT_INDEX",
-    "HELPER_POLICY",
     "SKILL_POLICY",
-    "STACK_PROFILE",
     "TESTING_SPEC",
     "PROTECTED_FILES",
     "USER_RULE_MUTATION",
@@ -22,6 +17,11 @@ BLOCK_IDS = [
 
 LEGACY_BLOCK_IDS = [
     "NESTJS_SPEC",
+    "RESPONSE_MODE",
+    "AUTO_COMPACT",
+    "PROJECT_INDEX",
+    "STACK_PROFILE",
+    "HELPER_POLICY",
 ]
 
 

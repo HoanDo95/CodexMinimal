@@ -1,23 +1,11 @@
 ### Classification
 
-### Primary skill
+### Route
 
-### Follow-up skills
-
-### Recommended model/effort
-
-### Response mode
+### Model and effort
 
 ### Context budget
 
-### Safety gate
-
-### Action risk level
-
-### Action risk reasons
-
-### Reason
+### Safety gate and why
 
 ### Next action
-
-### Suggested prompt

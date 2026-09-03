@@ -103,6 +103,17 @@ for skill in "${INSTALL_SKILLS[@]}"; do
   printf 'CodexMinimal\n' > "$target_dir/$MARKER_FILE"
 done
 
+echo "Materializing shared skill assets from single sources ..."
+while IFS= read -r line || [[ -n "$line" ]]; do
+  case "$line" in
+    ""|"#"*) continue ;;
+  esac
+  src="$ROOT_DIR/${line%%|*}"
+  target="$SKILLS_DIR/${line##*|}"
+  mkdir -p "$(dirname "$target")"
+  cp "$src" "$target"
+done < "$ROOT_DIR/skill-assets.manifest"
+
 echo
 echo "CodexMinimal installed successfully."
 echo

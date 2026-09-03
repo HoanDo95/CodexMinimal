@@ -13,3 +13,5 @@ Rules:
 - do not continue scanning by inertia
 - do not broad-scan the repository under `low`
 - use `low` for existing tracker continuation: read the tracker, current-work, telemetry, and only the files named by the active phase or blocker
+- answer compactly by default; expand only when risk is higher or the user needs rationale
+- rely on the tool's built-in auto-compaction for long sessions instead of managing compaction by hand

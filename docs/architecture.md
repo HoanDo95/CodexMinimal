@@ -55,8 +55,10 @@ This keeps individual skills narrow without losing end-to-end workflow support.
 
 The router also assigns:
 
-- a response mode: `compact` or `standard`
+- a route: one primary skill plus an optional follow-up chain
+- a model/effort tier: default, escalate only on concrete risk (no hardcoded model names)
 - a context budget: `low`, `medium`, or `high`
+- a safety gate (`proceed`, `ask-user`, `blocked`) with a one-line reason naming the highest-risk action
 
 ## Execution Boundary
 

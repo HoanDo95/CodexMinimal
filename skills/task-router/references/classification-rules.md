@@ -15,5 +15,5 @@ Recommend follow-up skills only when the workflow naturally chains into a later 
 For new feature work, prefer `idsd-orchestrator` before code.
 Use `idsd-orchestrator -> repo-phase-orchestrator -> project-indexer` as the generic expanded sequence.
 For feature work that mentions solution critique, system design, API design, edge cases, QA, or code quality gates, route to `idsd-orchestrator` and select the relevant quality-gate agent cards before phase planning.
-For "continue next phase", "Phase 0 only", active tracker execution, or blocker triage after a tracker exists, route directly to `repo-phase-orchestrator` with `compact` response mode and `low` context budget unless protected files, deploy/env/database, or multi-module uncertainty require escalation.
+For "continue next phase", "Phase 0 only", active tracker execution, or blocker triage after a tracker exists, route directly to `repo-phase-orchestrator` with `low` context budget unless protected files, deploy/env/database, or multi-module uncertainty require escalation.
 Treat standalone document-heavy specs as external input. Summarize their usable decisions into the IDSD bounded specification instead of routing to a separate spec planner.

@@ -73,7 +73,7 @@ IDSD có thêm quality-gate agent cards dùng có điều kiện:
 
 Các card này không thay thế Codex CLI native execution; chúng làm plan và verification sắc hơn trước/sau khi execution chạy.
 
-`check-codexminimal.sh` enforce skill entrypoint nhỏ: core skills tối đa 200 dòng, optional profile skills tối đa 120 dòng. Policy dài nên nằm trong `references/`.
+`check-codexminimal.sh` enforce skill entrypoint nhỏ: core skills tối đa 200 dòng, optional profile skills tối đa 120 dòng. Policy dài nên nằm trong `references/`. Ngược lại, project implementation plans và trackers không bị giới hạn dòng — càng chi tiết càng tốt.
 
 ## Main Flows
 
@@ -243,7 +243,7 @@ Các file runtime giúp harness:
 Log cải thiện nằm ở các surface khác nhau:
 
 - `docs/codexminimal/telemetry.json`: runtime metrics, phase handoff, verification outcome
-- `docs/codexminimal/feedback-ledger.json`: lỗi lặp lại hoặc feedback đã được user xác nhận
+- `docs/ai/rule-registry.md` (`Promoted Feedback Rules`): lỗi lặp lại hoặc feedback đã được user xác nhận, ghi trực tiếp thành durable rule
 - `docs/codexminimal/idsd-traces/<topic>/`: evidence đầy đủ cho một task thật
 - `docs/ai/refactor-log.md`: lịch sử refactor khi dùng profile refactor
 

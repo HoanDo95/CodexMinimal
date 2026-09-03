@@ -29,17 +29,11 @@ Make the answer:
 
 ## Current Scope
 
-Compact mode currently works as a routing and response policy, with an instruction-level auto-compact policy for long sessions.
+Compact is an answer style plus a phase-execution discipline, not a router output field. The router assigns a context budget; compactness follows from it:
 
-That means:
-
-- the router can recommend `compact`
-- downstream skills can stay shorter and more direct
-- the workflow can pair compact answers with a lower context budget
-- long sessions can be compacted by workflow triggers when only the active working set needs to remain
-
-This still does not mean there is a separate centralized compression engine for every conversation.
-The current approach is policy-driven compaction at the workflow layer.
+- downstream skills stay shorter and more direct under tight budgets
+- the workflow pairs compact answers with a lower context budget
+- long-session compaction itself relies on the tool's built-in auto-compaction, not on hand-managed triggers
 
 ## Compact Phase Execution
 
@@ -52,8 +46,7 @@ Continue CodexMinimal next phase.
 Expected behavior:
 
 - route to `repo-phase-orchestrator`
-- use `compact` response mode
-- use `low` context budget
+- use `low` context budget and answer compactly
 - read active tracker/runtime state first
 - execute or triage only the next open phase
 - update tracker/current-work/telemetry with short evidence
@@ -61,15 +54,13 @@ Expected behavior:
 
 Do not recreate IDSD intent, ADR, specification, or a full phase plan unless the existing artifacts are missing or stale.
 
-## Auto-Compact Guidance
+## Session Compaction
 
-Prefer budget-based triggers over an arbitrary fixed percentage.
+Rely on the tool's built-in auto-compaction for long sessions instead of managing compaction by hand.
 
-Recommended triggers:
+Budget-based heuristics that still help decide when a fresh phase pass is cheaper than continuing:
 
 - repeated long turns with no new technical surface
 - context budget exhaustion under `low` or `medium`
 - broad exploration completed and only execution context needs to remain
 - summary size is clearly smaller than the active working set
-
-A fixed threshold such as `60%` can be used as a coarse heuristic, but it should not be the only trigger.

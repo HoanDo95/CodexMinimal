@@ -4,10 +4,12 @@ CodexMinimal is prompt-driven, so model quality and prompt compatibility matter.
 
 ## Recommended
 
-- `gpt-5.6-terra`: default for planning, coding, review, and focused fix-test loops
-- `gpt-5.6-sol high`: high-risk, complex architecture, orchestration, or multi-module work
-- `gpt-5.6-sol medium`: escalation path when Terra is insufficient and high effort is not justified
-- `gpt-5.6-luna`: bounded scan, summarization, and cost-sensitive high-volume helper work
+- default tier: planning, coding, review, and focused fix-test loops
+- escalated tier: high-risk, complex architecture, orchestration, or multi-module work
+- middle tier: escalation path when the default tier is insufficient and high effort is not justified
+- scan tier: bounded scan, summarization, and cost-sensitive high-volume helper work
+
+Concrete model identifiers belong to the selected tool adapter, not to core routing docs.
 
 ## Tool-Agnostic Runtime Policy
 

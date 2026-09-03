@@ -7,14 +7,10 @@
     "followUpSkills",
     "recommendedModel",
     "recommendedEffort",
-    "responseMode",
     "contextBudget",
     "safetyGate",
-    "actionRiskLevel",
-    "actionRiskReasons",
-    "reason",
-    "nextAction",
-    "suggestedPrompt"
+    "gateReason",
+    "nextAction"
   ],
   "properties": {
     "classification": {
@@ -72,17 +68,11 @@
       }
     },
     "recommendedModel": {
-      "type": "string"
+      "type": "string",
+      "description": "Model tier description (default or escalated), never a hardcoded model name"
     },
     "recommendedEffort": {
       "type": "string"
-    },
-    "responseMode": {
-      "type": "string",
-      "enum": [
-        "compact",
-        "standard"
-      ]
     },
     "contextBudget": {
       "type": "string",
@@ -100,28 +90,11 @@
         "blocked"
       ]
     },
-    "actionRiskLevel": {
+    "gateReason": {
       "type": "string",
-      "enum": [
-        "low",
-        "medium",
-        "high",
-        "critical"
-      ]
-    },
-    "actionRiskReasons": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "reason": {
-      "type": "string"
+      "description": "One line naming the highest-risk action behind the gate decision"
     },
     "nextAction": {
-      "type": "string"
-    },
-    "suggestedPrompt": {
       "type": "string"
     }
   }

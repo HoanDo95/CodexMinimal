@@ -5,9 +5,9 @@
     "expected": {
       "classification": "simple",
       "primarySkill": "none",
-      "responseMode": "compact",
       "contextBudget": "low",
-      "safetyGate": "proceed"
+      "safetyGate": "proceed",
+      "gateReason": "read-only explanation, no edits"
     }
   },
   {
@@ -17,9 +17,9 @@
       "classification": "idsd",
       "primarySkill": "idsd-orchestrator",
       "followUpSkills": ["repo-phase-orchestrator", "project-indexer"],
-      "responseMode": "standard",
       "contextBudget": "medium",
-      "safetyGate": "proceed"
+      "safetyGate": "proceed",
+      "gateReason": "new behavior but no protected surface named yet"
     }
   },
   {
@@ -29,9 +29,9 @@
       "classification": "idsd",
       "primarySkill": "idsd-orchestrator",
       "followUpSkills": ["repo-phase-orchestrator", "project-indexer"],
-      "responseMode": "standard",
       "contextBudget": "high",
-      "safetyGate": "proceed"
+      "safetyGate": "proceed",
+      "gateReason": "ambiguous intent with likely multi-module scope, no protected files named"
     }
   },
   {
@@ -41,9 +41,9 @@
       "classification": "planner",
       "primarySkill": "project-init",
       "followUpSkills": ["project-indexer"],
-      "responseMode": "standard",
       "contextBudget": "medium",
-      "safetyGate": "ask-user"
+      "safetyGate": "ask-user",
+      "gateReason": "writes repo-wide guidance files"
     }
   },
   {
@@ -53,9 +53,9 @@
       "classification": "orchestrator",
       "primarySkill": "repo-phase-orchestrator",
       "followUpSkills": ["project-indexer"],
-      "responseMode": "compact",
       "contextBudget": "low",
-      "safetyGate": "proceed"
+      "safetyGate": "proceed",
+      "gateReason": "continues an approved tracker phase"
     }
   },
   {
@@ -65,9 +65,9 @@
       "classification": "orchestrator",
       "primarySkill": "repo-phase-orchestrator",
       "followUpSkills": [],
-      "responseMode": "compact",
       "contextBudget": "low",
-      "safetyGate": "proceed"
+      "safetyGate": "proceed",
+      "gateReason": "scoped preflight only, stops before implementation"
     }
   },
   {
@@ -77,9 +77,9 @@
       "classification": "bug-fix",
       "primarySkill": "nestjs-bug-fixer",
       "followUpSkills": ["project-indexer"],
-      "responseMode": "standard",
       "contextBudget": "medium",
-      "safetyGate": "proceed"
+      "safetyGate": "proceed",
+      "gateReason": "single endpoint fix, no protected surface"
     }
   },
   {
@@ -87,9 +87,9 @@
     "input": "Update deploy configs and production env handling for the payments module.",
     "expected": {
       "classification": "refactor",
-      "responseMode": "standard",
       "contextBudget": "high",
-      "safetyGate": "ask-user"
+      "safetyGate": "ask-user",
+      "gateReason": "touches deploy configs and production env"
     }
   },
   {
@@ -99,9 +99,9 @@
       "classification": "idsd",
       "primarySkill": "idsd-orchestrator",
       "followUpSkills": ["repo-phase-orchestrator", "project-indexer"],
-      "responseMode": "standard",
       "contextBudget": "high",
-      "safetyGate": "proceed"
+      "safetyGate": "proceed",
+      "gateReason": "public API change with explicit quality gates, no protected files named"
     }
   },
   {
@@ -111,9 +111,9 @@
       "classification": "bug-fix",
       "primarySkill": "rust-bug-fixer",
       "followUpSkills": ["project-indexer"],
-      "responseMode": "standard",
       "contextBudget": "medium",
-      "safetyGate": "proceed"
+      "safetyGate": "proceed",
+      "gateReason": "single crate fix, no protected surface"
     }
   }
 ]

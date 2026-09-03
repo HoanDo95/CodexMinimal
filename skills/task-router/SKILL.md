@@ -93,28 +93,21 @@ Treat `rust-*` skills as optional profile skills. Use them only when the active 
 
 ## Required Reads
 
-If available, read:
+Start from the user request plus `AGENTS.md` and route. Read more only when the task needs it:
 
-1. `AGENTS.md`
-2. `docs/ai/stack-profile.md`
-3. `docs/ai/rule-registry.md`
-4. `docs/ai/protected-files.md`
-5. `docs/codexminimal/feedback-ledger.json`
-6. `docs/ai/context-map.json`
-7. `docs/ai/project-index.md`
+1. `docs/ai/stack-profile.md` when stack-specific skills may apply
+2. `docs/ai/rule-registry.md` and `docs/ai/protected-files.md` when the task may touch protected files, architecture boundaries, or env/deploy/database
+3. `docs/ai/context-map.json` and `docs/ai/project-index.md` when the task spans multiple modules or needs navigation
 
-Do not scan the whole repository.
+Do not scan the whole repository. Do not preload every state file before routing.
 
 ## Reference Policies
 
 Use these references when the corresponding output field is needed:
 
 - `references/model-routing.md`
-- `references/response-mode.md`
 - `references/safety-gates.md`
 - `references/context-budget.md`
-- `references/auto-compact.md`
-- `references/repeat-feedback-policy.md`
 
 ## Output Format
 
@@ -122,17 +115,11 @@ Return:
 
 ### Classification
 
-### Primary skill
+### Route
+Primary skill plus follow-up skills. Use `none` for follow-ups if no chain is needed.
 
-### Follow-up skills
-Use `none` if no chain is needed.
-
-### Recommended model/effort
-
-### Response mode
-One of:
-- compact
-- standard
+### Model and effort
+Cheapest capable tier; escalate only on concrete risk. Never hardcode model names; describe the tier (default or escalated) and why.
 
 ### Context budget
 One of:
@@ -140,25 +127,15 @@ One of:
 - medium
 - high
 
-### Safety gate
-One of:
+### Safety gate and why
+Gate, one of:
 - proceed
 - ask-user
 - blocked
 
-### Action risk level
-One of:
-- low
-- medium
-- high
-- critical
-
-### Action risk reasons
-
-### Reason
+Plus one line naming the highest-risk action behind the decision.
 
 ### Next action
-
-### Suggested prompt
+What to do next, including the suggested prompt for the primary skill.
 
 If the caller requests machine-readable output, return JSON that conforms to `assets/router-output.schema.json`.

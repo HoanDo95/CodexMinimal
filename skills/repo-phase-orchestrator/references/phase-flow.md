@@ -6,10 +6,10 @@
    - solution challenge informs chosen approach, rejected options, and residual risk
    - system design informs API, data, auth, integration, async, migration, compatibility, and architecture boundaries
    - senior QA informs edge cases, regression targets, permissions, concurrency, idempotency, and acceptance evidence
-4. Draft the full detailed phase plan first so phase order and dependencies stay continuous.
-5. If the full plan exceeds 200 lines, split only then:
+4. Draft the full detailed phase plan first so phase order and dependencies stay continuous. Write project plans as detailed as possible — plans and trackers have no line cap. The 200/120-line budgets apply only to `SKILL.md` entrypoints and generated guidance files, never to project implementation plans.
+5. Split into per-phase plan files by phase boundary whenever a single file becomes hard to execute or review:
    - root plan stays an index with intent summary, gate summary, phase map, dependencies, and links
-   - per-phase plan files contain detailed executable steps and stay under 200 lines each
+   - per-phase plan files contain full detailed executable steps with no line cap
    - each phase file includes enough previous/next handoff context to avoid a broken sequence
 6. Write or refresh tracker.
 7. Refresh artifact registry and current-work state.

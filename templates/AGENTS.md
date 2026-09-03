@@ -5,7 +5,7 @@ Use this file as the Codex entrypoint for the repository. Keep it short; push de
 <!-- CODEXMINIMAL:ROUTING START -->
 ## Always-On Task Router Protocol
 
-Before any non-trivial task, internally classify the request, choose the smallest suitable skill, select model/effort, rate the highest-risk action, then decide whether to proceed, ask first, or block.
+Before any non-trivial task, internally classify the request, choose the smallest suitable skill, then decide whether to proceed, ask first, or block.
 
 Use `task-router` for ambiguous, risky, multi-step, protected, refactor, review, scan, or orchestration work. For trivial requests, answer directly.
 
@@ -14,26 +14,14 @@ Default feature intake:
 2. `repo-phase-orchestrator`
 3. Codex CLI native execution
 
-Do not jump from a rough feature prompt straight into coding. Capture intent, agent cards, decision evidence, acceptance evidence, and phase boundaries first. Ask first if the task touches protected files, architecture boundaries, env/deploy/database, CI/CD, public API contracts, or wide multi-module changes.
+Do not jump from a rough feature prompt straight into coding. Capture intent, decision evidence, acceptance evidence, and phase boundaries first. Ask first if the task touches protected files, architecture boundaries, env/deploy/database, CI/CD, public API contracts, or wide multi-module changes.
 <!-- CODEXMINIMAL:ROUTING END -->
 
 <!-- CODEXMINIMAL:MODEL_ROUTING START -->
 ## Model Routing
 
-- `gpt-5.6-terra`: default for planning, normal coding, review, and focused fix-test loops
-- `gpt-5.6-sol high`: complex architecture, orchestration, high-risk multi-module, failing-test, env/deploy/database, or protected-boundary work
-- `gpt-5.6-sol medium`: escalation path when Terra is insufficient and high effort is not justified
-- `gpt-5.6-luna`: bounded scan, quick repository search, summarization, and high-volume helper work
-- Do not route to stale legacy model aliases as current default paths
-
-Do not escalate model/effort without a concrete reason.
+Default to the cheapest capable model and effort. Escalate only when risk justifies it: complex architecture, multi-module changes, failing tests with unclear cause, database/env/deploy work, or protected boundaries. Never escalate without a concrete reason.
 <!-- CODEXMINIMAL:MODEL_ROUTING END -->
-
-<!-- CODEXMINIMAL:RESPONSE_MODE START -->
-## Response Mode
-
-Default to `compact` when speed matters. Use `standard` only when risk is higher or the user needs rationale, tradeoffs, or review-quality detail.
-<!-- CODEXMINIMAL:RESPONSE_MODE END -->
 
 <!-- CODEXMINIMAL:CONTEXT_BUDGET START -->
 ## Context Budget
@@ -43,14 +31,8 @@ Start with the smallest budget that can answer the task:
 - `medium`: indexes plus up to 12 files
 - `high`: only for risky, ambiguous, or multi-module work
 
-Do not broad-scan the repository under `low`. If confidence stays low after budget is exhausted, reroute or ask the user.
+Do not broad-scan under `low`. If confidence stays low after budget is exhausted, reroute or ask. Rely on the tool's built-in auto-compaction for long sessions; do not manage compaction by hand.
 <!-- CODEXMINIMAL:CONTEXT_BUDGET END -->
-
-<!-- CODEXMINIMAL:AUTO_COMPACT START -->
-## Auto-Compact Policy
-
-Compact long sessions when budget is getting tight, exploration is done, or repeated turns stop adding new technical surface. Keep only the active task, constraints, touched files, pending risks, next action, and unresolved user decisions.
-<!-- CODEXMINIMAL:AUTO_COMPACT END -->
 
 <!-- CODEXMINIMAL:SEARCH_POLICY START -->
 ## Search Policy
@@ -59,25 +41,12 @@ Always go index-first:
 1. `docs/ai/context-map.json`
 2. `docs/ai/project-index.md`
 3. relevant `docs/ai/*-index.md`
-4. `docs/codexminimal/feedback-ledger.json`
-5. indexed files
-6. local folders
-7. repository-wide search only as last resort
+4. indexed files
+5. local folders
+6. repository-wide search only as last resort
 
-If indexes are missing or stale, use `project-indexer`.
+Treat `docs/ai/` as the primary navigation layer. If source code conflicts with an index, trust source code and update the index afterward. If indexes are missing or stale, use `project-indexer`.
 <!-- CODEXMINIMAL:SEARCH_POLICY END -->
-
-<!-- CODEXMINIMAL:PROJECT_INDEX START -->
-## Project Index Usage
-
-Treat `docs/ai/` as the primary navigation layer. If source code conflicts with an index, trust source code and update the index afterward.
-<!-- CODEXMINIMAL:PROJECT_INDEX END -->
-
-<!-- CODEXMINIMAL:HELPER_POLICY START -->
-## Helper Execution Policy
-
-Prefer deterministic local helpers for repetitive repository operations such as syncing `AGENTS.md`, bootstrapping docs, validating runtime state, or rendering index stubs. Use prompt-only fallback only when helpers are missing, blocked, or insufficient.
-<!-- CODEXMINIMAL:HELPER_POLICY END -->
 
 <!-- CODEXMINIMAL:SKILL_POLICY START -->
 ## Skill Selection Policy
@@ -85,34 +54,17 @@ Prefer deterministic local helpers for repetitive repository operations such as 
 Use the smallest suitable skill:
 - `project-init`: sync `AGENTS.md`, `docs/ai`, `docs/codexminimal`, durable rules, and protected-file guidance
 - `project-indexer`: build or repair repository indexes and `context-map.json`
-- `idsd-orchestrator`: default gate for intent contract, agent cards, decision ledger, acceptance evidence, and phase-plan handoff
+- `idsd-orchestrator`: default gate for intent contract, decision ledger, acceptance evidence, and phase-plan handoff; select `solution_challenger`, `system_designer`, `senior_qa` quality gates only when they add confidence
 - `repo-phase-orchestrator`: write the phase plan and tracker, then hand off execution
-- profile-specific skills only after the active stack profile is clear
-- `nestjs-bug-fixer`, `nestjs-code-reviewer`, `nestjs-refactor-guardian`, `nestjs-tdd-builder`: optional NestJS profile skills
-- `rust-bug-fixer`, `rust-code-reviewer`, `rust-refactor-guardian`, `rust-tdd-builder`: optional Rust profile skills
+- profile-specific skills only when `docs/ai/stack-profile.md` shows an active profile; default to `generic`
 
-Within IDSD, select `solution_challenger`, `system_designer`, and `senior_qa` only as conditional quality gates for solution critique, architecture/API/system boundaries, and edge-case/regression evidence. These gates improve the plan and verification; Codex CLI native execution remains the default implementation layer after phase planning.
-
-Do not use a broader skill when a narrower one is sufficient.
+Prefer deterministic local helpers for repetitive repo operations; fall back to prompt-only work when helpers are missing or blocked. Do not use a broader skill when a narrower one is sufficient.
 <!-- CODEXMINIMAL:SKILL_POLICY END -->
-
-<!-- CODEXMINIMAL:STACK_PROFILE START -->
-## Stack Profile
-
-- Read `docs/ai/stack-profile.md` before applying stack-specific assumptions
-- Default to `generic` until the repository structure or explicit user instruction activates a profile
-- Use profile-specific skills only when the active profile supports them
-- Keep stack-specific rules in the profile manifest or rule registry, not in this entrypoint
-<!-- CODEXMINIMAL:STACK_PROFILE END -->
 
 <!-- CODEXMINIMAL:TESTING_SPEC START -->
 ## Testing Specification
 
-- Keep tests outside production source folders when the repo convention supports it
-- Mirror source paths where practical
-- Use the repository's native test entrypoints and config files
-- Keep test imports and structure consistent with the active stack profile
-- Run targeted tests first, then broader lint/build checks only as needed
+Use the repository's native test entrypoints and layout. Run targeted tests first, then broader lint/build checks only as needed.
 <!-- CODEXMINIMAL:TESTING_SPEC END -->
 
 <!-- CODEXMINIMAL:PROTECTED_FILES START -->
@@ -124,5 +76,5 @@ Before editing, read `docs/ai/protected-files.md`. If a required change touches 
 <!-- CODEXMINIMAL:USER_RULE_MUTATION START -->
 ## User Rule Mutation Policy
 
-When the user changes a durable rule, persist it immediately in the relevant generated docs such as `docs/ai/rule-registry.md`, `docs/ai/protected-files.md`, `docs/ai/architecture-notes.md`, or the managed AGENTS blocks. If explicit user-confirmed repeat feedback reaches the promotion threshold in `docs/codexminimal/feedback-ledger.json`, treat the promoted rule as durable and sync it into `docs/ai/rule-registry.md`.
+When the user changes a durable rule, persist it immediately in `docs/ai/rule-registry.md` and related generated docs. Treat repeated user-confirmed feedback as durable: write it into the rule registry directly.
 <!-- CODEXMINIMAL:USER_RULE_MUTATION END -->

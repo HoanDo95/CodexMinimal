@@ -20,7 +20,11 @@
 
 ### Files or modules in scope
 
+### Detailed steps
+
 ### Verification commands
+
+### Acceptance criteria
 
 ### Expected outputs
 
@@ -38,7 +42,11 @@
 
 ### Files or modules in scope
 
+### Detailed steps
+
 ### Verification commands
+
+### Acceptance criteria
 
 ### Expected outputs
 

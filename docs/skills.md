@@ -10,12 +10,14 @@ Keep `SKILL.md` files compact:
 - profile skills should stay under 120 lines
 - long policy, matrices, checklists, and heuristics belong in `references/*.md`
 - schemas, templates, and sample artifacts belong in `assets/`
+- shared templates and helper scripts are single-sourced from `templates/` and `scripts/` (see `skill-assets.manifest`); never commit copies under `skills/` — `install.sh` materializes them
+- project implementation plans and trackers are exempt from any line cap: write them as detailed as needed
 
 This is a hard readiness gate enforced by `check-codexminimal.sh`. Use `references/` first before adding more policy text to a skill entrypoint.
 
 ## Routing
 
-- `task-router`: classify the request, select a primary skill, recommend model and effort, decide whether a follow-up skill chain is needed, trigger safety gates, assign response mode plus context budget, and read repeat-feedback constraints before broader exploration
+- `task-router`: classify the request, select a primary skill plus optional follow-up chain, recommend a model/effort tier, assign a context budget, and decide the safety gate with a one-line reason
 
 ## Core Harness
 
@@ -60,10 +62,8 @@ Add follow-up skills only when the workflow naturally chains into a later step, 
 - `scripts/sync_agents_blocks.py`: sync managed AGENTS blocks from the template
 - `scripts/bootstrap_docs_ai.py`: create missing `docs/ai` files from bundled templates or assets
 - `scripts/bootstrap_harness_runtime.py`: create missing `docs/codexminimal` runtime files from bundled templates or assets
-- `scripts/record_feedback_issue.py`: record explicit user-confirmed feedback into the ledger before promotion
-- `scripts/promote_feedback_rules.py`: promote repeated feedback into durable rules after the configured strike threshold
 - `scripts/validate_context_map.py`: validate `context-map.json` structure
-- `scripts/validate_harness_runtime.py`: validate `current-work.json`, `artifact-registry.json`, `telemetry.json`, and `feedback-ledger.json`
+- `scripts/validate_harness_runtime.py`: validate `current-work.json`, `artifact-registry.json`, and `telemetry.json`
 - `scripts/render_index_stubs.py`: render missing docs/ai index stubs from templates
 
 ## Tool Adapter Surfaces

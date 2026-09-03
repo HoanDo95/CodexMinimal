@@ -1,0 +1,32 @@
+# Single-source mapping for skill-local shared files.
+# Format: <source relative to repo root>|<dest relative to skills/>
+# Sources under templates/ and scripts/ are the only committed copies.
+# Dests are materialized into installed skills by install.sh and must NOT be committed.
+templates/AGENTS.md|project-init/assets/AGENTS.template.md
+templates/docs-ai/project-index.md|project-init/assets/project-index.template.md
+templates/docs-ai/module-index.md|project-init/assets/module-index.template.md
+templates/docs-ai/route-index.md|project-init/assets/route-index.template.md
+templates/docs-ai/entity-index.md|project-init/assets/entity-index.template.md
+templates/docs-ai/test-index.md|project-init/assets/test-index.template.md
+templates/docs-ai/dependency-index.md|project-init/assets/dependency-index.template.md
+templates/docs-ai/protected-files.md|project-init/assets/protected-files.template.md
+templates/docs-ai/rule-registry.md|project-init/assets/rule-registry.template.md
+templates/docs-ai/architecture-notes.md|project-init/assets/architecture-notes.template.md
+templates/docs-ai/refactor-log.md|project-init/assets/refactor-log.template.md
+templates/docs-ai/stack-profile.md|project-init/assets/stack-profile.template.md
+templates/docs-ai/context-map.json|project-init/assets/context-map.template.json
+templates/docs-codexminimal/current-work.json|project-init/assets/current-work.template.json
+templates/docs-codexminimal/artifact-registry.json|project-init/assets/artifact-registry.template.json
+templates/docs-codexminimal/telemetry.json|project-init/assets/telemetry.template.json
+templates/docs-ai/project-index.md|project-indexer/assets/project-index.template.md
+templates/docs-ai/module-index.md|project-indexer/assets/module-index.template.md
+templates/docs-ai/route-index.md|project-indexer/assets/route-index.template.md
+templates/docs-ai/entity-index.md|project-indexer/assets/entity-index.template.md
+templates/docs-ai/test-index.md|project-indexer/assets/test-index.template.md
+templates/docs-ai/dependency-index.md|project-indexer/assets/dependency-index.template.md
+templates/docs-ai/context-map.json|project-indexer/assets/context-map.template.json
+scripts/sync_agents_blocks.py|project-init/scripts/sync_agents_blocks.py
+scripts/bootstrap_docs_ai.py|project-init/scripts/bootstrap_docs_ai.py
+scripts/bootstrap_harness_runtime.py|project-init/scripts/bootstrap_harness_runtime.py
+scripts/render_index_stubs.py|project-indexer/scripts/render_index_stubs.py
+scripts/validate_context_map.py|project-indexer/scripts/validate_context_map.py

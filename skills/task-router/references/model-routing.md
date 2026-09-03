@@ -1,12 +1,13 @@
 # Model Routing
 
-Use:
+Default to the cheapest capable model and effort for the task. Escalate the tier only when risk justifies it:
 
-- `gpt-5.6-terra medium` for everyday planning, normal coding, debugging, review, focused implementation, and normal fix-test loops.
-- `gpt-5.6-sol high` for complex architecture, non-trivial orchestration, multi-module changes, risky refactor, failing tests with unclear cause, database/env/deployment work, or protected boundaries.
-- `gpt-5.6-sol medium` only when Terra is insufficient and high effort is not justified.
-- `gpt-5.6-luna low` for bounded scan, quick summarization, simple risk analysis, or cost-sensitive high-volume helper work.
+- complex architecture or non-trivial orchestration
+- multi-module changes or risky refactor
+- failing tests with unclear cause
+- database, migration, env, or deployment work
+- protected boundaries
 
-Do not recommend stale legacy model aliases as active routing targets.
+Never hardcode concrete model names into routing output; the tool selects the model. Describe the tier (default or escalated) and the reason.
 
 Do not recommend high effort unless risk justifies it.

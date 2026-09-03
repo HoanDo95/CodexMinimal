@@ -1,6 +1,6 @@
 # CodexMinimal Cheat Sheet
 
-9 prompt ngắn để dùng hằng ngày trong repo đích.
+8 prompt ngắn để dùng hằng ngày trong repo đích.
 
 ## 1. Bootstrap repo
 
@@ -47,22 +47,16 @@ Use task-router for this refactor request, check protected-file and risk boundar
 ## 6. Ghi nhận feedback từ user
 
 ```text
-Record this as explicit user feedback in CodexMinimal. Add or update the issue in docs/codexminimal/feedback-ledger.json, then keep the ledger consistent without promoting any new durable rule unless the strike threshold is reached.
+Record this as a durable user-confirmed rule in CodexMinimal. Write it directly into docs/ai/rule-registry.md under Promoted Feedback Rules.
 ```
 
-## 7. Promote feedback thành durable rule
+## 7. Tạo trace để cải thiện CodexMinimal
 
 ```text
-Promote user-confirmed repeated feedback from docs/codexminimal/feedback-ledger.json into docs/ai/rule-registry.md if the configured strike threshold is reached, then confirm which durable rule was added.
+Start an IDSD trace for this task, keep runtime measurements in docs/codexminimal/telemetry.json, and use the trace results to improve CodexMinimal after verification.
 ```
 
-## 8. Tạo trace để cải thiện CodexMinimal
-
-```text
-Start an IDSD trace for this task, keep runtime measurements in docs/codexminimal/telemetry.json, record repeated user-confirmed issues in docs/codexminimal/feedback-ledger.json, and use the trace results to improve CodexMinimal after verification.
-```
-
-## 9. Triển khai phase tiếp theo
+## 8. Triển khai phase tiếp theo
 
 Khi đã có phase plan và tracker:
 
@@ -120,7 +114,7 @@ Continue CodexMinimal next phase.
   `task-router -> idsd-orchestrator -> repo-phase-orchestrator -> Codex CLI native execution -> verification -> project-indexer`
 - Rust feature:
   `task-router -> idsd-orchestrator -> repo-phase-orchestrator -> Codex CLI native execution -> verification -> project-indexer`
-- User-mediated learning:
-  `explicit user feedback -> record_feedback_issue.py -> feedback-ledger.json -> promote_feedback_rules.py -> rule-registry.md`
+- User-confirmed rules:
+  `user feedback -> docs/ai/rule-registry.md (Promoted Feedback Rules)`
 - Improvement evidence:
-  `idsd-traces/<topic> + telemetry.json + feedback-ledger.json -> policy/eval improvement`
+  `idsd-traces/<topic> + telemetry.json -> policy/eval improvement`

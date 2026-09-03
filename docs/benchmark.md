@@ -73,18 +73,11 @@ Adapter-specific model support should be recorded by the adapter integration tha
 
 Keep core benchmark results focused on deterministic harness behavior unless an adapter benchmark explicitly opts in.
 
-## Official OpenAI Model Snapshot
+## Official Model Snapshot Policy
 
-As of the current OpenAI model docs:
+Do not hardcode model names into routing guidance: model lineups churn faster than harness policy. CodexMinimal routes by tier (default / escalated / scan) and lets the selected tool adapter resolve concrete model identifiers.
 
-- GPT-5.6 Sol is the flagship option for complex reasoning and coding
-- GPT-5.6 Terra balances intelligence and cost for everyday implementation
-- GPT-5.6 Luna is optimized for cost-sensitive, high-volume workloads
-- All three GPT-5.6 frontier models support reasoning controls from `none` through `max`
-- CodexMinimal should default to Terra for cost control and reserve Sol for justified risk or complexity
-- Adapter benchmarks should be rerun before treating old latency or quality claims as current
-
-Previous benchmark snapshot, kept only as historical context:
+Historical benchmark snapshots, kept only as stale routing context:
 
 - `Terminal-Bench 2.0`: GPT-5.5 `82.7%`, GPT-5.4 `75.1%`
 - `SWE-Bench Pro`: GPT-5.5 `58.6%`, GPT-5.4 `57.7%`

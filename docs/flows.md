@@ -85,6 +85,6 @@ Before execution starts, keep these files aligned:
 - `docs/codexminimal/artifact-registry.json`
 - `docs/codexminimal/telemetry.json`
 
-For speed-priority sessions, prefer `compact` response mode and `low` or `medium` context budget unless risk forces escalation.
+For speed-priority sessions, answer compactly and prefer `low` or `medium` context budget unless risk forces escalation.
 
 For long sessions, compact after discovery when the active working set is smaller than the accumulated conversation history.

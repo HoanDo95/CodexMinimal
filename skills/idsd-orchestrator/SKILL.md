@@ -40,10 +40,9 @@ Before orchestrating, read available context in this order:
 2. `docs/ai/stack-profile.md`
 3. `docs/ai/rule-registry.md`
 4. `docs/ai/protected-files.md`
-5. `docs/codexminimal/feedback-ledger.json`
-6. `docs/codexminimal/current-work.json`
-7. `docs/ai/context-map.json`
-8. `docs/ai/project-index.md`
+5. `docs/codexminimal/current-work.json`
+6. `docs/ai/context-map.json`
+7. `docs/ai/project-index.md`
 
 Skip missing files without broad repository scans.
 

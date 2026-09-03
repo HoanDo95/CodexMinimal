@@ -22,7 +22,6 @@ This skill owns:
 - `docs/codexminimal/current-work.json`
 - `docs/codexminimal/artifact-registry.json`
 - `docs/codexminimal/telemetry.json`
-- `docs/codexminimal/feedback-ledger.json`
 
 ## Use When
 
@@ -62,33 +61,22 @@ Do not use for:
 5. Create `docs/ai/` if missing.
 6. Create missing docs/ai files from templates or bundled assets.
 7. Create `docs/codexminimal/` runtime state files if missing.
-8. Read `docs/codexminimal/feedback-ledger.json` if it already exists.
-9. Treat the ledger as user-mediated memory:
-   - only explicit user feedback should add or increment strikes
-   - execution logs may suggest issues, but should not auto-write ledger strikes on their own
-10. Normalize repeat-feedback status so the ledger uses:
-   - `observed` before the watch threshold
-   - `watch` one strike before promotion
-   - `promoted` at or above the promotion threshold
-11. Promote repeat feedback into durable rules once the configured strike threshold is reached.
-12. Keep promoted feedback rules synchronized into `docs/ai/rule-registry.md`.
-13. Detect package manager, framework cues, test commands, lint/build commands, env/deployment files, and protected integration files.
-14. Detect the active stack profile:
+8. Treat repeated user-confirmed feedback as durable: write it directly into `docs/ai/rule-registry.md` under `Promoted Feedback Rules`. No separate ledger, strikes, or thresholds.
+9. Detect package manager, framework cues, test commands, lint/build commands, env/deployment files, and protected integration files.
+10. Detect the active stack profile:
    - default to `generic`
    - promote to `nestjs` only when the repository structure or dependencies clearly support it
    - promote to `rust` when Cargo manifests, workspace structure, or Rust-specific conventions clearly support it
-15. Update `docs/ai/stack-profile.md` with the active profile, evidence, and allowed profile-specific skills.
-16. Update `docs/ai/rule-registry.md`.
-17. Update `docs/ai/protected-files.md`.
-18. Do not delete user custom rules.
+11. Update `docs/ai/stack-profile.md` with the active profile, evidence, and allowed profile-specific skills.
+12. Update `docs/ai/rule-registry.md`.
+13. Update `docs/ai/protected-files.md`.
+14. Do not delete user custom rules.
 
 If helper scripts are available, prefer them for deterministic work:
 
 - `scripts/sync_agents_blocks.py`
 - `scripts/bootstrap_docs_ai.py`
 - `scripts/bootstrap_harness_runtime.py`
-- `scripts/record_feedback_issue.py`
-- `scripts/promote_feedback_rules.py`
 
 The bootstrap helpers should resolve bundled templates or assets automatically when no explicit template path is provided.
 
@@ -97,66 +85,36 @@ If the environment allows local script execution, run these helpers before attem
 
 ## Managed AGENTS.md Blocks
 
-Update only these blocks:
+Update only these blocks (`templates/AGENTS.md` is the source of truth; never duplicate block text here):
 
 - `CODEXMINIMAL:ROUTING`
 - `CODEXMINIMAL:MODEL_ROUTING`
-- `CODEXMINIMAL:RESPONSE_MODE`
 - `CODEXMINIMAL:CONTEXT_BUDGET`
-- `CODEXMINIMAL:AUTO_COMPACT`
-- `CODEXMINIMAL:PROJECT_INDEX`
-- `CODEXMINIMAL:HELPER_POLICY`
+- `CODEXMINIMAL:SEARCH_POLICY`
 - `CODEXMINIMAL:SKILL_POLICY`
-- `CODEXMINIMAL:STACK_PROFILE`
 - `CODEXMINIMAL:TESTING_SPEC`
 - `CODEXMINIMAL:PROTECTED_FILES`
 - `CODEXMINIMAL:USER_RULE_MUTATION`
-- `CODEXMINIMAL:SEARCH_POLICY`
   If a block is missing, append it.
   If a block exists, replace only content inside that block.
+  Remove legacy blocks (`RESPONSE_MODE`, `AUTO_COMPACT`, `PROJECT_INDEX`, `STACK_PROFILE`, `HELPER_POLICY`, `NESTJS_SPEC`) when found.
 
 ## Default Rules To Persist
 
-Persist these defaults unless the user overrides them:
+Persist these defaults unless the user overrides them (keep them in the managed blocks and `docs/ai`, not in this skill):
 
-- classify non-trivial tasks before starting
-- use the smallest suitable skill
-- route new feature intake through `idsd-orchestrator` by default
-- capture intent, agent cards, quality-gate evidence, decision ledger, and acceptance evidence before phase planning
-- reduce standalone spec requests into IDSD bounded specification, decisions, tasks, tests, and verification evidence
-- write a phase plan and tracker after IDSD acceptance evidence and before coding
-- default to Codex CLI native execution after the phase plan exists
-- keep `current-work.json` and `artifact-registry.json` aligned with the active implementation path
-- read `docs/codexminimal/feedback-ledger.json` before planning or execution-oriented routing
-- record repeat-feedback strikes only from explicit user feedback or an explicitly approved review authority
-- promote repeated user feedback into durable rules at the configured strike threshold
-- treat promoted feedback rules as non-regression constraints, not advisory notes
-- read `docs/ai` indexes before broad repository search
-- check `docs/ai/protected-files.md` before editing
-- ask before touching protected files
-- update rule-registry when user changes durable rules
-- keep stack-specific rules outside the AGENTS entrypoint unless the active profile requires them
+- classify non-trivial tasks before starting; use the smallest suitable skill
+- route new feature intake through `idsd-orchestrator`, then phase planning, then Codex CLI native execution
+- keep `current-work.json` and `artifact-registry.json` aligned with the active work
+- read `docs/ai` indexes before broad repository search; check protected files before editing
 - record the active stack profile and evidence in `docs/ai/stack-profile.md`
-- unit tests should live outside production source folders when the active stack supports that convention
-- do not commit secrets or `.env`
-- do not break env/deployment contract
-- run Task Router Protocol automatically before non-trivial requests
-- use `$task-router` explicitly for ambiguous, risky, or multi-skill tasks
-- do not require user to manually call `$task-router`
-- rate the highest-risk action before execution
-- ask before high-risk actions and block critical actions until scope is confirmed
-- default to compact responses when speed matters
-- set a context budget before exploration and avoid broad scan under low budget
-- auto-compact long sessions by budget pressure and workflow state, not by fixed percentage alone
-- prefer local helper scripts for deterministic repository setup work before prompt-only reconstruction
+- do not commit secrets or `.env`; do not break env/deployment contract
+- start with the smallest context budget that can answer the task
+- default to the cheapest capable model and effort; escalate only on concrete risk
 
 ## Model Routing Defaults
 
-- `gpt-5.6-terra`: default for planning, normal coding, review, and focused implementation
-- `gpt-5.6-sol high`: complex architecture, orchestration, multi-module, high-risk, failing tests, database/env/deploy work
-- `gpt-5.6-sol medium`: escalation path when Terra is insufficient and high effort is not justified
-- `gpt-5.6-luna`: bounded scan, quick summarization, low-risk analysis, high-volume helper work
-- do not recommend stale legacy model aliases as current default paths
+Default to the cheapest capable model and effort. Escalate only for complex architecture, multi-module or high-risk work, failing tests with unclear cause, or database/env/deploy and protected-boundary work. Never hardcode model names into repo guidance; the tool selects the concrete model.
 
 Ask before expensive model/effort escalation unless the task is trivial or already authorized.
 

@@ -4,12 +4,12 @@ AGENTS.md should be short, durable, and operational.
 
 It should contain:
 - pre-task routing
-- model routing
+- model routing principles (no hardcoded model names)
 - skill selection policy
-- stack profile policy
-- project index usage
-- protected files policy
+- context budget
+- search policy with project index usage
 - testing specification
+- protected files policy
 - user rule mutation policy
 
 Do not use AGENTS.md as a long knowledge dump.

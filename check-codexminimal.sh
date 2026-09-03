@@ -216,6 +216,14 @@ run_install_smoke() {
     fi
   done
 
+  if [[ -f "$tmp_home/.codex/skills/project-init/assets/AGENTS.template.md" \
+      && -f "$tmp_home/.codex/skills/project-indexer/assets/context-map.template.json" \
+      && -f "$tmp_home/.codex/skills/project-init/scripts/bootstrap_docs_ai.py" ]]; then
+    pass "$label install materializes shared skill assets from single sources"
+  else
+    fail "$label install missing materialized shared skill assets"
+  fi
+
   local forbidden_skills=" $forbidden "
   for skill in $forbidden_skills; do
     if [[ -e "$tmp_home/.codex/skills/$skill" ]]; then
@@ -498,8 +506,6 @@ PY_SCRIPTS=(
   scripts/validate_context_map.py
   scripts/bootstrap_harness_runtime.py
   scripts/validate_harness_runtime.py
-  scripts/record_feedback_issue.py
-  scripts/promote_feedback_rules.py
   scripts/render_index_stubs.py
   scripts/scaffold_idsd_intent.py
   scripts/start_idsd_trace.py
@@ -523,13 +529,9 @@ echo "== AGENTS.md template required blocks =="
 check_contains templates/AGENTS.md "CODEXMINIMAL:ROUTING START"
 check_contains templates/AGENTS.md "Always-On Task Router Protocol"
 check_contains templates/AGENTS.md "CODEXMINIMAL:MODEL_ROUTING START"
-check_contains templates/AGENTS.md "CODEXMINIMAL:RESPONSE_MODE START"
 check_contains templates/AGENTS.md "CODEXMINIMAL:CONTEXT_BUDGET START"
-check_contains templates/AGENTS.md "CODEXMINIMAL:AUTO_COMPACT START"
 check_contains templates/AGENTS.md "CODEXMINIMAL:SEARCH_POLICY START"
-check_contains templates/AGENTS.md "CODEXMINIMAL:HELPER_POLICY START"
 check_contains templates/AGENTS.md "CODEXMINIMAL:SKILL_POLICY START"
-check_contains templates/AGENTS.md "CODEXMINIMAL:STACK_PROFILE START"
 check_contains templates/AGENTS.md "CODEXMINIMAL:TESTING_SPEC START"
 check_contains templates/AGENTS.md "CODEXMINIMAL:PROTECTED_FILES START"
 check_contains templates/AGENTS.md "CODEXMINIMAL:USER_RULE_MUTATION START"
@@ -563,12 +565,10 @@ if command -v python3 >/dev/null 2>&1; then
   check_json_file templates/docs-codexminimal/current-work.json
   check_json_file templates/docs-codexminimal/artifact-registry.json
   check_json_file templates/docs-codexminimal/telemetry.json
-check_json_file templates/docs-codexminimal/feedback-ledger.json
 check_json_file .codex-plugin/plugin.json
 check_json_file skills/task-router/assets/router-output.schema.json
   check_json_file skills/idsd-orchestrator/assets/idsd-output.schema.json
   check_json_file skills/project-init/assets/init-output.schema.json
-  check_json_file skills/project-init/assets/feedback-ledger.template.json
   check_json_file skills/project-indexer/assets/indexer-output.schema.json
   check_json_file evals/task-router-golden-cases.json
   check_json_file evals/idsd-orchestrator-golden-cases.json
@@ -609,22 +609,7 @@ if command -v python3 >/dev/null 2>&1; then
   else
     fail "harness runtime helpers failed on a temp repo"
   fi
-  mkdir -p "$TMP_REPO/docs/ai"
-  cp templates/docs-ai/rule-registry.md "$TMP_REPO/docs/ai/rule-registry.md"
-  if python3 scripts/record_feedback_issue.py \
-      --repo-root "$TMP_REPO" \
-      --issue-key repeat-dto-boundary \
-      --description "Do not return raw entities from controllers." \
-      --strikes 3 >/dev/null \
-    && python3 scripts/promote_feedback_rules.py --repo-root "$TMP_REPO" >/dev/null; then
-    if grep -q "repeat-dto-boundary" "$TMP_REPO/docs/ai/rule-registry.md"; then
-      pass "feedback record and promotion helpers sync promoted rules"
-    else
-      fail "feedback promotion helper did not render promoted rules"
-    fi
-  else
-    fail "feedback record or promotion helper failed on a temp repo"
-  fi
+  rm -rf "$TMP_REPO"
 else
   warn "python3 not found, skipped harness runtime helper validation"
 fi
@@ -648,49 +633,49 @@ else
 fi
 
 echo
-echo "== Bundled Helper Sync =="
+echo "== Single-Source Skill Assets =="
 
-SYNC_PAIRS=(
-  "templates/AGENTS.md|skills/project-init/assets/AGENTS.template.md"
-  "templates/docs-ai/project-index.md|skills/project-init/assets/project-index.template.md"
-  "templates/docs-ai/module-index.md|skills/project-init/assets/module-index.template.md"
-  "templates/docs-ai/route-index.md|skills/project-init/assets/route-index.template.md"
-  "templates/docs-ai/entity-index.md|skills/project-init/assets/entity-index.template.md"
-  "templates/docs-ai/test-index.md|skills/project-init/assets/test-index.template.md"
-  "templates/docs-ai/dependency-index.md|skills/project-init/assets/dependency-index.template.md"
-  "templates/docs-ai/protected-files.md|skills/project-init/assets/protected-files.template.md"
-  "templates/docs-ai/rule-registry.md|skills/project-init/assets/rule-registry.template.md"
-  "templates/docs-ai/architecture-notes.md|skills/project-init/assets/architecture-notes.template.md"
-  "templates/docs-ai/refactor-log.md|skills/project-init/assets/refactor-log.template.md"
-  "templates/docs-ai/stack-profile.md|skills/project-init/assets/stack-profile.template.md"
-  "templates/docs-ai/context-map.json|skills/project-init/assets/context-map.template.json"
-  "templates/docs-codexminimal/current-work.json|skills/project-init/assets/current-work.template.json"
-  "templates/docs-codexminimal/artifact-registry.json|skills/project-init/assets/artifact-registry.template.json"
-  "templates/docs-codexminimal/telemetry.json|skills/project-init/assets/telemetry.template.json"
-  "templates/docs-codexminimal/feedback-ledger.json|skills/project-init/assets/feedback-ledger.template.json"
-  "templates/docs-ai/project-index.md|skills/project-indexer/assets/project-index.template.md"
-  "templates/docs-ai/module-index.md|skills/project-indexer/assets/module-index.template.md"
-  "templates/docs-ai/route-index.md|skills/project-indexer/assets/route-index.template.md"
-  "templates/docs-ai/dependency-index.md|skills/project-indexer/assets/dependency-index.template.md"
-  "templates/docs-ai/context-map.json|skills/project-indexer/assets/context-map.template.json"
-  "scripts/sync_agents_blocks.py|skills/project-init/scripts/sync_agents_blocks.py"
-  "scripts/bootstrap_docs_ai.py|skills/project-init/scripts/bootstrap_docs_ai.py"
-  "scripts/bootstrap_harness_runtime.py|skills/project-init/scripts/bootstrap_harness_runtime.py"
-  "scripts/record_feedback_issue.py|skills/project-init/scripts/record_feedback_issue.py"
-  "scripts/promote_feedback_rules.py|skills/project-init/scripts/promote_feedback_rules.py"
-  "scripts/render_index_stubs.py|skills/project-indexer/scripts/render_index_stubs.py"
-  "scripts/validate_context_map.py|skills/project-indexer/scripts/validate_context_map.py"
-)
+check_file skill-assets.manifest
 
-for pair in "${SYNC_PAIRS[@]}"; do
-  left="${pair%%|*}"
-  right="${pair##*|}"
-  if diff -u "$left" "$right" >/dev/null 2>&1; then
-    pass "$left is in sync with $right"
-  else
-    fail "$left differs from $right"
+MANIFEST_OK=1
+while IFS= read -r line || [[ -n "$line" ]]; do
+  case "$line" in
+    ""|"#"*) continue ;;
+  esac
+  left="${line%%|*}"
+  right="skills/${line##*|}"
+  if [[ ! -f "$left" ]]; then
+    fail "manifest source missing: $left"
+    MANIFEST_OK=0
+    continue
   fi
-done
+  if [[ -e "$right" ]]; then
+    fail "committed duplicate must go single-source, delete $right (materialized from $left at install)"
+    MANIFEST_OK=0
+  fi
+done < skill-assets.manifest
+
+if [[ "$MANIFEST_OK" -eq 1 ]]; then
+  pass "skill-assets.manifest sources exist and no committed duplicates remain"
+fi
+
+TMP_MAT="$(mktemp -d /tmp/codexminimal-materialize-XXXXXX)"
+while IFS= read -r line || [[ -n "$line" ]]; do
+  case "$line" in
+    ""|"#"*) continue ;;
+  esac
+  left="${line%%|*}"
+  right="$TMP_MAT/skills/${line##*|}"
+  mkdir -p "$(dirname "$right")"
+  cp "$left" "$right"
+done < skill-assets.manifest
+MAT_COUNT="$(find "$TMP_MAT/skills" -type f | wc -l | tr -d ' ')"
+if [[ "$MAT_COUNT" -gt 0 ]] && diff -q "$TMP_MAT/skills/project-init/assets/AGENTS.template.md" templates/AGENTS.md >/dev/null 2>&1; then
+  pass "manifest materializes $MAT_COUNT skill-local files from single sources"
+else
+  fail "manifest materialization smoke failed"
+fi
+rm -rf "$TMP_MAT"
 
 echo
 echo "== Install Smoke Tests =="

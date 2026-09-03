@@ -37,12 +37,12 @@ Written by `repo-phase-orchestrator`:
 
 - `docs/codexminimal/plans/YYYY-MM-DD-<topic>-phase-plan.md`
 
-Each individual plan file should stay concise: maximum 200 lines.
+Write the plan as detailed as possible: full executable steps, concrete files/modules, exact verification commands, expected outputs, and handoff notes per phase. Project plans and trackers have no line cap — the 200/120-line budgets apply only to `SKILL.md` entrypoints and generated guidance files such as `AGENTS.md`.
 Draft the full detailed plan first so the phase sequence and dependencies are clear.
-If the full plan would exceed 200 lines, split only then:
+Split into per-phase plan files by phase boundary whenever a single file becomes hard to execute or review:
 
 - keep the root plan as an index with intent summary, selected gate summary, phase map, dependencies, and links
-- keep each per-phase plan file under 200 lines
+- keep full detail in each per-phase plan file with no line cap
 - include previous/next handoff context in every phase file so execution does not become disconnected
 
 ## Tracker
@@ -60,9 +60,8 @@ Maintained by `project-init` and `repo-phase-orchestrator`:
 - `docs/codexminimal/current-work.json`
 - `docs/codexminimal/artifact-registry.json`
 - `docs/codexminimal/telemetry.json`
-- `docs/codexminimal/feedback-ledger.json`
 
-`feedback-ledger.json` is the repeat-feedback memory surface. It records issue keys, strike counts, and promoted rule text. It should be updated only from explicit user-confirmed feedback or another explicitly approved review authority. Once an issue reaches the configured threshold, it should be treated as a durable rule and synchronized into `docs/ai/rule-registry.md`.
+Repeated user-confirmed feedback is written directly into `docs/ai/rule-registry.md` under `Promoted Feedback Rules`. There is no separate feedback ledger, strike count, or promotion threshold.
 
 ## Execution
 
