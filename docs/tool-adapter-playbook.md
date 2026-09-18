@@ -1,6 +1,6 @@
 # Tool Adapter Playbook
 
-Use Codex CLI native execution by default after CodexMinimal has selected the route and bounded the phase. Use other tool adapters when they add deterministic evidence, independent review, diagnostics, or a repository-selected execution runtime.
+Use native tool execution (Codex CLI or OpenCode build agent) by default after CodexMinimal has selected the route and bounded the phase. Use other tool adapters when they add deterministic evidence, independent review, diagnostics, or a repository-selected execution runtime.
 
 Do not replace skill routing with adapter calls by default.
 
@@ -58,12 +58,30 @@ Do not wire skills to a specific eval adapter until the exact runtime contract h
 
 ## Native Execution And Execution Adapters
 
-Use Codex CLI native execution after IDSD and phase planning have created bounded work:
+Use native tool execution after IDSD and phase planning have created bounded work:
 
 ```text
-Intent -> ADR -> bounded spec -> tasks -> tests -> phase plan -> Codex CLI native execution -> verification evidence -> report
+Intent -> ADR -> bounded spec -> tasks -> tests -> phase plan -> native tool execution -> verification evidence -> report
 ```
 
 Another execution adapter can replace native execution only when the user, repository policy, CI environment, or security boundary requires it.
 
 The execution step must report what it changed, how it verified the change, and where evidence was stored.
+
+## OpenCode Execution Adapter
+
+OpenCode is a supported execution adapter. Skills install into OpenCode via:
+
+```bash
+bash install.sh --target opencode   # ~/.config/opencode/skills
+bash install.sh --target all        # both Codex and OpenCode
+```
+
+Mapping:
+
+- skill discovery: OpenCode loads the same `SKILL.md` files through its native `skill` tool; no format conversion needed
+- native execution: OpenCode `build` agent (primary) instead of Codex CLI; `@general` / `@explore` subagents for multi-step work and read-only exploration
+- repo rules: `AGENTS.md` is shared; OpenCode reads the same file
+- `.codex-plugin/plugin.json` is Codex-only and ignored by OpenCode
+
+See [OpenCode Adapter](opencode-adapter.md) for the full mapping.

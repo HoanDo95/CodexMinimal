@@ -169,6 +169,125 @@ PY
   fi
 }
 
+check_skill_opencode_compat() {
+  local skill="$1"
+  local file="skills/$skill/SKILL.md"
+
+  if ! command -v python3 >/dev/null 2>&1; then
+    warn "python3 not found, skipped OpenCode compat validation for $file"
+    return
+  fi
+
+  if python3 - "$skill" "$file" >/dev/null 2>&1 <<'PY'
+import re
+import sys
+
+skill, path = sys.argv[1], sys.argv[2]
+text = open(path, encoding="utf-8").read()
+if not text.startswith("---\n"):
+    raise SystemExit(1)
+parts = text.split("---", 2)
+if len(parts) < 3:
+    raise SystemExit(1)
+name = None
+desc = None
+for line in parts[1].splitlines():
+    if line.startswith("name:"):
+        name = line.split(":", 1)[1].strip().strip("'\"")
+    elif line.startswith("description:"):
+        desc = line.split(":", 1)[1].strip().strip("'\"")
+if name != skill:
+    raise SystemExit(1)
+if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", name or ""):
+    raise SystemExit(1)
+if desc is None or not (1 <= len(desc) <= 1024):
+    raise SystemExit(1)
+PY
+  then
+    pass "$file is OpenCode skill-compatible (name matches dir, description 1-1024)"
+  else
+    fail "$file is not OpenCode skill-compatible"
+  fi
+}
+
+run_target_install_smoke() {
+  local label="$1"
+  local target="$2"
+  local profiles="$3"
+  shift 3
+
+  local tmp_home
+  local log_file
+  tmp_home="$(mktemp -d "/tmp/codexminimal-target-${label}-XXXXXX")"
+  log_file="$tmp_home/install.log"
+
+  if CODEX_HOME="$tmp_home/.codex" \
+      OPENCODE_HOME="$tmp_home/.config/opencode" \
+      CODEXMINIMAL_TARGET="$target" \
+      CODEXMINIMAL_INSTALL_PROFILES="$profiles" \
+      CODEXMINIMAL_SKIP_READINESS=1 \
+      bash install.sh >"$log_file" 2>&1; then
+    pass "install smoke passes for $label (target $target)"
+  else
+    cat "$log_file"
+    fail "install smoke failed for $label (target $target)"
+    rm -rf "$tmp_home"
+    return
+  fi
+
+  local expected_dirs=""
+  case "$target" in
+    codex) expected_dirs="$tmp_home/.codex/skills" ;;
+    opencode) expected_dirs="$tmp_home/.config/opencode/skills" ;;
+    all) expected_dirs="$tmp_home/.codex/skills $tmp_home/.config/opencode/skills" ;;
+  esac
+
+  local dir
+  local skill
+  for dir in $expected_dirs; do
+    for skill in "${CORE_SKILLS[@]}"; do
+      if [[ -f "$dir/$skill/SKILL.md" ]]; then
+        pass "$label install includes core skill $skill in $dir"
+      else
+        fail "$label install missing core skill $skill in $dir"
+      fi
+    done
+
+    for skill in "$@"; do
+      if [[ -f "$dir/$skill/SKILL.md" ]]; then
+        pass "$label install includes profile skill $skill in $dir"
+      else
+        fail "$label install missing profile skill $skill in $dir"
+      fi
+    done
+
+    local expected_profile_skills=" $* "
+    for skill in "${OPTIONAL_SKILLS[@]}"; do
+      if [[ "$expected_profile_skills" != *" $skill "* && -e "$dir/$skill" ]]; then
+        fail "$label install unexpectedly includes profile skill $skill in $dir"
+      fi
+    done
+
+    if [[ -f "$dir/project-init/assets/AGENTS.template.md" \
+        && -f "$dir/project-indexer/assets/context-map.template.json" \
+        && -f "$dir/project-init/scripts/bootstrap_docs_ai.py" ]]; then
+      pass "$label install materializes shared skill assets in $dir"
+    else
+      fail "$label install missing materialized shared skill assets in $dir"
+    fi
+  done
+
+  if [[ "$target" == "codex" && -e "$tmp_home/.config/opencode/skills" ]]; then
+    fail "$label install unexpectedly created OpenCode skills dir"
+  elif [[ "$target" == "opencode" && -e "$tmp_home/.codex/skills" ]]; then
+    fail "$label install unexpectedly created Codex skills dir"
+  else
+    pass "$label install touches only target skills dir(s)"
+  fi
+
+  rm -rf "$tmp_home"
+}
+
 run_install_smoke() {
   local label="$1"
   local profiles="$2"
@@ -399,6 +518,19 @@ for skill in "${OPTIONAL_SKILLS[@]}"; do
 done
 
 echo
+echo "== OpenCode Skill Compatibility =="
+
+for skill in "${CORE_SKILLS[@]}"; do
+  check_skill_opencode_compat "$skill"
+done
+
+for skill in "${OPTIONAL_SKILLS[@]}"; do
+  if [[ -d "skills/$skill" ]]; then
+    check_skill_opencode_compat "$skill"
+  fi
+done
+
+echo
 echo "== Templates docs-ai =="
 
 DOCS_AI=(
@@ -439,6 +571,7 @@ DOCS=(
   docs/rule-registry.md
   docs/evals.md
   docs/tool-adapter-playbook.md
+  docs/opencode-adapter.md
   docs/review-policy.md
   docs/benchmark.md
   docs/artifacts.md
@@ -684,6 +817,8 @@ run_install_smoke "core" "" ""
 run_install_smoke "nestjs" "nestjs" "" "${NESTJS_PROFILE_SKILLS[@]}"
 run_install_smoke "rust" "rust" "" "${RUST_PROFILE_SKILLS[@]}"
 run_install_smoke "nestjs-rust" "nestjs,rust" "" "${NESTJS_PROFILE_SKILLS[@]}" "${RUST_PROFILE_SKILLS[@]}"
+run_target_install_smoke "opencode-core" "opencode" ""
+run_target_install_smoke "all-profiles" "all" "nestjs,rust" "${NESTJS_PROFILE_SKILLS[@]}" "${RUST_PROFILE_SKILLS[@]}"
 
 echo
 echo "== install target preview =="

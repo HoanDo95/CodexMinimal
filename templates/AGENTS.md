@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Use this file as the Codex entrypoint for the repository. Keep it short; push detailed or frequently changing context into `docs/ai/` and `docs/codexminimal/`.
+Use this file as the Codex / OpenCode entrypoint for the repository. Keep it short; push detailed or frequently changing context into `docs/ai/` and `docs/codexminimal/`.
 
 <!-- CODEXMINIMAL:ROUTING START -->
 ## Always-On Task Router Protocol
@@ -12,7 +12,7 @@ Use `task-router` for ambiguous, risky, multi-step, protected, refactor, review,
 Default feature intake:
 1. `idsd-orchestrator`
 2. `repo-phase-orchestrator`
-3. Codex CLI native execution
+3. Native tool execution (Codex CLI or OpenCode build agent)
 
 Do not jump from a rough feature prompt straight into coding. Capture intent, decision evidence, acceptance evidence, and phase boundaries first. Ask first if the task touches protected files, architecture boundaries, env/deploy/database, CI/CD, public API contracts, or wide multi-module changes.
 <!-- CODEXMINIMAL:ROUTING END -->

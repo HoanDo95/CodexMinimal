@@ -71,7 +71,7 @@ CodexMinimal is intended to remain a harness layer:
 - it keeps runtime state for the active work item
 - it refreshes indexes after work
 
-Execution defaults to Codex CLI native execution after routing and phase planning are bounded. Another tool adapter, external agent runtime, CI workflow, or team-specific executor can be selected by user or repository policy.
+Execution defaults to native tool execution (Codex CLI or OpenCode build agent) after routing and phase planning are bounded. Another tool adapter, external agent runtime, CI workflow, or team-specific executor can be selected by user or repository policy.
 The execution boundary should report changed files, verification evidence, and any policy refusal.
 This boundary keeps the core reusable across stacks such as NestJS, Rust, React, and Next.js.
 Quality-gate agent cards improve the pre-execution decision package and post-execution acceptance evidence; they are not separate implementation runtimes.

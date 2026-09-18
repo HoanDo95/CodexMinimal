@@ -176,6 +176,16 @@ CODEXMINIMAL_INSTALL_PROFILES=rust bash install.sh
 CODEXMINIMAL_INSTALL_PROFILES=nestjs,rust bash install.sh
 ```
 
+Cài cho OpenCode (`~/.config/opencode/skills`) hoặc cả hai tool:
+
+```bash
+bash install.sh --target opencode
+bash install.sh --target all
+CODEXMINIMAL_INSTALL_PROFILES=nestjs,rust bash install.sh --target all
+```
+
+Chi tiết mapping Codex <-> OpenCode nằm ở [OpenCode Adapter](docs/opencode-adapter.md).
+
 `install.sh`:
 
 - mặc định chỉ cài core
@@ -294,6 +304,7 @@ Adapter contract tối thiểu:
 ## Documentation
 
 - [Setup](docs/setup.md)
+- [OpenCode Adapter](docs/opencode-adapter.md)
 - [Cheat Sheet](docs/cheat-sheet.md)
 - [Architecture](docs/architecture.md)
 - [Skills](docs/skills.md)

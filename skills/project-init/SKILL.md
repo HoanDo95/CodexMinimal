@@ -104,7 +104,7 @@ Update only these blocks (`templates/AGENTS.md` is the source of truth; never du
 Persist these defaults unless the user overrides them (keep them in the managed blocks and `docs/ai`, not in this skill):
 
 - classify non-trivial tasks before starting; use the smallest suitable skill
-- route new feature intake through `idsd-orchestrator`, then phase planning, then Codex CLI native execution
+- route new feature intake through `idsd-orchestrator`, then phase planning, then native tool execution (Codex CLI or OpenCode build agent)
 - keep `current-work.json` and `artifact-registry.json` aligned with the active work
 - read `docs/ai` indexes before broad repository search; check protected files before editing
 - record the active stack profile and evidence in `docs/ai/stack-profile.md`

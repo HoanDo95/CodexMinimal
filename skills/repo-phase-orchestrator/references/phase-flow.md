@@ -14,7 +14,7 @@
 6. Write or refresh tracker.
 7. Refresh artifact registry and current-work state.
 8. Determine current phase.
-9. Handoff the current phase to Codex CLI native execution by default, or to another selected adapter when policy requires it.
+9. Handoff the current phase to native tool execution (Codex CLI or OpenCode build agent) by default, or to another selected adapter when policy requires it.
 10. Collect verification and QA gate status from execution.
 11. Update tracker and telemetry with phase outcome, intent alignment, delivered work, remaining gaps, and next-phase handoff.
 12. Stop before the next phase until status is clean.

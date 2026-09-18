@@ -2,10 +2,22 @@
 
 ## Install
 
-Skill-pack install into the current Codex skills directory:
+Skill-pack install (default target is the current Codex skills directory):
 
 ```bash
 bash install.sh
+```
+
+Install into OpenCode skills (`~/.config/opencode/skills`):
+
+```bash
+bash install.sh --target opencode
+```
+
+Install into both Codex and OpenCode:
+
+```bash
+bash install.sh --target all
 ```
 
 Install the optional NestJS profile:
@@ -28,11 +40,17 @@ CODEXMINIMAL_INSTALL_PROFILES=nestjs,rust bash install.sh
 
 If you keep this repository in another local path, run the same command from that checkout.
 
+`OPENCODE_HOME` overrides the OpenCode config home (default `$HOME/.config/opencode`). `CODEXMINIMAL_TARGET` accepts `codex`, `opencode`, or `all` as an alternative to `--target`.
+
+See [OpenCode Adapter](opencode-adapter.md) for the Codex-to-OpenCode concept mapping.
+
 ## Plugin Packaging
 
 CodexMinimal can also be tested as a local Codex plugin. The plugin manifest lives at:
 
 - `.codex-plugin/plugin.json`
+
+The plugin manifest is Codex-only and ignored by OpenCode; OpenCode discovers the same `skills/` surface through its native `skill` tool with no manifest needed.
 
 This mode exposes the same `skills/` surface through plugin loading instead of relying only on direct skill-pack installation. It is intended for testing automatic prompt-to-skill discovery without adding an always-call entrypoint.
 

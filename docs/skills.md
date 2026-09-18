@@ -47,7 +47,7 @@ This is a hard readiness gate enforced by `check-codexminimal.sh`. Use `referenc
 
 Pick one primary skill for the current step.
 
-Inside IDSD, select `solution_challenger`, `system_designer`, and `senior_qa` as conditional quality gates. They critique, bound, and verify the work before Codex CLI native execution; they do not replace the execution layer.
+Inside IDSD, select `solution_challenger`, `system_designer`, and `senior_qa` as conditional quality gates. They critique, bound, and verify the work before native tool execution; they do not replace the execution layer.
 
 Add follow-up skills only when the workflow naturally chains into a later step, such as:
 
@@ -73,7 +73,7 @@ Use tool adapters when they provide stronger automation than prompt-only workflo
 - `review adapter`: review staged, unstaged, branch, commit, or PR changes
 - `diagnostic adapter`: capture redacted machine-readable environment diagnostics
 - `eval adapter`: run schema-shaped non-interactive workflows for future eval or router automation
-- `execution adapter`: optional replacement for Codex CLI native execution when user or repository policy selects another runtime
+- `execution adapter`: optional replacement for native tool execution when user or repository policy selects another runtime
 
 These are documented as extension surfaces in this pilot. Do not make existing skills depend on one tool until a separate integration pass has verified the exact runtime contract.
 

@@ -5,6 +5,56 @@ ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 MARKER_FILE=".codexminimal-owner"
 FORCE_INSTALL="${CODEXMINIMAL_FORCE:-0}"
 INSTALL_PROFILES_RAW="${CODEXMINIMAL_INSTALL_PROFILES:-}"
+TARGET="${CODEXMINIMAL_TARGET:-codex}"
+
+usage() {
+  cat <<'EOF'
+Usage: bash install.sh [--target codex|opencode|all]
+
+Targets:
+  codex     install skills into $CODEX_HOME/skills (default)
+  opencode  install skills into $OPENCODE_HOME/skills
+  all       install into both locations
+
+Environment:
+  CODEXMINIMAL_TARGET            same as --target (default: codex)
+  CODEX_HOME                     Codex home (default: $HOME/.codex)
+  OPENCODE_HOME                  OpenCode config home (default: $HOME/.config/opencode)
+  CODEXMINIMAL_INSTALL_PROFILES  comma list: nestjs, rust, all
+  CODEXMINIMAL_FORCE=1           overwrite unmanaged skills
+  CODEXMINIMAL_SKIP_READINESS=1  skip readiness check
+EOF
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --target)
+      TARGET="${2:-}"
+      shift 2
+      ;;
+    --target=*)
+      TARGET="${1#--target=}"
+      shift
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown argument: $1" >&2
+      usage >&2
+      exit 1
+      ;;
+  esac
+done
+
+case "$TARGET" in
+  codex|opencode|all) ;;
+  *)
+    echo "Invalid target: $TARGET (expected codex, opencode, or all)" >&2
+    exit 1
+    ;;
+esac
 CORE_SKILLS=(
   task-router
   idsd-orchestrator
@@ -26,7 +76,9 @@ RUST_PROFILE_SKILLS=(
 )
 
 CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
-SKILLS_DIR="$CODEX_HOME/skills"
+OPENCODE_HOME="${OPENCODE_HOME:-$HOME/.config/opencode}"
+CODEX_SKILLS_DIR="$CODEX_HOME/skills"
+OPENCODE_SKILLS_DIR="$OPENCODE_HOME/skills"
 READINESS_LOG="$(mktemp)"
 
 cleanup() {
@@ -59,9 +111,7 @@ if [[ -x "$ROOT_DIR/check-codexminimal.sh" && "${CODEXMINIMAL_SKIP_READINESS:-0}
   fi
 fi
 
-mkdir -p "$SKILLS_DIR"
-
-echo "Installing core skills into $SKILLS_DIR ..."
+echo "Installing skills (target: $TARGET) ..."
 
 INSTALL_SKILLS=("${CORE_SKILLS[@]}")
 ACTIVE_PROFILES=()
@@ -84,40 +134,64 @@ for skill in "${INSTALL_SKILLS[@]}"; do
   fi
 done
 
-for skill in "${INSTALL_SKILLS[@]}"; do
-  target_dir="$SKILLS_DIR/$skill"
+install_into() {
+  local dest_skills_dir="$1"
+  local skill skill_dir target_dir src target
 
-  if [[ -e "$target_dir" && ! -f "$target_dir/$MARKER_FILE" && "$FORCE_INSTALL" != "1" ]]; then
-    echo "Refusing to overwrite existing unmanaged skill: $target_dir"
-    echo "Set CODEXMINIMAL_FORCE=1 to overwrite intentionally."
-    exit 1
-  fi
+  mkdir -p "$dest_skills_dir"
+
+  echo "Installing skills into $dest_skills_dir ..."
+
+  for skill in "${INSTALL_SKILLS[@]}"; do
+    target_dir="$dest_skills_dir/$skill"
+
+    if [[ -e "$target_dir" && ! -f "$target_dir/$MARKER_FILE" && "$FORCE_INSTALL" != "1" ]]; then
+      echo "Refusing to overwrite existing unmanaged skill: $target_dir"
+      echo "Set CODEXMINIMAL_FORCE=1 to overwrite intentionally."
+      exit 1
+    fi
+  done
+
+  for skill in "${INSTALL_SKILLS[@]}"; do
+    skill_dir="$ROOT_DIR/skills/$skill"
+    target_dir="$dest_skills_dir/$skill"
+
+    rm -rf "$target_dir"
+    cp -R "$skill_dir" "$dest_skills_dir/"
+    printf 'CodexMinimal\n' > "$target_dir/$MARKER_FILE"
+  done
+
+  echo "Materializing shared skill assets from single sources into $dest_skills_dir ..."
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    case "$line" in
+      ""|"#"*) continue ;;
+    esac
+    src="$ROOT_DIR/${line%%|*}"
+    target="$dest_skills_dir/${line##*|}"
+    mkdir -p "$(dirname "$target")"
+    cp "$src" "$target"
+  done < "$ROOT_DIR/skill-assets.manifest"
+}
+
+TARGET_DIRS=()
+if [[ "$TARGET" == "codex" || "$TARGET" == "all" ]]; then
+  TARGET_DIRS+=("$CODEX_SKILLS_DIR")
+fi
+if [[ "$TARGET" == "opencode" || "$TARGET" == "all" ]]; then
+  TARGET_DIRS+=("$OPENCODE_SKILLS_DIR")
+fi
+
+for dir in "${TARGET_DIRS[@]}"; do
+  install_into "$dir"
 done
-
-for skill in "${INSTALL_SKILLS[@]}"; do
-  skill_dir="$ROOT_DIR/skills/$skill"
-  target_dir="$SKILLS_DIR/$skill"
-
-  rm -rf "$target_dir"
-  cp -R "$skill_dir" "$SKILLS_DIR/"
-  printf 'CodexMinimal\n' > "$target_dir/$MARKER_FILE"
-done
-
-echo "Materializing shared skill assets from single sources ..."
-while IFS= read -r line || [[ -n "$line" ]]; do
-  case "$line" in
-    ""|"#"*) continue ;;
-  esac
-  src="$ROOT_DIR/${line%%|*}"
-  target="$SKILLS_DIR/${line##*|}"
-  mkdir -p "$(dirname "$target")"
-  cp "$src" "$target"
-done < "$ROOT_DIR/skill-assets.manifest"
 
 echo
 echo "CodexMinimal installed successfully."
 echo
-echo "Location: $SKILLS_DIR"
+echo "Targets: $TARGET"
+for dir in "${TARGET_DIRS[@]}"; do
+  echo "Location: $dir"
+done
 if [[ "${#ACTIVE_PROFILES[@]}" -gt 0 ]]; then
   echo "Mode: Core + profiles"
 else
