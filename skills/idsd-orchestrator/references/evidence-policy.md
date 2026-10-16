@@ -23,8 +23,9 @@ IDSD uses evidence to keep agent autonomy observable.
 
 - Use `solution_challenger` for ambiguous solution shape, multiple viable approaches, high-cost implementation, or user-requested critique.
 - Use `system_designer` for API contracts, persistence, auth, async processing, integrations, migrations, scaling, compatibility, or multi-module boundaries.
-- Use `senior_qa` for user-facing workflows, public APIs, permission-sensitive behavior, state machines, concurrency, idempotency, edge cases, or repeated quality feedback.
+- `senior_qa` and `verifier` are required for every feature: happy-path green alone never passes; missing negative, permission, concurrency, idempotency, contract, or migration/env paths must be warned explicitly.
+- Failing-test loop: max 3 targeted reruns, then stop, record blocker, hand off to bug-fix/debug, escalate effort or ask-user.
 
 ## Completion Rule
 
-Do not claim done until evidence matches the acceptance criteria or the gap is stated as a blocker.
+Do not claim done until evidence matches the acceptance criteria or the gap is stated as a blocker. Do not claim done when coverage gaps or server-parity risks remain unwarned.

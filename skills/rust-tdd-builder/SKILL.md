@@ -61,7 +61,7 @@ Use index-first lookup:
 - Implement the smallest production change.
 - Avoid widening the public API outside the approved scope.
 - Prefer existing repository patterns over new abstractions.
-- Rerun targeted tests until green.
+- Rerun targeted tests max 3 rounds; if still red, stop, record blocker, hand off to bug-fixer.
 
 ### Refactor
 
@@ -74,7 +74,10 @@ Use index-first lookup:
 Run required checks if available:
 - targeted test
 - broader affected test
+- contract/integration test when API, schema, or persistence changed
+- migration/env parity check when DB, config, or env changed
 - fmt, lint, or build as appropriate
+- Never claim done with only happy-path green; list uncovered cases explicitly.
 
 ### Update
 
@@ -96,5 +99,9 @@ tdd / coding
 ### RED result
 ### GREEN result
 ### REFACTOR result
+### Coverage gaps
+Covered vs missing cases; warn explicitly when negative, permission, concurrency, or contract paths lack evidence.
+### Server-parity risks
+DB, migration, env, or contract drift that passes unit but can fail on server.
 ### Index/rule updates
 ### Remaining risks

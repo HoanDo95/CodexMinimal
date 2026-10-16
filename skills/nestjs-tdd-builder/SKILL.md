@@ -63,7 +63,7 @@ Use index-first lookup:
 - Return DTOs, not entities.
 - Use validation pipes for request contracts.
 - Keep persistence inside feature directory.
-- Rerun targeted tests until green.
+- Rerun targeted tests max 3 rounds; if still red, stop, record blocker, hand off to bug-fixer.
 
 ### Refactor
 
@@ -76,8 +76,11 @@ Use index-first lookup:
 Run required checks if available:
 - targeted unit test
 - broader affected test
+- contract/e2e test when API, DTO, auth, or persistence changed
+- migration/env parity check when DB, config, or env changed
 - lint
 - build
+- Never claim done with only happy-path green; list uncovered cases explicitly.
 
 ### Update
 
@@ -99,5 +102,9 @@ tdd / coding
 ### RED result
 ### GREEN result
 ### REFACTOR result
+### Coverage gaps
+Covered vs missing cases; warn explicitly when negative, permission, concurrency, or contract paths lack evidence.
+### Server-parity risks
+DB, migration, env, auth, or contract drift that passes unit but can fail on server.
 ### Index/rule updates
 ### Remaining risks

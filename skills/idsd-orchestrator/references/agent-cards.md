@@ -40,15 +40,15 @@ Use only the cards needed for the current intent.
 ## Senior QA
 
 - responsibility: turn acceptance criteria into edge-case and regression evidence before and after execution
-- authority: reject completion when happy path, negative path, permission, compatibility, concurrency, or idempotency risks lack evidence
-- required output: edge-case matrix, regression targets, evidence gaps, post-execution acceptance verdict
-- stop condition: required evidence covers the confidence level selected for the phase or a blocker is explicit
+- authority: reject completion when happy path, negative path, permission, compatibility, concurrency, or idempotency risks lack evidence; required for every feature, not optional
+- required output: edge-case matrix (covered vs missing), regression targets, evidence gaps with explicit uncovered-case warning, post-execution acceptance verdict
+- stop condition: required evidence covers the confidence level selected for the phase or a blocker is explicit; never pass on happy-path green alone
 
 ## Verifier
 
 - responsibility: prove behavior and safety claims with commands, tests, or inspection
-- authority: reject completion claims without evidence
-- required output: command evidence and any gaps
+- authority: reject completion claims without evidence; require contract/e2e and migration/env parity evidence when API, DB, auth, or config changed
+- required output: command evidence, coverage gaps, server-parity risks, and any gaps
 - stop condition: evidence is enough for the requested confidence level
 
 ## Reviewer

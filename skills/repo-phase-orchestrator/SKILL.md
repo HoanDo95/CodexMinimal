@@ -70,6 +70,7 @@ Do not use for:
    - what the completed phase delivered
    - how that result matches or diverges from the original intent
    - selected gate evidence status and remaining gaps
+   - review verdict (APPROVE / REQUEST CHANGES / BLOCKED) with required changes and test gaps
    - what the next phase must do based on the completed phase
 10. Update `docs/codexminimal/artifact-registry.json` so the approved spec, active phase plan, and tracker are linked.
 11. Update `docs/codexminimal/current-work.json` with the active topic, stage, phase, artifact paths, and execution workflow.
@@ -78,14 +79,22 @@ Do not use for:
 14. Handoff the current phase to native tool execution by default (Codex CLI or OpenCode build agent):
     - another tool adapter is acceptable only when selected by user or repository policy
     - team executor or CI workflow is acceptable fallback when the selected tool cannot execute safely
-15. After execution returns, update tracker status, failures, fixes, intent alignment, and next phase.
-16. Record phase outcome in `docs/codexminimal/telemetry.json`.
-17. Stop before advancing if the tracker, runtime state, or verification state is stale.
+15. After execution returns, run mandatory review before ticking the phase done:
+    - reviewer skill for the active profile (`nestjs-code-reviewer`, `rust-code-reviewer`, or `reviewer` agent card for generic) in findings-only mode
+    - verdict must be APPROVE, REQUEST CHANGES, or BLOCKED with required changes, test gaps, and protected-file concerns
+    - if REQUEST CHANGES or BLOCKED, fix and re-review; do not advance
+16. Update tracker status, failures, fixes, intent alignment, review verdict, and next phase.
+17. Record phase outcome in `docs/codexminimal/telemetry.json`.
+18. Stop before advancing if the tracker, runtime state, or verification state is stale.
 
 ## Blocking Rules
 
 Do not advance if:
 - required checks fail
+- targeted reruns already hit 3 rounds without green
+- coverage gaps or server-parity risks are unwarned
+- contract/e2e or migration/env parity is missing when API, DB, auth, or config changed
+- review verdict is not APPROVE
 - tracker is stale
 - current-work or artifact-registry state is stale
 - protected file requires approval
@@ -114,6 +123,7 @@ Return:
 ### Scope
 ### Execution handoff
 ### Verification commands
+### Review verdict
 ### Tracker status
 ### Runtime state update
 ### Next phase

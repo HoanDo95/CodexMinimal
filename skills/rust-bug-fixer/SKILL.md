@@ -47,8 +47,8 @@ Do not use for:
 4. Identify root cause.
 5. Add regression test if missing.
 6. Apply the smallest safe fix.
-7. Run targeted verification.
-8. Run broader checks only if necessary.
+7. Run targeted verification max 3 rounds; if still red, stop, record blocker, escalate effort or ask-user instead of looping.
+8. Run broader checks only if necessary; include contract/integration and migration/env parity when API, DB, or config changed.
 9. Update index or rule registry if a durable lesson is discovered.
 
 ## Rules
@@ -72,5 +72,7 @@ bug-fix / debug
 ### Regression test
 ### Files changed
 ### Commands run
+### Coverage gaps
+### Server-parity risks
 ### Index/rule updates
 ### Remaining risks

@@ -18,4 +18,4 @@ Keep each stage concise. Expand only when risk, protected files, public contract
 
 The SDD stage in this pipeline is bounded specification. It is not a separate spec-first workflow.
 
-Use `solution_challenger`, `system_designer`, and `senior_qa` only when they add real confidence. When selected, all three gate outputs must be considered before phase planning, and the phase tracker must record their evidence status. They are quality gates inside IDSD and phase planning, not replacement executors for native tool execution.
+Use `solution_challenger` only when it adds real confidence. `system_designer`, `senior_qa`, and `verifier` are required for every feature. When selected, all gate outputs must be considered before phase planning, and the phase tracker must record their evidence status including covered vs missing cases and server-parity risks. They are quality gates inside IDSD and phase planning, not replacement executors for native tool execution.
