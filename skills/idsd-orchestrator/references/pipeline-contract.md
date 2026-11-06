@@ -8,14 +8,14 @@ Default pipeline:
 4. Architecture Decision: record ADR-style decisions with selected path, rejected options, risk, and evidence.
 5. Specification: write a bounded specification, not a full document set.
 6. Task Breakdown: split implementation into ordered, reviewable tasks.
-7. QA Evidence: define edge cases, regression targets, and acceptance evidence before execution.
+7. QA Evidence: define edge cases, regression targets, and acceptance evidence before execution from ticket AC.
 8. Tests: define TDD expectations, failing tests, or justified verification alternatives.
 9. Implementation: hand off only after the previous stages are bounded.
-10. Verification: record commands, outcomes, QA verdict, and evidence gaps.
+10. Verification: record commands, outcomes, post-execution QA verdict (ticket AC vs PR diff: AC-coverage, affected flows, error-prone edge cases), and evidence gaps.
 11. Report: summarize outcome, residual risks, and follow-up work.
 
 Keep each stage concise. Expand only when risk, protected files, public contracts, data migrations, or security boundaries require it.
 
 The SDD stage in this pipeline is bounded specification. It is not a separate spec-first workflow.
 
-Use `solution_challenger` only when it adds real confidence. `system_designer`, `senior_qa`, and `verifier` are required for every feature. When selected, all gate outputs must be considered before phase planning, and the phase tracker must record their evidence status including covered vs missing cases and server-parity risks. They are quality gates inside IDSD and phase planning, not replacement executors for native tool execution.
+Use `solution_challenger` only when it adds real confidence. `system_designer`, `senior_qa`, and `verifier` are required for every feature. Pre-execution QA evidence gates phase planning; post-execution QA verdict (ticket AC vs PR diff) gates phase completion. When selected, all gate outputs must be considered before phase planning, and the phase tracker must record their evidence status including AC-coverage, affected flows, covered vs missing cases, verdict, and server-parity risks. They are quality gates inside IDSD and phase planning, not replacement executors for native tool execution.

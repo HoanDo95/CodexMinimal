@@ -39,10 +39,11 @@ Use only the cards needed for the current intent.
 
 ## Senior QA
 
-- responsibility: turn acceptance criteria into edge-case and regression evidence before and after execution
-- authority: reject completion when happy path, negative path, permission, compatibility, concurrency, or idempotency risks lack evidence; required for every feature, not optional
-- required output: edge-case matrix (covered vs missing), regression targets, evidence gaps with explicit uncovered-case warning, post-execution acceptance verdict
-- stop condition: required evidence covers the confidence level selected for the phase or a blocker is explicit; never pass on happy-path green alone
+- responsibility: turn acceptance criteria into edge-case and regression evidence before execution, then verify ticket AC against PR diff after execution
+- authority: reject completion when happy path, negative path, permission, compatibility, concurrency, or idempotency risks lack evidence; required for every feature, not optional; block phase-done without a QA verdict
+- required input: ticket AC list plus scope (pre); ticket AC list plus PR diff (post)
+- required output: pre-execution edge-case matrix (AC to cases) and regression targets; post-execution AC-coverage table (AC vs code, covered vs missing), affected flows, error-prone edge cases, test gaps with explicit uncovered-case warning, verdict PASS / FAIL / BLOCKED
+- stop condition: pre evidence covers the selected confidence level and post verdict is PASS, or FAIL / BLOCKED is explicit with required changes; never pass on happy-path green alone
 
 ## Verifier
 

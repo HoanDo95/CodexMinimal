@@ -38,10 +38,13 @@ Define behavior, interfaces, data impacts, risks, and acceptance mapping.
 
 ## QA Evidence
 
-- Edge cases:
+- Pre-execution edge cases (AC to cases):
 - Regression targets:
+- Post-execution AC-coverage (AC vs code, covered vs missing):
+- Affected flows:
+- Error-prone edge cases:
 - Evidence gaps:
-- Acceptance verdict:
+- QA verdict (PASS / FAIL / BLOCKED):
 
 ## Selected Agent Cards
 
