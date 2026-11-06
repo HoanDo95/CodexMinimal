@@ -31,4 +31,4 @@ IDSD uses evidence to keep agent autonomy observable.
 
 ## Completion Rule
 
-Do not claim done until evidence matches the acceptance criteria or the gap is stated as a blocker. Do not tick a phase done without a post-execution QA verdict of PASS; on FAIL or BLOCKED, fix and re-verify. Do not claim done when coverage gaps or server-parity risks remain unwarned.
+Do not claim done until evidence matches the acceptance criteria or the gap is stated as a blocker. Do not tick a phase done without a post-execution QA verdict of PASS; on FAIL or BLOCKED, fix and re-verify. Gate the tracker with `scripts/validate_qa_verdict.py --require-pass` instead of trusting prose. Do not claim done when coverage gaps or server-parity risks remain unwarned.

@@ -83,7 +83,8 @@ Do not use for:
 15. After execution returns, run mandatory post-execution QA verdict before ticking the phase done:
     - read ticket AC plus PR diff, map each AC to code (covered vs missing)
     - list affected flows and error-prone edge cases, record test gaps with explicit warnings
-    - verdict must be PASS / FAIL / BLOCKED; if FAIL or BLOCKED, fix and re-verify, do not advance
+    - verdict must be PASS / FAIL / BLOCKED; record it in the tracker and gate with `scripts/validate_qa_verdict.py --tracker <path> --require-pass`
+    - if FAIL or BLOCKED, fix and re-verify, do not advance
 16. After a PASS verdict, run mandatory review:
     - reviewer skill for the active profile (`nestjs-code-reviewer`, `rust-code-reviewer`, or `reviewer` agent card for generic) in findings-only mode
     - verdict must be APPROVE, REQUEST CHANGES, or BLOCKED with required changes, test gaps, and protected-file concerns

@@ -30,3 +30,4 @@ scripts/bootstrap_docs_ai.py|project-init/scripts/bootstrap_docs_ai.py
 scripts/bootstrap_harness_runtime.py|project-init/scripts/bootstrap_harness_runtime.py
 scripts/render_index_stubs.py|project-indexer/scripts/render_index_stubs.py
 scripts/validate_context_map.py|project-indexer/scripts/validate_context_map.py
+scripts/validate_qa_verdict.py|repo-phase-orchestrator/scripts/validate_qa_verdict.py

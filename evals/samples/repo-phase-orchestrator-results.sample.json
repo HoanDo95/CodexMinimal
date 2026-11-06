@@ -17,5 +17,21 @@
       "trackerStatus": "stale",
       "blockers": "refresh runtime state before the next phase"
     }
+  },
+  {
+    "name": "phase_done_without_qa_verdict_blocks_advance",
+    "actual": {
+      "advance": "blocked",
+      "qaVerdict": "missing",
+      "blockers": "record post-execution QA verdict (ticket AC vs PR diff) before ticking done"
+    }
+  },
+  {
+    "name": "qa_fail_verdict_blocks_advance",
+    "actual": {
+      "advance": "blocked",
+      "qaVerdict": "FAIL",
+      "nextAction": "fix uncovered AC items and re-verify; do not advance on happy-path green alone"
+    }
   }
 ]

@@ -433,6 +433,43 @@ run_idsd_trace_smoke() {
   rm -rf "$tmp_home"
 }
 
+run_qa_verdict_smoke() {
+  local tmp_home
+  tmp_home="$(mktemp -d "/tmp/codexminimal-qa-verdict-XXXXXX")"
+
+  cat > "$tmp_home/pass-tracker.md" <<'EOF'
+# Tracker
+
+## QA verdict
+
+- Verdict: PASS
+- AC-coverage: 3/3 AC mapped to code
+- Affected flows: checkout, refund
+- Error-prone edge cases: concurrent refund
+- Test gaps: none remaining
+EOF
+
+  printf '# Tracker\n\nNo verdict here.\n' > "$tmp_home/none-tracker.md"
+
+  if python3 scripts/validate_qa_verdict.py \
+      --tracker "$tmp_home/pass-tracker.md" --require-pass >/dev/null; then
+    pass "QA verdict helper accepts a PASS tracker with --require-pass"
+  else
+    fail "QA verdict helper rejected a valid PASS tracker"
+    rm -rf "$tmp_home"
+    return
+  fi
+
+  if python3 scripts/validate_qa_verdict.py \
+      --tracker "$tmp_home/none-tracker.md" --require-pass >/dev/null 2>&1; then
+    fail "QA verdict helper accepted a tracker without a verdict"
+  else
+    pass "QA verdict helper rejects a tracker without a verdict"
+  fi
+
+  rm -rf "$tmp_home"
+}
+
 echo "== CodexMinimal Local Readiness Check =="
 
 echo
@@ -637,6 +674,7 @@ PY_SCRIPTS=(
   scripts/sync_agents_blocks.py
   scripts/bootstrap_docs_ai.py
   scripts/validate_context_map.py
+  scripts/validate_qa_verdict.py
   scripts/bootstrap_harness_runtime.py
   scripts/validate_harness_runtime.py
   scripts/render_index_stubs.py
@@ -730,6 +768,7 @@ fi
 if command -v python3 >/dev/null 2>&1; then
   run_idsd_scaffold_smoke
   run_idsd_trace_smoke
+  run_qa_verdict_smoke
 else
   warn "python3 not found, skipped IDSD helper smokes"
 fi
